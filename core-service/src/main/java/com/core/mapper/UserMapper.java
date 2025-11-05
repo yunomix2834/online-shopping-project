@@ -1,8 +1,9 @@
 package com.core.mapper;
 
-import com.core.dto.request.UserCreationRequest;
+import com.core.dto.request.UserCreationRequestDto;
 import com.core.entity.User;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
@@ -13,6 +14,7 @@ import org.mapstruct.ReportingPolicy;
 )
 public interface UserMapper {
 
+    @Mapping(source = "password", target = "passwordHash")
     User toUserFromUserCreationRequest(
-            UserCreationRequest userCreationRequest);
+            UserCreationRequestDto userCreationRequestDto);
 }

@@ -1,11 +1,11 @@
 package com.core.service;
 
-import com.core.dto.request.AuthenticationRequest;
-import com.core.dto.request.IntrospectRequest;
-import com.core.dto.request.RefreshRequest;
-import com.core.dto.request.UserCreationRequest;
-import com.core.dto.response.AuthenticationResponse;
-import com.core.dto.response.IntrospectResponse;
+import com.core.dto.request.AuthenticationRequestDto;
+import com.core.dto.request.IntrospectRequestDto;
+import com.core.dto.request.RefreshRequestDto;
+import com.core.dto.request.UserCreationRequestDto;
+import com.core.dto.response.AuthenticationResponseDto;
+import com.core.dto.response.IntrospectResponseDto;
 import com.nimbusds.jose.JOSEException;
 
 import java.text.ParseException;
@@ -17,7 +17,7 @@ public interface IAuthenticationService {
      *
      * @param request thông tin user để đăng ký
      */
-    void register(UserCreationRequest request);
+    void register(UserCreationRequestDto request);
 
     /**
      * Đăng nhập bằng username hoặc email, kiểm tra mật khẩu và sinh JWT.
@@ -26,7 +26,7 @@ public interface IAuthenticationService {
      * @return AuthenticationResponse chứa accessToken và thông tin user
      * @throws ParseException khi lỗi parse JWT
      */
-    AuthenticationResponse login(AuthenticationRequest request)
+    AuthenticationResponseDto login(AuthenticationRequestDto request)
             throws ParseException;
 
     /**
@@ -47,7 +47,7 @@ public interface IAuthenticationService {
      * @throws JOSEException  khi lỗi ký JWT
      * @throws ParseException khi lỗi parse JWT
      */
-    IntrospectResponse introspect(IntrospectRequest request)
+    IntrospectResponseDto introspect(IntrospectRequestDto request)
             throws JOSEException, ParseException;
 
     /**
@@ -58,6 +58,6 @@ public interface IAuthenticationService {
      * @throws ParseException khi lỗi parse JWT
      * @throws JOSEException  khi lỗi verify JWT
      */
-    AuthenticationResponse refreshToken(RefreshRequest request)
+    AuthenticationResponseDto refreshToken(RefreshRequestDto request)
             throws ParseException, JOSEException;
 }

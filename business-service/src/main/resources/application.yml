@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: "demo2"
+    name: "business-ms"
   profiles:
     active: "dev"
   datasource:
@@ -61,8 +61,8 @@ eureka:
 
 info:
   app:
-    name: "demo2"
-    description: "Yunomi Xavia Demo Project 2"
+    name: "business-ms"
+    description: "Yunomi Xavia Business Project"
     version: "1.0.0"
 
 logging:

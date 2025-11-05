@@ -17,32 +17,20 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
-import static com.core.constant.config.SecurityConfigConstant.ACCEPT_HEADER;
-import static com.core.constant.config.SecurityConfigConstant.AUTHORIZATION_HEADER;
-import static com.core.constant.config.SecurityConfigConstant.CONTENT_TYPE_HEADER;
-import static com.core.constant.config.SecurityConfigConstant.DELETE_METHOD;
-import static com.core.constant.config.SecurityConfigConstant.FRONTEND_ENDPOINT;
-import static com.core.constant.config.SecurityConfigConstant.GET_METHOD;
-import static com.core.constant.config.SecurityConfigConstant.OPTIONS_METHOD;
-import static com.core.constant.config.SecurityConfigConstant.PATCH_METHOD;
-import static com.core.constant.config.SecurityConfigConstant.POST_METHOD;
-import static com.core.constant.config.SecurityConfigConstant.PUBLIC_ENDPOINTS;
-import static com.core.constant.config.SecurityConfigConstant.PUT_METHOD;
-import static com.core.constant.config.SecurityConfigConstant.URL_PATTERN_ALL;
+import static org.common.constant.SecurityConstants.ACCEPT_HEADER;
+import static org.common.constant.SecurityConstants.AUTHORIZATION_HEADER;
+import static org.common.constant.SecurityConstants.CONTENT_TYPE_HEADER;
+import static org.common.constant.SecurityConstants.FRONTEND_ENDPOINT;
+import static org.common.constant.SecurityConstants.PUBLIC_ENDPOINTS;
+import static org.common.constant.SecurityConstants.URL_PATTERN_ALL;
+import static org.springdoc.core.utils.Constants.DELETE_METHOD;
+import static org.springdoc.core.utils.Constants.GET_METHOD;
+import static org.springdoc.core.utils.Constants.OPTIONS_METHOD;
+import static org.springdoc.core.utils.Constants.PATCH_METHOD;
+import static org.springdoc.core.utils.Constants.POST_METHOD;
+import static org.springdoc.core.utils.Constants.PUT_METHOD;
 
-/**
- * Cấu hình bảo mật sử dụng Spring Security.
- *
- * <p>Bao gồm:
- * <ul>
- *   <li>Định nghĩa các endpoint công khai (không yêu cầu xác thực).</li>
- *   <li>Cấu hình OAuth2 Resource Server sử dụng JWT với bộ giải mã tùy chỉnh và entry point xử lý lỗi.</li>
- *   <li>Tắt CSRF để phù hợp với API REST.</li>
- *   <li>Thiết lập CORS cho các origin, method và header được phép.</li>
- *   <li>Cấu hình converter để chuyển đổi JWT claims thành GrantedAuthority.</li>
- * </ul>
- * </p>
- */
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -52,23 +40,7 @@ public class SecurityConfiguration {
     @Autowired
     private CustomJwtDecoder customJwtDecoder;
 
-    /**
-     * Cấu hình SecurityFilterChain cho HTTP security.
-     *
-     * <p>Thiết lập:
-     * <ul>
-     *   <li>Cho phép truy cập PUBLIC_ENDPOINTS không cần xác thực.</li>
-     *   <li>Các request khác phải xác thực JWT.</li>
-     *   <li>Sử dụng customJwtDecoder và jwtAuthenticationConverter để xử lý JWT.</li>
-     *   <li>Sử dụng JwtAuthenticationEntryPoint để trả về 401 khi xác thực thất bại.</li>
-     *   <li>Tắt CSRF.</li>
-     * </ul>
-     * </p>
-     *
-     * @param httpSecurity đối tượng HttpSecurity để cấu hình
-     * @return SecurityFilterChain đã cấu hình
-     * @throws Exception nếu cấu hình gặp lỗi
-     */
+
     @Bean
     public SecurityFilterChain securityFilterChain(
             HttpSecurity httpSecurity) throws Exception {
@@ -92,23 +64,7 @@ public class SecurityConfiguration {
 
         return httpSecurity.build();
     }
-
-    /**
-     * Cấu hình CORS cho ứng dụng.
-     * <p>
-     * Phương thức này thiết lập:
-     * <ul>
-     *   <li>Các origin được phép truy cập (danh sách FRONTEND_ENDPOINT).</li>
-     *   <li>Các phương thức HTTP được phép (GET, POST, PUT, DELETE, PATCH, OPTIONS).</li>
-     *   <li>Cho phép tất cả các header.</li>
-     *   <li>Cho phép gửi credentials.</li>
-     *   <li>Các header được expose (ví dụ: "Authorization").</li>
-     * </ul>
-     * Áp dụng cấu hình này cho tất cả các endpoint.
-     * </p>
-     *
-     * @return CorsConfigurationSource chứa cấu hình CORS của ứng dụng
-     */
+    
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -145,12 +101,7 @@ public class SecurityConfiguration {
         return source;
     }
 
-    /**
-     * Tạo {@link JwtAuthenticationConverter} để chuyển đổi JWT claims thành GrantedAuthority.
-     * Loại bỏ prefix mặc định (ví dụ "SCOPE_").
-     *
-     * @return JwtAuthenticationConverter đã cấu hình
-     */
+
     @Bean
     JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter authConverter =

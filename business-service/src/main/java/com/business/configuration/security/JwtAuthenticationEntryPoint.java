@@ -1,6 +1,5 @@
 package com.business.configuration.security;
 
-import com.business.dto.ApiResponse;
 import com.business.exception.ErrorCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;

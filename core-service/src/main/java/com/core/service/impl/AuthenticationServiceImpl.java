@@ -1,16 +1,14 @@
 package com.core.service.impl;
 
-import com.core.dto.request.AuthenticationRequest;
-import com.core.dto.request.IntrospectRequest;
-import com.core.dto.request.RefreshRequest;
-import com.core.dto.request.UserCreationRequest;
-import com.core.dto.response.AuthenticationResponse;
-import com.core.dto.response.IntrospectResponse;
+import com.core.dto.request.AuthenticationRequestDto;
+import com.core.dto.request.IntrospectRequestDto;
+import com.core.dto.request.RefreshRequestDto;
+import com.core.dto.request.UserCreationRequestDto;
+import com.core.dto.response.AuthenticationResponseDto;
+import com.core.dto.response.IntrospectResponseDto;
 import com.core.entity.InvalidatedToken;
 import com.core.entity.Role;
 import com.core.entity.User;
-import com.core.exception.AppException;
-import com.core.exception.ErrorCode;
 import com.core.mapper.UserMapper;
 import com.core.repository.InvalidatedTokenRepository;
 import com.core.repository.RoleRepository;
@@ -30,6 +28,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
+import org.common.exception.AppException;
+import org.common.exception.ErrorCode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -78,7 +78,7 @@ public class AuthenticationServiceImpl
      */
     @Transactional
     @Override
-    public void register(UserCreationRequest request) {
+    public void register(UserCreationRequestDto request) {
         if (userRepository.existsByUsername(request.getUsername())) {
             throw new AppException(ErrorCode.USER_ALREADY_EXISTS);
         }
@@ -89,10 +89,12 @@ public class AuthenticationServiceImpl
 
         // Tạo user nhưng chưa kích hoạt
         User user = userMapper.toUserFromUserCreationRequest(request);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));
         user.setRoles(new HashSet<>());
         roleRepository.findById("USER")
                 .ifPresent(r -> user.getRoles().add(r));
+        user.setIsActive(true);
+        user.setIsVerified(true);
         userRepository.save(user);
     }
 
@@ -104,8 +106,8 @@ public class AuthenticationServiceImpl
      * @throws ParseException khi lỗi parse JWT
      */
     @Override
-    public AuthenticationResponse login(
-            AuthenticationRequest request) throws ParseException {
+    public AuthenticationResponseDto login(
+            AuthenticationRequestDto request) throws ParseException {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
 
         User user = userRepository
@@ -115,7 +117,7 @@ public class AuthenticationServiceImpl
 
         boolean authenticated = passwordEncoder.matches(
                 request.getPassword(),
-                user.getPassword()
+                user.getPasswordHash()
         );
 
         if (!authenticated) {
@@ -153,8 +155,8 @@ public class AuthenticationServiceImpl
      * @throws ParseException khi lỗi parse JWT
      */
     @Override
-    public IntrospectResponse introspect(
-            IntrospectRequest request)
+    public IntrospectResponseDto introspect(
+            IntrospectRequestDto request)
             throws JOSEException, ParseException {
         String token = request.getToken();
         boolean isValid = true;
@@ -168,7 +170,7 @@ public class AuthenticationServiceImpl
             isValid = false;
         }
 
-        return IntrospectResponse.builder()
+        return IntrospectResponseDto.builder()
                 .valid(isValid)
                 .userId(userId)
                 .build();
@@ -183,7 +185,7 @@ public class AuthenticationServiceImpl
      * @throws JOSEException  khi lỗi verify JWT
      */
     @Override
-    public AuthenticationResponse refreshToken(RefreshRequest request)
+    public AuthenticationResponseDto refreshToken(RefreshRequestDto request)
             throws ParseException, JOSEException {
         SignedJWT signedJWT = verifyToken(request.getToken(), true);
 
@@ -286,7 +288,7 @@ public class AuthenticationServiceImpl
         invalidatedTokenRepository.save(invalidatedToken);
     }
 
-    private AuthenticationResponse generateTokenAndReturnAuthenticationResponse(
+    private AuthenticationResponseDto generateTokenAndReturnAuthenticationResponse(
             User user)
             throws ParseException {
         SignedJWT accessToken =
@@ -294,7 +296,7 @@ public class AuthenticationServiceImpl
         SignedJWT refreshToken =
                 generateToken(user, REFRESH_DURATION, "refresh_token");
 
-        return AuthenticationResponse.builder()
+        return AuthenticationResponseDto.builder()
                 .accessToken(accessToken.serialize())
                 .refreshToken(refreshToken.serialize())
                 .accessExpiry(accessToken.getJWTClaimsSet().getExpirationTime()
@@ -302,7 +304,6 @@ public class AuthenticationServiceImpl
                 .refreshExpiry(
                         refreshToken.getJWTClaimsSet().getExpirationTime()
                                 .toInstant())
-                .authenticated(true)
                 .build();
     }
 }

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: "demogatewayserver"
+    name: "gatewayserver"
   config:
     import: "optional:configserver:http://localhost:8091/"
   cloud:
@@ -9,17 +9,33 @@ spring:
         webflux:
           discovery:
             locator:
-              enabled: false
+              enabled: true
               lower-case-service-id: true
           httpclient:
             connect-timeout: 1000
             response-timeout: 10s
+          default-filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=^/(?<svc>[^/]+)(?<segment>/?.*), ${segment}
+  main:
+    web-application-type: reactive
   data:
     redis:
       connect-timeout: 2s
       host: localhost
       port: 6379
       timeout: 1s
+
+grpc:
+  client:
+    core:
+      address: 'static://core:50051'
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: PLAINTEXT
+    business:
+      address: 'static://business:50052'
+      negotiationType: PLAINTEXT
 
 management:
   endpoints:
@@ -35,8 +51,8 @@ management:
 
 info:
   app:
-    name: "demogatewayserver"
-    description: "Yunomi Xavia Demo Gateway Server Application"
+    name: "gatewayserver"
+    description: "Yunomi Xavia Gateway Server Application"
     version: "1.0.0"
 
 logging:

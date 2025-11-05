@@ -1,9 +1,13 @@
 server:
   port: 8093
 
+grpc:
+  server:
+    port: 50051
+
 spring:
   application:
-    name: "demo1"
+    name: "core-ms"
   profiles:
     active: "dev"
   datasource:
@@ -61,8 +65,8 @@ eureka:
 
 info:
   app:
-    name: "demo1"
-    description: "Yunomi Xavia Demo Project 1"
+    name: "core-ms"
+    description: "Yunomi Xavia Core Project"
     version: "1.0.0"
 
 logging:

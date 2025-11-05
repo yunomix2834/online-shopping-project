@@ -1,6 +1,5 @@
 package com.business.controller;
 
-import com.business.dto.ErrorResponse;
 import com.business.service.IHelloService;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.swagger.v3.oas.annotations.Operation;

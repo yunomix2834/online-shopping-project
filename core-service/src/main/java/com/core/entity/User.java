@@ -1,6 +1,7 @@
 package com.core.entity;
 
 import com.core.entity.audit.AuditMetadata;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -11,6 +12,7 @@ import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -69,7 +71,6 @@ public class User extends AuditMetadata {
     @Column(name = "is_verified", nullable = false)
     Boolean isVerified = false;
 
-    // Nên LAZY để tránh n+1 khi không cần
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_roles",
@@ -77,4 +78,11 @@ public class User extends AuditMetadata {
             inverseJoinColumns = @JoinColumn(name = "role_name", referencedColumnName = "name")
     )
     Set<Role> roles = new HashSet<>();
+
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    Set<Address> addresses = new HashSet<>();
 }
