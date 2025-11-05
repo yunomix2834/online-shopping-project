@@ -78,7 +78,8 @@ public class AuthenticationServiceImpl
      */
     @Transactional
     @Override
-    public void register(UserCreationRequestDto request) {
+    public void register(
+            UserCreationRequestDto request) {
         if (userRepository.existsByUsername(request.getUsername())) {
             throw new AppException(ErrorCode.USER_ALREADY_EXISTS);
         }
@@ -87,12 +88,13 @@ public class AuthenticationServiceImpl
             throw new AppException(ErrorCode.EMAIL_ALREADY_EXISTS);
         }
 
-        // Tạo user nhưng chưa kích hoạt
         User user = userMapper.toUserFromUserCreationRequest(request);
         user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));
         user.setRoles(new HashSet<>());
         roleRepository.findById("USER")
                 .ifPresent(r -> user.getRoles().add(r));
+
+        // Để Hard-code trước
         user.setIsActive(true);
         user.setIsVerified(true);
         userRepository.save(user);
@@ -107,7 +109,8 @@ public class AuthenticationServiceImpl
      */
     @Override
     public AuthenticationResponseDto login(
-            AuthenticationRequestDto request) throws ParseException {
+            AuthenticationRequestDto request)
+            throws ParseException {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
 
         User user = userRepository
@@ -192,7 +195,7 @@ public class AuthenticationServiceImpl
         invalidateToken(signedJWT);
 
         User user = userRepository
-                .findByEmail(signedJWT.getJWTClaimsSet().getSubject())
+                .findById(signedJWT.getJWTClaimsSet().getSubject())
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
 
         return generateTokenAndReturnAuthenticationResponse(user);
@@ -231,7 +234,7 @@ public class AuthenticationServiceImpl
                 .plus(duration, ChronoUnit.SECONDS);
 
         JWTClaimsSet.Builder builder = new JWTClaimsSet.Builder()
-                .subject(user.getEmail())
+                .subject(user.getId())
                 .issuer("Code Campus")
                 .issueTime(new Date())
                 .expirationTime(Date.from(expiryInstant))

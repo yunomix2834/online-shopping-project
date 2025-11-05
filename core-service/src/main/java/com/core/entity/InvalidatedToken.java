@@ -22,6 +22,7 @@ import java.time.Instant;
 @Entity
 @Table(name = "tokens")
 public class InvalidatedToken {
+
     @Id
     String id;
 

@@ -28,6 +28,6 @@ import org.hibernate.annotations.Where;
 public class Role extends AuditMetadata {
 
     @Id
-    @Column(name = "name", length = 50)  // PK = name
+    @Column(name = "name", length = 50)
     String name;
 }

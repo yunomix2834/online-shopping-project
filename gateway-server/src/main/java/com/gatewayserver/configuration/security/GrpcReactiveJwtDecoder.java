@@ -28,25 +28,30 @@ public class GrpcReactiveJwtDecoder implements ReactiveJwtDecoder {
     @Override
     public Mono<Jwt> decode(String token) throws JwtException {
         return Mono.fromCallable(() -> {
-                    IntrospectResponse resp = authServiceBlockingStub.introspect(
-                            IntrospectRequest.newBuilder().setToken(token).build());
-                    if (!resp.getValid()) throw new JwtException("INVALID_TOKEN");
+                    IntrospectResponse introspectResponse = authServiceBlockingStub
+                            .introspect(IntrospectRequest.newBuilder()
+                                        .setToken(token)
+                                        .build());
 
-                    SignedJWT sjwt;
+                    if (!introspectResponse.getValid()) {
+                        throw new JwtException("INVALID_TOKEN");
+                    }
+
+                    SignedJWT signedJWT;
                     try {
-                        sjwt = SignedJWT.parse(token);
+                        signedJWT = SignedJWT.parse(token);
                     } catch (ParseException e) {
                         throw new JwtException("JWT_PARSE_ERROR", e);
                     }
 
                     Map<String, Object> headers =
-                            new HashMap<>(sjwt.getHeader().toJSONObject());
+                            new HashMap<>(signedJWT.getHeader().toJSONObject());
 
                     Map<String, Object> claims =
-                            new HashMap<>(sjwt.getJWTClaimsSet().getClaims());
+                            new HashMap<>(signedJWT.getJWTClaimsSet().getClaims());
 
-                    Date iat = sjwt.getJWTClaimsSet().getIssueTime();
-                    Date exp = sjwt.getJWTClaimsSet().getExpirationTime();
+                    Date iat = signedJWT.getJWTClaimsSet().getIssueTime();
+                    Date exp = signedJWT.getJWTClaimsSet().getExpirationTime();
 
                     Instant issuedAt = (iat == null) ? null : iat.toInstant();
                     Instant expiresAt = (exp == null) ? null : exp.toInstant();

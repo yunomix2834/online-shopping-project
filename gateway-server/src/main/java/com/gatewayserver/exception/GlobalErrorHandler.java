@@ -2,20 +2,31 @@ package com.gatewayserver.exception;
 
 import io.grpc.StatusRuntimeException;
 import org.common.http.Envelope;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import reactor.core.publisher.Mono;
 
 @RestControllerAdvice
 public class GlobalErrorHandler {
 
     @ExceptionHandler(StatusRuntimeException.class)
-    public Mono<Envelope<Void>> handleGrpcException(StatusRuntimeException ex){
-        return Mono.just(GrpcErrorMapper.toEnvelope(ex));
+    public ResponseEntity<Envelope<Void>> handleGrpcException(
+            StatusRuntimeException statusRuntimeException){
+        Envelope<Void> envelope = GrpcErrorMapper.toEnvelope(statusRuntimeException);
+        return ResponseEntity.status(envelope.getStatus())
+                .body(envelope);
     }
 
     @ExceptionHandler(Exception.class)
-    public Mono<Envelope<Void>> handleAnyException(Exception ex){
-        return Mono.just(Envelope.err(500, "UNCATEGORIZED_EXCEPTION", ex.getMessage(), null));
+    public ResponseEntity<Envelope<Void>> handleAnyException(
+            Exception exception){
+        Envelope<Void> envelope = Envelope.err(
+                500,
+                "UNCATEGORIZED_EXCEPTION",
+                exception.getMessage(),
+                null
+        );
+        return ResponseEntity.status(500)
+                .body(envelope);
     }
 }

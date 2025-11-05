@@ -69,17 +69,14 @@ public class SecurityConfiguration {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // Cho phép các origin truy cập định nghĩa sẵn
         configuration.setAllowedOriginPatterns(List.of(
                 FRONTEND_ENDPOINT
         ));
 
-        // Cho phép các phương thức HTTP được định nghĩa
         configuration.setAllowedMethods(
                 List.of(GET_METHOD, POST_METHOD, PUT_METHOD, DELETE_METHOD,
                         PATCH_METHOD, OPTIONS_METHOD));
 
-        // Cho phép tất cả các header
         configuration.setAllowedHeaders(
                 List.of(AUTHORIZATION_HEADER, CONTENT_TYPE_HEADER,
                         ACCEPT_HEADER));
@@ -111,7 +108,6 @@ public class SecurityConfiguration {
         JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
         converter.setJwtGrantedAuthoritiesConverter(authConverter);
 
-        // Principal = claim "username"
         converter.setPrincipalClaimName("userId");
 
         return converter;

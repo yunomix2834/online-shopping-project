@@ -1,5 +1,7 @@
 package com.common.grpc;
 
+import java.text.ParseException;
+
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 
 /**
@@ -250,7 +252,8 @@ public final class AuthServiceGrpc {
     /**
      */
     default void refresh(com.common.grpc.RefreshRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.RefreshResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<com.common.grpc.RefreshResponse> responseObserver)
+            throws ParseException, JOSEException {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRefreshMethod(), responseObserver);
     }
 

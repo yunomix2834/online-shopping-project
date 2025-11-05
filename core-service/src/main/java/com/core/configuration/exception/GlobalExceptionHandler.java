@@ -1,8 +1,12 @@
 package com.core.configuration.exception;
 
+import io.grpc.StatusRuntimeException;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
+import net.devh.boot.grpc.server.advice.GrpcExceptionHandler;
 import org.common.exception.AppException;
 import org.common.exception.ErrorCode;
+import org.common.exception.GrpcStatusMapper;
 import org.common.http.Envelope;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.ResponseEntity;
@@ -11,19 +15,36 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @Slf4j
 @ControllerAdvice
-@ConditionalOnProperty(name = "core.http.error.enabled", havingValue = "true", matchIfMissing = false)
+@ConditionalOnProperty(
+        name = "core.http.error.enabled",
+        havingValue = "true",
+        matchIfMissing = false
+)
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(AppException.class)
-    public ResponseEntity<Envelope<Void>> handleAppException(AppException ex){
-        ErrorCode ec = ex.getErrorCode();
-        return ResponseEntity.status(ec.getStatusCode()).body(Envelope.err(ec.http(), ec.name(), ec.getMessage(), null));
+    public ResponseEntity<Envelope<Void>> handleAppException(
+            AppException appException){
+        ErrorCode errorCode = appException.getErrorCode();
+        return ResponseEntity.status(errorCode.getStatusCode())
+                .body(Envelope.err(
+                        errorCode.http(),
+                        errorCode.name(),
+                        errorCode.getMessage(),
+                        null)
+                );
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Envelope<Void>> handleAnyException(Exception ex){
-        log.error("REST_UNCAUGHT", ex);
-        ErrorCode ec = ErrorCode.UNCATEGORIZED_EXCEPTION;
-        return ResponseEntity.status(ec.getStatusCode()).body(Envelope.err(ec.http(), ec.name(), ec.getMessage(), null));
+    public ResponseEntity<Envelope<Void>> handleAnyException(
+            Exception exception){
+        ErrorCode errorCode = ErrorCode.UNCATEGORIZED_EXCEPTION;
+        return ResponseEntity.status(errorCode.getStatusCode())
+                .body(Envelope.err(
+                        errorCode.http(),
+                        errorCode.name(),
+                        errorCode.getMessage(),
+                        null)
+                );
     }
 }

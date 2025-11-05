@@ -11,6 +11,7 @@ import java.time.Instant;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AuthenticationResponseDto {
+
     String accessToken;
     String refreshToken;
     Instant accessExpiry;

@@ -13,23 +13,25 @@ import org.springframework.security.access.AccessDeniedException;
 public class GrpcServerExceptionAdvice {
 
     @GrpcExceptionHandler(AppException.class)
-    public StatusRuntimeException handleAppException(AppException ex) {
-        return GrpcStatusMapper.ex(ex.getErrorCode());
+    public StatusRuntimeException handleAppException(AppException appException) {
+        return GrpcStatusMapper.ex(appException.getErrorCode());
     }
 
     @GrpcExceptionHandler(AccessDeniedException.class)
-    public StatusRuntimeException handleDeniedException(AccessDeniedException ex) {
+    public StatusRuntimeException handleDeniedException(
+            AccessDeniedException accessDeniedException) {
         return GrpcStatusMapper.ex(ErrorCode.UNAUTHORIZED);
     }
 
     @GrpcExceptionHandler(ConstraintViolationException.class)
-    public StatusRuntimeException handleBadException(ConstraintViolationException ex) {
-        return GrpcStatusMapper.ex(ErrorCode.FAILED_VALIDATE_TOKEN);
+    public StatusRuntimeException handleBadException(
+            ConstraintViolationException constraintViolationException) {
+        return GrpcStatusMapper.ex(ErrorCode.VALIDATION_FAILED);
     }
 
     @GrpcExceptionHandler(Throwable.class)
-    public StatusRuntimeException handleAnyException(Throwable th) {
-        log.error("UNCAUGHT_GRPC_ERROR", th);
+    public StatusRuntimeException handleAnyException(
+            Throwable throwable) {
         return Status.INTERNAL.withDescription(ErrorCode.UNCATEGORIZED_EXCEPTION.name())
                 .asRuntimeException();
     }

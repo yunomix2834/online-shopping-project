@@ -1,3 +1,6 @@
+server:
+  port: 8092
+
 spring:
   application:
     name: "gatewayserver"
@@ -14,9 +17,21 @@ spring:
           httpclient:
             connect-timeout: 1000
             response-timeout: 10s
-          default-filters:
-            - RemoveRequestHeader=Cookie
-            - RewritePath=^/(?<svc>[^/]+)(?<segment>/?.*), ${segment}
+          default-filters: []
+          filter:
+            json-to-grpc:
+              enabled:
+                false
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: "http://localhost:8090/eureka/"
+
   main:
     web-application-type: reactive
   data:
@@ -29,12 +44,12 @@ spring:
 grpc:
   client:
     core:
-      address: 'static://core:50051'
+      address: 'static://localhost:50051'
       enableKeepAlive: true
       keepAliveWithoutCalls: true
-      negotiationType: PLAINTEXT
+      negotiationType: plaintext
     business:
-      address: 'static://business:50052'
+      address: 'static://localhost:50052'
       negotiationType: PLAINTEXT
 
 management:

@@ -11,7 +11,8 @@ import java.util.List;
 @Data
 @Builder(toBuilder = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class PagePayload<T> {  int page;
+public class PagePayload<T> {
+    int page;
     int size;
     long total;
     int totalPages;

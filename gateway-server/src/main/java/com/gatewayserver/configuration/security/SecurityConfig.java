@@ -11,6 +11,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 public class SecurityConfig {
 
     private final GrpcReactiveJwtDecoder jwtDecoder;
+    private final ReactiveJwtEntryPoint entryPoint;
 
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
@@ -18,7 +19,9 @@ public class SecurityConfig {
                 .authorizeExchange(ex -> ex
                         .pathMatchers("/auth/**","/actuator/**").permitAll()
                         .anyExchange().authenticated())
-                .oauth2ResourceServer(oauth -> oauth.jwt(j -> j.jwtDecoder(jwtDecoder)))
+                .oauth2ResourceServer(oauth -> oauth.jwt(j -> j
+                        .jwtDecoder(jwtDecoder))
+                        .authenticationEntryPoint(entryPoint))
                 .build();
     }
 }

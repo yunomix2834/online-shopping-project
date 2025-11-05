@@ -1,0 +1,20 @@
+/ gateway-server (ví dụ trong controller cần call service khác ngoài Auth)
+@GrpcClient("business")
+private com.common.grpc.SomeServiceGrpc.SomeServiceBlockingStub someStub;
+
+private com.common.grpc.SomeServiceGrpc.SomeServiceBlockingStub withBearer(String token) {
+    // gRPC client starter cung cấp channel ẩn sau stub; cách an toàn nhất:
+    io.grpc.Channel ch = someStub.getChannel();
+    io.grpc.Channel withAuth = com.gatewayserver.grpc.BearerClientInterceptor.withToken(ch, token);
+    return com.common.grpc.SomeServiceGrpc.newBlockingStub(withAuth);
+}
+
+// Trong endpoint:
+public Mono<ResponseEntity<Envelope<SomeView>>> someEndpoint(ServerHttpRequest req) {
+    String token = req.getHeaders().getFirst("Authorization");
+    var stub = withBearer(token != null ? token.replaceFirst("(?i)^Bearer\\s+", "") : "");
+    return GRPCHelper.callGrpc(
+        () -> stub.someRpc(/*...*/),
+        resp -> /* map view */
+    );
+}
