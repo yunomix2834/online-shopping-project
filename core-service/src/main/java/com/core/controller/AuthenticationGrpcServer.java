@@ -11,12 +11,12 @@ import com.common.grpc.RefreshRequest;
 import com.common.grpc.RefreshResponse;
 import com.common.grpc.RegisterRequest;
 import com.common.grpc.RegisterResponse;
-import com.core.dto.request.AuthenticationRequestDto;
-import com.core.dto.request.IntrospectRequestDto;
-import com.core.dto.request.RefreshRequestDto;
-import com.core.dto.request.UserCreationRequestDto;
-import com.core.dto.response.AuthenticationResponseDto;
-import com.core.dto.response.IntrospectResponseDto;
+import com.core.dto.request.authentication.AuthenticationRequestDto;
+import com.core.dto.request.authentication.IntrospectRequestDto;
+import com.core.dto.request.authentication.RefreshRequestDto;
+import com.core.dto.request.authentication.UserCreationRequestDto;
+import com.core.dto.response.authentication.AuthenticationResponseDto;
+import com.core.dto.response.authentication.IntrospectResponseDto;
 import com.core.service.IAuthenticationService;
 import com.nimbusds.jose.JOSEException;
 import io.grpc.stub.StreamObserver;
@@ -25,7 +25,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;
-import org.common.exception.AppException;
 import org.common.exception.ErrorCode;
 import org.common.exception.GrpcStatusMapper;
 
@@ -35,7 +34,8 @@ import java.text.ParseException;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
-public class AuthenticationGrpcServer extends AuthServiceGrpc.AuthServiceImplBase {
+public class AuthenticationGrpcServer
+        extends AuthServiceGrpc.AuthServiceImplBase {
 
     IAuthenticationService authenticationService;
 
@@ -56,22 +56,30 @@ public class AuthenticationGrpcServer extends AuthServiceGrpc.AuthServiceImplBas
     public void login(
             LoginRequest loginRequest,
             StreamObserver<LoginResponse> streamObserver) {
-        AuthenticationResponseDto authenticationResponseDto = authenticationService.login(
-                AuthenticationRequestDto.builder()
-                .username(loginRequest.getUsername())
-                .email(loginRequest.getEmail())
-                .password(loginRequest.getPassword())
-                .build());
-
-        streamObserver.onNext(LoginResponse.newBuilder()
-                .setAccessToken(authenticationResponseDto.getAccessToken())
-                .setRefreshToken(authenticationResponseDto.getRefreshToken())
-                .setAccessExpiry(
-                        authenticationResponseDto.getAccessExpiry().toString())
-                .setRefreshExpiry(
-                        authenticationResponseDto.getRefreshExpiry().toString())
-                .build());
-        streamObserver.onCompleted();
+        try {
+            AuthenticationResponseDto authenticationResponseDto =
+                    authenticationService.login(
+                            AuthenticationRequestDto.builder()
+                                    .username(loginRequest.getUsername())
+                                    .email(loginRequest.getEmail())
+                                    .password(loginRequest.getPassword())
+                                    .build());
+            streamObserver.onNext(LoginResponse.newBuilder()
+                    .setAccessToken(authenticationResponseDto.getAccessToken())
+                    .setRefreshToken(
+                            authenticationResponseDto.getRefreshToken())
+                    .setAccessExpiry(
+                            authenticationResponseDto.getAccessExpiry()
+                                    .toString())
+                    .setRefreshExpiry(
+                            authenticationResponseDto.getRefreshExpiry()
+                                    .toString())
+                    .build());
+            streamObserver.onCompleted();
+        } catch (ParseException exception) {
+            GrpcStatusMapper.fail(streamObserver,
+                    ErrorCode.FAILED_VALIDATE_TOKEN);
+        }
     }
 
     @Override
@@ -79,22 +87,25 @@ public class AuthenticationGrpcServer extends AuthServiceGrpc.AuthServiceImplBas
             RefreshRequest refreshRequest,
             StreamObserver<RefreshResponse> streamObserver) {
         try {
-            AuthenticationResponseDto authenticationResponseDto = authenticationService
-                    .refreshToken(RefreshRequestDto.builder()
-                            .token(refreshRequest.getToken())
-                            .build());
+            AuthenticationResponseDto authenticationResponseDto =
+                    authenticationService
+                            .refreshToken(RefreshRequestDto.builder()
+                                    .token(refreshRequest.getToken())
+                                    .build());
 
             streamObserver.onNext(RefreshResponse.newBuilder()
                     .setAccessToken(authenticationResponseDto.getAccessToken())
-                    .setRefreshToken(authenticationResponseDto.getRefreshToken())
+                    .setRefreshToken(
+                            authenticationResponseDto.getRefreshToken())
                     .setAccessExpiry(String.valueOf(
                             authenticationResponseDto.getAccessExpiry()))
                     .setRefreshExpiry(String.valueOf(
                             authenticationResponseDto.getRefreshExpiry()))
                     .build());
             streamObserver.onCompleted();
-        } catch (ParseException | JOSEException exception){
-            GrpcStatusMapper.fail(streamObserver, ErrorCode.FAILED_VALIDATE_TOKEN);
+        } catch (ParseException | JOSEException exception) {
+            GrpcStatusMapper.fail(streamObserver,
+                    ErrorCode.FAILED_VALIDATE_TOKEN);
         }
     }
 
@@ -115,8 +126,9 @@ public class AuthenticationGrpcServer extends AuthServiceGrpc.AuthServiceImplBas
                             : introspectResponseDto.getUserId())
                     .build());
             responseObserver.onCompleted();
-        } catch (ParseException | JOSEException exception){
-            GrpcStatusMapper.fail(responseObserver, ErrorCode.FAILED_VALIDATE_TOKEN);
+        } catch (ParseException | JOSEException exception) {
+            GrpcStatusMapper.fail(responseObserver,
+                    ErrorCode.FAILED_VALIDATE_TOKEN);
         }
     }
 
@@ -128,8 +140,9 @@ public class AuthenticationGrpcServer extends AuthServiceGrpc.AuthServiceImplBas
             authenticationService.logout(logoutRequest.getToken());
             responseObserver.onNext(LogoutResponse.newBuilder().build());
             responseObserver.onCompleted();
-        } catch (ParseException | JOSEException exception){
-            GrpcStatusMapper.fail(responseObserver, ErrorCode.FAILED_VALIDATE_TOKEN);
+        } catch (ParseException | JOSEException exception) {
+            GrpcStatusMapper.fail(responseObserver,
+                    ErrorCode.FAILED_VALIDATE_TOKEN);
         }
     }
 }

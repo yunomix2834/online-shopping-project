@@ -1,6 +1,6 @@
 package com.core.mapper;
 
-import com.core.dto.request.UserCreationRequestDto;
+import com.core.dto.request.authentication.UserCreationRequestDto;
 import com.core.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

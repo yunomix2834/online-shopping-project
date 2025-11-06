@@ -1,7 +1,7 @@
 package com.core.configuration.security;
 
-import com.core.dto.request.IntrospectRequestDto;
-import com.core.dto.response.IntrospectResponseDto;
+import com.core.dto.request.authentication.IntrospectRequestDto;
+import com.core.dto.response.authentication.IntrospectResponseDto;
 import com.core.service.IAuthenticationService;
 import com.nimbusds.jose.JOSEException;
 import org.common.exception.AppException;

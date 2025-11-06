@@ -1,0 +1,171 @@
+syntax = "proto3";
+package core.v1;
+
+option java_multiple_files = true;
+option java_package = "com.common.grpc";
+option java_outer_classname = "UserRoleAddressProto";
+
+// ===== Users =====
+message MeRequest {}
+message MeResponse {
+  string id = 1;
+  string username = 2;
+  string email = 3;
+  string full_name = 4;
+  string phone_number = 5;
+  bool is_active = 6;
+  bool is_verified = 7;
+  repeated string roles = 8;
+}
+
+message UpdateProfileRequest {
+  string full_name = 1;
+  string phone_number = 2;
+}
+message UpdateProfileResponse {}
+
+message ChangePasswordRequest {
+  string old_password = 1;
+  string new_password = 2;
+}
+message ChangePasswordResponse {}
+
+message VerifyEmailOrPhoneRequest {
+  string code = 1;
+}
+message VerifyEmailOrPhoneResponse {}
+
+message LockUserRequest {
+  string user_id = 1;
+  bool lock = 2;
+}
+message LockUserResponse {}
+
+message DuplicateCheckRequest {
+  string username = 1;
+  string email = 2;
+  string phone = 3;
+}
+message DuplicateCheckResponse {
+  bool username_taken = 1;
+  bool email_taken = 2;
+  bool phone_taken = 3;
+}
+
+// ===== Roles =====
+message CreateRoleRequest {
+  string name = 1;
+}
+message CreateRoleResponse {}
+
+message DeleteRoleRequest {
+  string name = 1;
+  bool restore = 2;
+}
+message DeleteRoleResponse {}
+
+message AssignRoleRequest {
+  string user_id = 1;
+  string role_name = 2;
+}
+message AssignRoleResponse {}
+
+message RemoveRoleRequest {
+  string user_id = 1;
+  string role_name = 2;
+}
+message RemoveRoleResponse {}
+
+message ListUserRolesRequest {
+  string user_id = 1;
+}
+message ListUserRolesResponse {
+  repeated string roles = 1;
+}
+
+message ListUsersByRoleRequest {
+  string role_name = 1;
+}
+message ListUsersByRoleResponse {
+  repeated string user_ids = 1;
+}
+
+message ListAllRolesRequest {}
+message ListAllRolesResponse {
+  repeated string roles = 1;
+}
+
+// ===== Addresses =====
+message AddressItem {
+  string id = 1;
+  string contact_name = 2;
+  string contact_phone = 3;
+  string address_line1 = 4;
+  string address_line2 = 5;
+  string district = 6;
+  string city = 7;
+  string country = 8;
+  string postal_code = 9;
+  bool is_default_shipping = 10;
+  bool is_default_billing = 11;
+}
+
+message CreateAddressRequest {
+    AddressItem address = 1;
+}
+message CreateAddressResponse {
+  string id = 1;
+}
+
+message UpdateAddressRequest {
+  AddressItem address = 1;
+}
+message UpdateAddressResponse {}
+
+message DeleteAddressRequest {
+  string id = 1;
+}
+message DeleteAddressResponse {}
+
+message SetDefaultRequest {
+  string id = 1;
+  enum Kind {
+    SHIPPING = 0;
+    BILLING = 1;
+  }
+  Kind kind = 2;
+}
+message SetDefaultResponse {}
+
+message ListAddressesRequest {
+  string user_id = 1;
+}
+message ListAddressesResponse {
+  repeated AddressItem addresses = 1;
+}
+
+// ===== Services =====
+service UserService {
+  rpc Me(MeRequest) returns (MeResponse);
+  rpc UpdateProfile(UpdateProfileRequest) returns (UpdateProfileResponse);
+  rpc ChangePassword(ChangePasswordRequest) returns (ChangePasswordResponse);
+  rpc VerifyEmailOrPhone(VerifyEmailOrPhoneRequest) returns (VerifyEmailOrPhoneResponse);
+  rpc LockUser(LockUserRequest) returns (LockUserResponse);
+  rpc DuplicateCheck(DuplicateCheckRequest) returns (DuplicateCheckResponse);
+}
+service RoleService {
+  rpc CreateRole(CreateRoleRequest) returns (CreateRoleResponse);
+  rpc DeleteRole(DeleteRoleRequest) returns (DeleteRoleResponse);
+  rpc AssignRole(AssignRoleRequest) returns (AssignRoleResponse);
+  rpc RemoveRole(RemoveRoleRequest) returns (RemoveRoleResponse);
+  rpc ListUserRoles(ListUserRolesRequest) returns (ListUserRolesResponse);
+  rpc ListUsersByRole(ListUsersByRoleRequest) returns (ListUsersByRoleResponse);
+  rpc ListAllRoles(ListAllRolesRequest) returns (ListAllRolesResponse);
+}
+service AddressService {
+  rpc CreateAddress(CreateAddressRequest) returns (CreateAddressResponse);
+  rpc UpdateAddress(UpdateAddressRequest) returns (UpdateAddressResponse);
+  rpc DeleteAddress(DeleteAddressRequest) returns (DeleteAddressResponse);
+  rpc SetDefault(SetDefaultRequest) returns (SetDefaultResponse);
+  rpc ListAddresses(ListAddressesRequest) returns (ListAddressesResponse);
+}

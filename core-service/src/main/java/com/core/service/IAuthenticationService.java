@@ -1,11 +1,11 @@
 package com.core.service;
 
-import com.core.dto.request.AuthenticationRequestDto;
-import com.core.dto.request.IntrospectRequestDto;
-import com.core.dto.request.RefreshRequestDto;
-import com.core.dto.request.UserCreationRequestDto;
-import com.core.dto.response.AuthenticationResponseDto;
-import com.core.dto.response.IntrospectResponseDto;
+import com.core.dto.request.authentication.AuthenticationRequestDto;
+import com.core.dto.request.authentication.IntrospectRequestDto;
+import com.core.dto.request.authentication.RefreshRequestDto;
+import com.core.dto.request.authentication.UserCreationRequestDto;
+import com.core.dto.response.authentication.AuthenticationResponseDto;
+import com.core.dto.response.authentication.IntrospectResponseDto;
 import com.nimbusds.jose.JOSEException;
 
 import java.text.ParseException;

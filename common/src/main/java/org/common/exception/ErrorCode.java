@@ -10,6 +10,7 @@ import static org.common.constant.ErrorCodeConstant.FORBIDDEN_STATUS;
 import static org.common.constant.ErrorCodeConstant.INTERNAL_SERVER_STATUS;
 import static org.common.constant.ErrorCodeConstant.NOT_FOUND_STATUS;
 import static org.common.constant.ErrorCodeConstant.UNAUTHORIZED_STATUS;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @Getter
 public enum ErrorCode {
@@ -18,6 +19,9 @@ public enum ErrorCode {
 
     // 400
     VALIDATION_FAILED(400, BAD_REQUEST_STATUS, "Dữ liệu không hợp lệ!", org.springframework.http.HttpStatus.BAD_REQUEST),
+    INVALID_OTP(400, BAD_REQUEST_STATUS, "OTP không hợp lệ!", BAD_REQUEST),
+    OTP_EXPIRED(400, BAD_REQUEST_STATUS, "OTP đã hết hạn!", BAD_REQUEST),
+    EMAIL_SEND_FAILED(4008003, BAD_REQUEST_STATUS, "Gửi email thất bại!", BAD_REQUEST),
 
     // 401
     UNAUTHENTICATED(401, UNAUTHORIZED_STATUS, "Chưa xác thực!", HttpStatus.UNAUTHORIZED),
@@ -32,7 +36,7 @@ public enum ErrorCode {
     USER_NOT_FOUND(404, NOT_FOUND_STATUS, "Không tìm thấy user", HttpStatus.NOT_FOUND),
     ROLE_NOT_FOUND(404, NOT_FOUND_STATUS, "Không tìm thấy vai trò", HttpStatus.NOT_FOUND),
     ADDRESS_NOT_FOUND(404, NOT_FOUND_STATUS, "Không tìm thấy địa chỉ", HttpStatus.NOT_FOUND),
-
+    EMAIL_NOT_FOUND(404, NOT_FOUND_STATUS, "Không tìm thấy email", HttpStatus.NOT_FOUND),
     // 409
     USER_ALREADY_EXISTS(409, CONFLICT_STATUS, "Người dùng đã tồn tại!", HttpStatus.CONFLICT),
     EMAIL_ALREADY_EXISTS(409, CONFLICT_STATUS, "Email đã tồn tại!", HttpStatus.CONFLICT),

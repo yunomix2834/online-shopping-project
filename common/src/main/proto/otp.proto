@@ -1,0 +1,39 @@
+syntax = "proto3";
+package core.v1;
+
+option java_multiple_files = true;
+option java_package = "com.common.grpc";
+option java_outer_classname = "OtpProto";
+
+import "google/protobuf/empty.proto";
+
+message UserOtpRequest {
+  string email = 1;
+}
+
+message OtpResponse {
+  string email = 1;
+  string message = 2;
+}
+
+message OtpVerificationRequest {
+  string email = 1;
+  string otpCode = 2;
+}
+
+message ResetPasswordRequest {
+  string email = 1;
+  string otp = 2;
+  string newPassword = 3;
+}
+
+service OtpService {
+  // OTP
+  rpc SendOtp(UserOtpRequest) returns (OtpResponse);
+  rpc VerifyOtp(OtpVerificationRequest) returns (google.protobuf.Empty);
+
+  // Password
+  rpc RequestResetPassword(UserOtpRequest) returns (OtpResponse);
+  rpc VerifyOtpPassword(OtpVerificationRequest) returns (google.protobuf.Empty);
+  rpc ResetPassword(ResetPasswordRequest) returns (google.protobuf.Empty);
+}
