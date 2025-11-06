@@ -1,0 +1,31 @@
+syntax = "proto3";
+package core.v1;
+option java_multiple_files = true;
+option java_package = "com.common.grpc";
+option java_outer_classname = "UserProto";
+import "google/protobuf/empty.proto";
+
+message ToggleActiveRequest {
+  string userId = 1;
+  bool active = 2;
+}
+
+message MeResponse {
+  string id = 1;
+  string username = 2;
+  string email = 3;
+  string fullName = 4;
+  string phoneNumber = 5;
+  bool isActive = 6;
+  bool isVerified = 7;
+}
+message UpdateProfileRequest {
+  string fullName = 1;
+  string phoneNumber = 2;
+}
+
+service UserService {
+  rpc ToggleActive(ToggleActiveRequest) returns (google.protobuf.Empty);
+  rpc GetMe(google.protobuf.Empty) returns (MeResponse);
+  rpc UpdateProfile(UpdateProfileRequest) returns (google.protobuf.Empty);
+}

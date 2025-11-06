@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;
+import org.common.exception.GrpcStatusMapper;
 
 @GrpcService
 @RequiredArgsConstructor
@@ -39,11 +40,10 @@ public class OtpGrpcServer
                         .email(request.getEmail())
                         .build());
 
-        responseObserver.onNext(OtpResponse.newBuilder()
+        GrpcStatusMapper.ok(responseObserver, OtpResponse.newBuilder()
                 .setEmail(otpResponseDto.getEmail())
                 .setMessage(otpResponseDto.getMessage())
                 .build());
-        responseObserver.onCompleted();
     }
 
     @Override
@@ -55,20 +55,22 @@ public class OtpGrpcServer
                 .otpCode(request.getOtpCode())
                 .build());
 
-        responseObserver.onNext(Empty.getDefaultInstance());
-        responseObserver.onCompleted();
+        GrpcStatusMapper.ok(responseObserver);
     }
 
     @Override
     public void requestResetPassword(
             UserOtpRequest request,
             StreamObserver<OtpResponse> responseObserver) {
-        passwordResetService.requestResetPassword(UserOtpRequestDto.builder()
-                .email(request.getEmail())
-                .build());
+        OtpResponseDto otpResponseDto = passwordResetService
+                .requestResetPassword(UserOtpRequestDto.builder()
+                        .email(request.getEmail())
+                        .build());
 
-        responseObserver.onNext(OtpResponse.getDefaultInstance());
-        responseObserver.onCompleted();
+        GrpcStatusMapper.ok(responseObserver, OtpResponse.newBuilder()
+                .setEmail(otpResponseDto.getEmail())
+                .setMessage(otpResponseDto.getMessage())
+                .build());
     }
 
     @Override
@@ -80,8 +82,8 @@ public class OtpGrpcServer
                         .email(request.getEmail())
                         .otpCode(request.getOtpCode())
                         .build());
-        responseObserver.onNext(Empty.getDefaultInstance());
-        responseObserver.onCompleted();
+
+        GrpcStatusMapper.ok(responseObserver);
     }
 
 
@@ -95,7 +97,6 @@ public class OtpGrpcServer
                 .newPassword(request.getNewPassword())
                 .build());
 
-        responseObserver.onNext(Empty.getDefaultInstance());
-        responseObserver.onCompleted();
+        GrpcStatusMapper.ok(responseObserver);
     }
 }

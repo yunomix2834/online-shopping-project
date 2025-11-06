@@ -6,7 +6,7 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.72.0)",
-    comments = "Source: user-role-address.proto")
+    comments = "Source: address.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class AddressServiceGrpc {
 
@@ -15,159 +15,190 @@ public final class AddressServiceGrpc {
   public static final java.lang.String SERVICE_NAME = "core.v1.AddressService";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<com.common.grpc.CreateAddressRequest,
-      com.common.grpc.CreateAddressResponse> getCreateAddressMethod;
+  private static volatile io.grpc.MethodDescriptor<com.common.grpc.AddressCreateRequest,
+      com.google.protobuf.Empty> getCreateMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "CreateAddress",
-      requestType = com.common.grpc.CreateAddressRequest.class,
-      responseType = com.common.grpc.CreateAddressResponse.class,
+      fullMethodName = SERVICE_NAME + '/' + "Create",
+      requestType = com.common.grpc.AddressCreateRequest.class,
+      responseType = com.google.protobuf.Empty.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.common.grpc.CreateAddressRequest,
-      com.common.grpc.CreateAddressResponse> getCreateAddressMethod() {
-    io.grpc.MethodDescriptor<com.common.grpc.CreateAddressRequest, com.common.grpc.CreateAddressResponse> getCreateAddressMethod;
-    if ((getCreateAddressMethod = AddressServiceGrpc.getCreateAddressMethod) == null) {
+  public static io.grpc.MethodDescriptor<com.common.grpc.AddressCreateRequest,
+      com.google.protobuf.Empty> getCreateMethod() {
+    io.grpc.MethodDescriptor<com.common.grpc.AddressCreateRequest, com.google.protobuf.Empty> getCreateMethod;
+    if ((getCreateMethod = AddressServiceGrpc.getCreateMethod) == null) {
       synchronized (AddressServiceGrpc.class) {
-        if ((getCreateAddressMethod = AddressServiceGrpc.getCreateAddressMethod) == null) {
-          AddressServiceGrpc.getCreateAddressMethod = getCreateAddressMethod =
-              io.grpc.MethodDescriptor.<com.common.grpc.CreateAddressRequest, com.common.grpc.CreateAddressResponse>newBuilder()
+        if ((getCreateMethod = AddressServiceGrpc.getCreateMethod) == null) {
+          AddressServiceGrpc.getCreateMethod = getCreateMethod =
+              io.grpc.MethodDescriptor.<com.common.grpc.AddressCreateRequest, com.google.protobuf.Empty>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "CreateAddress"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Create"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.common.grpc.CreateAddressRequest.getDefaultInstance()))
+                  com.common.grpc.AddressCreateRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.common.grpc.CreateAddressResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new AddressServiceMethodDescriptorSupplier("CreateAddress"))
+                  com.google.protobuf.Empty.getDefaultInstance()))
+              .setSchemaDescriptor(new AddressServiceMethodDescriptorSupplier("Create"))
               .build();
         }
       }
     }
-    return getCreateAddressMethod;
+    return getCreateMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<com.common.grpc.UpdateAddressRequest,
-      com.common.grpc.UpdateAddressResponse> getUpdateAddressMethod;
+  private static volatile io.grpc.MethodDescriptor<com.common.grpc.AddressUpdateRequest,
+      com.google.protobuf.Empty> getUpdateMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "UpdateAddress",
-      requestType = com.common.grpc.UpdateAddressRequest.class,
-      responseType = com.common.grpc.UpdateAddressResponse.class,
+      fullMethodName = SERVICE_NAME + '/' + "Update",
+      requestType = com.common.grpc.AddressUpdateRequest.class,
+      responseType = com.google.protobuf.Empty.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.common.grpc.UpdateAddressRequest,
-      com.common.grpc.UpdateAddressResponse> getUpdateAddressMethod() {
-    io.grpc.MethodDescriptor<com.common.grpc.UpdateAddressRequest, com.common.grpc.UpdateAddressResponse> getUpdateAddressMethod;
-    if ((getUpdateAddressMethod = AddressServiceGrpc.getUpdateAddressMethod) == null) {
+  public static io.grpc.MethodDescriptor<com.common.grpc.AddressUpdateRequest,
+      com.google.protobuf.Empty> getUpdateMethod() {
+    io.grpc.MethodDescriptor<com.common.grpc.AddressUpdateRequest, com.google.protobuf.Empty> getUpdateMethod;
+    if ((getUpdateMethod = AddressServiceGrpc.getUpdateMethod) == null) {
       synchronized (AddressServiceGrpc.class) {
-        if ((getUpdateAddressMethod = AddressServiceGrpc.getUpdateAddressMethod) == null) {
-          AddressServiceGrpc.getUpdateAddressMethod = getUpdateAddressMethod =
-              io.grpc.MethodDescriptor.<com.common.grpc.UpdateAddressRequest, com.common.grpc.UpdateAddressResponse>newBuilder()
+        if ((getUpdateMethod = AddressServiceGrpc.getUpdateMethod) == null) {
+          AddressServiceGrpc.getUpdateMethod = getUpdateMethod =
+              io.grpc.MethodDescriptor.<com.common.grpc.AddressUpdateRequest, com.google.protobuf.Empty>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdateAddress"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Update"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.common.grpc.UpdateAddressRequest.getDefaultInstance()))
+                  com.common.grpc.AddressUpdateRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.common.grpc.UpdateAddressResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new AddressServiceMethodDescriptorSupplier("UpdateAddress"))
+                  com.google.protobuf.Empty.getDefaultInstance()))
+              .setSchemaDescriptor(new AddressServiceMethodDescriptorSupplier("Update"))
               .build();
         }
       }
     }
-    return getUpdateAddressMethod;
+    return getUpdateMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<com.common.grpc.DeleteAddressRequest,
-      com.common.grpc.DeleteAddressResponse> getDeleteAddressMethod;
+  private static volatile io.grpc.MethodDescriptor<com.common.grpc.IdRequest,
+      com.google.protobuf.Empty> getSoftDeleteMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "DeleteAddress",
-      requestType = com.common.grpc.DeleteAddressRequest.class,
-      responseType = com.common.grpc.DeleteAddressResponse.class,
+      fullMethodName = SERVICE_NAME + '/' + "SoftDelete",
+      requestType = com.common.grpc.IdRequest.class,
+      responseType = com.google.protobuf.Empty.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.common.grpc.DeleteAddressRequest,
-      com.common.grpc.DeleteAddressResponse> getDeleteAddressMethod() {
-    io.grpc.MethodDescriptor<com.common.grpc.DeleteAddressRequest, com.common.grpc.DeleteAddressResponse> getDeleteAddressMethod;
-    if ((getDeleteAddressMethod = AddressServiceGrpc.getDeleteAddressMethod) == null) {
+  public static io.grpc.MethodDescriptor<com.common.grpc.IdRequest,
+      com.google.protobuf.Empty> getSoftDeleteMethod() {
+    io.grpc.MethodDescriptor<com.common.grpc.IdRequest, com.google.protobuf.Empty> getSoftDeleteMethod;
+    if ((getSoftDeleteMethod = AddressServiceGrpc.getSoftDeleteMethod) == null) {
       synchronized (AddressServiceGrpc.class) {
-        if ((getDeleteAddressMethod = AddressServiceGrpc.getDeleteAddressMethod) == null) {
-          AddressServiceGrpc.getDeleteAddressMethod = getDeleteAddressMethod =
-              io.grpc.MethodDescriptor.<com.common.grpc.DeleteAddressRequest, com.common.grpc.DeleteAddressResponse>newBuilder()
+        if ((getSoftDeleteMethod = AddressServiceGrpc.getSoftDeleteMethod) == null) {
+          AddressServiceGrpc.getSoftDeleteMethod = getSoftDeleteMethod =
+              io.grpc.MethodDescriptor.<com.common.grpc.IdRequest, com.google.protobuf.Empty>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DeleteAddress"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SoftDelete"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.common.grpc.DeleteAddressRequest.getDefaultInstance()))
+                  com.common.grpc.IdRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.common.grpc.DeleteAddressResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new AddressServiceMethodDescriptorSupplier("DeleteAddress"))
+                  com.google.protobuf.Empty.getDefaultInstance()))
+              .setSchemaDescriptor(new AddressServiceMethodDescriptorSupplier("SoftDelete"))
               .build();
         }
       }
     }
-    return getDeleteAddressMethod;
+    return getSoftDeleteMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<com.common.grpc.SetDefaultRequest,
-      com.common.grpc.SetDefaultResponse> getSetDefaultMethod;
+  private static volatile io.grpc.MethodDescriptor<com.common.grpc.IdRequest,
+      com.google.protobuf.Empty> getSetDefaultShippingMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "SetDefault",
-      requestType = com.common.grpc.SetDefaultRequest.class,
-      responseType = com.common.grpc.SetDefaultResponse.class,
+      fullMethodName = SERVICE_NAME + '/' + "SetDefaultShipping",
+      requestType = com.common.grpc.IdRequest.class,
+      responseType = com.google.protobuf.Empty.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.common.grpc.SetDefaultRequest,
-      com.common.grpc.SetDefaultResponse> getSetDefaultMethod() {
-    io.grpc.MethodDescriptor<com.common.grpc.SetDefaultRequest, com.common.grpc.SetDefaultResponse> getSetDefaultMethod;
-    if ((getSetDefaultMethod = AddressServiceGrpc.getSetDefaultMethod) == null) {
+  public static io.grpc.MethodDescriptor<com.common.grpc.IdRequest,
+      com.google.protobuf.Empty> getSetDefaultShippingMethod() {
+    io.grpc.MethodDescriptor<com.common.grpc.IdRequest, com.google.protobuf.Empty> getSetDefaultShippingMethod;
+    if ((getSetDefaultShippingMethod = AddressServiceGrpc.getSetDefaultShippingMethod) == null) {
       synchronized (AddressServiceGrpc.class) {
-        if ((getSetDefaultMethod = AddressServiceGrpc.getSetDefaultMethod) == null) {
-          AddressServiceGrpc.getSetDefaultMethod = getSetDefaultMethod =
-              io.grpc.MethodDescriptor.<com.common.grpc.SetDefaultRequest, com.common.grpc.SetDefaultResponse>newBuilder()
+        if ((getSetDefaultShippingMethod = AddressServiceGrpc.getSetDefaultShippingMethod) == null) {
+          AddressServiceGrpc.getSetDefaultShippingMethod = getSetDefaultShippingMethod =
+              io.grpc.MethodDescriptor.<com.common.grpc.IdRequest, com.google.protobuf.Empty>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SetDefault"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SetDefaultShipping"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.common.grpc.SetDefaultRequest.getDefaultInstance()))
+                  com.common.grpc.IdRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.common.grpc.SetDefaultResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new AddressServiceMethodDescriptorSupplier("SetDefault"))
+                  com.google.protobuf.Empty.getDefaultInstance()))
+              .setSchemaDescriptor(new AddressServiceMethodDescriptorSupplier("SetDefaultShipping"))
               .build();
         }
       }
     }
-    return getSetDefaultMethod;
+    return getSetDefaultShippingMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<com.common.grpc.ListAddressesRequest,
-      com.common.grpc.ListAddressesResponse> getListAddressesMethod;
+  private static volatile io.grpc.MethodDescriptor<com.common.grpc.IdRequest,
+      com.google.protobuf.Empty> getSetDefaultBillingMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "ListAddresses",
-      requestType = com.common.grpc.ListAddressesRequest.class,
-      responseType = com.common.grpc.ListAddressesResponse.class,
+      fullMethodName = SERVICE_NAME + '/' + "SetDefaultBilling",
+      requestType = com.common.grpc.IdRequest.class,
+      responseType = com.google.protobuf.Empty.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.common.grpc.ListAddressesRequest,
-      com.common.grpc.ListAddressesResponse> getListAddressesMethod() {
-    io.grpc.MethodDescriptor<com.common.grpc.ListAddressesRequest, com.common.grpc.ListAddressesResponse> getListAddressesMethod;
-    if ((getListAddressesMethod = AddressServiceGrpc.getListAddressesMethod) == null) {
+  public static io.grpc.MethodDescriptor<com.common.grpc.IdRequest,
+      com.google.protobuf.Empty> getSetDefaultBillingMethod() {
+    io.grpc.MethodDescriptor<com.common.grpc.IdRequest, com.google.protobuf.Empty> getSetDefaultBillingMethod;
+    if ((getSetDefaultBillingMethod = AddressServiceGrpc.getSetDefaultBillingMethod) == null) {
       synchronized (AddressServiceGrpc.class) {
-        if ((getListAddressesMethod = AddressServiceGrpc.getListAddressesMethod) == null) {
-          AddressServiceGrpc.getListAddressesMethod = getListAddressesMethod =
-              io.grpc.MethodDescriptor.<com.common.grpc.ListAddressesRequest, com.common.grpc.ListAddressesResponse>newBuilder()
+        if ((getSetDefaultBillingMethod = AddressServiceGrpc.getSetDefaultBillingMethod) == null) {
+          AddressServiceGrpc.getSetDefaultBillingMethod = getSetDefaultBillingMethod =
+              io.grpc.MethodDescriptor.<com.common.grpc.IdRequest, com.google.protobuf.Empty>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ListAddresses"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SetDefaultBilling"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.common.grpc.ListAddressesRequest.getDefaultInstance()))
+                  com.common.grpc.IdRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.common.grpc.ListAddressesResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new AddressServiceMethodDescriptorSupplier("ListAddresses"))
+                  com.google.protobuf.Empty.getDefaultInstance()))
+              .setSchemaDescriptor(new AddressServiceMethodDescriptorSupplier("SetDefaultBilling"))
               .build();
         }
       }
     }
-    return getListAddressesMethod;
+    return getSetDefaultBillingMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.common.grpc.UserIdRequest,
+      com.common.grpc.PageAddress> getListByUserMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ListByUser",
+      requestType = com.common.grpc.UserIdRequest.class,
+      responseType = com.common.grpc.PageAddress.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.common.grpc.UserIdRequest,
+      com.common.grpc.PageAddress> getListByUserMethod() {
+    io.grpc.MethodDescriptor<com.common.grpc.UserIdRequest, com.common.grpc.PageAddress> getListByUserMethod;
+    if ((getListByUserMethod = AddressServiceGrpc.getListByUserMethod) == null) {
+      synchronized (AddressServiceGrpc.class) {
+        if ((getListByUserMethod = AddressServiceGrpc.getListByUserMethod) == null) {
+          AddressServiceGrpc.getListByUserMethod = getListByUserMethod =
+              io.grpc.MethodDescriptor.<com.common.grpc.UserIdRequest, com.common.grpc.PageAddress>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ListByUser"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.common.grpc.UserIdRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.common.grpc.PageAddress.getDefaultInstance()))
+              .setSchemaDescriptor(new AddressServiceMethodDescriptorSupplier("ListByUser"))
+              .build();
+        }
+      }
+    }
+    return getListByUserMethod;
   }
 
   /**
@@ -235,37 +266,44 @@ public final class AddressServiceGrpc {
 
     /**
      */
-    default void createAddress(com.common.grpc.CreateAddressRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.CreateAddressResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCreateAddressMethod(), responseObserver);
+    default void create(com.common.grpc.AddressCreateRequest request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCreateMethod(), responseObserver);
     }
 
     /**
      */
-    default void updateAddress(com.common.grpc.UpdateAddressRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.UpdateAddressResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateAddressMethod(), responseObserver);
+    default void update(com.common.grpc.AddressUpdateRequest request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateMethod(), responseObserver);
     }
 
     /**
      */
-    default void deleteAddress(com.common.grpc.DeleteAddressRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.DeleteAddressResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteAddressMethod(), responseObserver);
+    default void softDelete(com.common.grpc.IdRequest request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSoftDeleteMethod(), responseObserver);
     }
 
     /**
      */
-    default void setDefault(com.common.grpc.SetDefaultRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.SetDefaultResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSetDefaultMethod(), responseObserver);
+    default void setDefaultShipping(com.common.grpc.IdRequest request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSetDefaultShippingMethod(), responseObserver);
     }
 
     /**
      */
-    default void listAddresses(com.common.grpc.ListAddressesRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.ListAddressesResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getListAddressesMethod(), responseObserver);
+    default void setDefaultBilling(com.common.grpc.IdRequest request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSetDefaultBillingMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void listByUser(com.common.grpc.UserIdRequest request,
+        io.grpc.stub.StreamObserver<com.common.grpc.PageAddress> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getListByUserMethod(), responseObserver);
     }
   }
 
@@ -298,42 +336,50 @@ public final class AddressServiceGrpc {
 
     /**
      */
-    public void createAddress(com.common.grpc.CreateAddressRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.CreateAddressResponse> responseObserver) {
+    public void create(com.common.grpc.AddressCreateRequest request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getCreateAddressMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getCreateMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
      */
-    public void updateAddress(com.common.grpc.UpdateAddressRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.UpdateAddressResponse> responseObserver) {
+    public void update(com.common.grpc.AddressUpdateRequest request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getUpdateAddressMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getUpdateMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
      */
-    public void deleteAddress(com.common.grpc.DeleteAddressRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.DeleteAddressResponse> responseObserver) {
+    public void softDelete(com.common.grpc.IdRequest request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getDeleteAddressMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getSoftDeleteMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
      */
-    public void setDefault(com.common.grpc.SetDefaultRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.SetDefaultResponse> responseObserver) {
+    public void setDefaultShipping(com.common.grpc.IdRequest request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getSetDefaultMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getSetDefaultShippingMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
      */
-    public void listAddresses(com.common.grpc.ListAddressesRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.ListAddressesResponse> responseObserver) {
+    public void setDefaultBilling(com.common.grpc.IdRequest request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getListAddressesMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getSetDefaultBillingMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void listByUser(com.common.grpc.UserIdRequest request,
+        io.grpc.stub.StreamObserver<com.common.grpc.PageAddress> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getListByUserMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -355,37 +401,44 @@ public final class AddressServiceGrpc {
 
     /**
      */
-    public com.common.grpc.CreateAddressResponse createAddress(com.common.grpc.CreateAddressRequest request) {
+    public com.google.protobuf.Empty create(com.common.grpc.AddressCreateRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getCreateAddressMethod(), getCallOptions(), request);
+          getChannel(), getCreateMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public com.common.grpc.UpdateAddressResponse updateAddress(com.common.grpc.UpdateAddressRequest request) {
+    public com.google.protobuf.Empty update(com.common.grpc.AddressUpdateRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getUpdateAddressMethod(), getCallOptions(), request);
+          getChannel(), getUpdateMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public com.common.grpc.DeleteAddressResponse deleteAddress(com.common.grpc.DeleteAddressRequest request) {
+    public com.google.protobuf.Empty softDelete(com.common.grpc.IdRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getDeleteAddressMethod(), getCallOptions(), request);
+          getChannel(), getSoftDeleteMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public com.common.grpc.SetDefaultResponse setDefault(com.common.grpc.SetDefaultRequest request) {
+    public com.google.protobuf.Empty setDefaultShipping(com.common.grpc.IdRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getSetDefaultMethod(), getCallOptions(), request);
+          getChannel(), getSetDefaultShippingMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public com.common.grpc.ListAddressesResponse listAddresses(com.common.grpc.ListAddressesRequest request) {
+    public com.google.protobuf.Empty setDefaultBilling(com.common.grpc.IdRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getListAddressesMethod(), getCallOptions(), request);
+          getChannel(), getSetDefaultBillingMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.common.grpc.PageAddress listByUser(com.common.grpc.UserIdRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getListByUserMethod(), getCallOptions(), request);
     }
   }
 
@@ -407,37 +460,44 @@ public final class AddressServiceGrpc {
 
     /**
      */
-    public com.common.grpc.CreateAddressResponse createAddress(com.common.grpc.CreateAddressRequest request) {
+    public com.google.protobuf.Empty create(com.common.grpc.AddressCreateRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getCreateAddressMethod(), getCallOptions(), request);
+          getChannel(), getCreateMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public com.common.grpc.UpdateAddressResponse updateAddress(com.common.grpc.UpdateAddressRequest request) {
+    public com.google.protobuf.Empty update(com.common.grpc.AddressUpdateRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getUpdateAddressMethod(), getCallOptions(), request);
+          getChannel(), getUpdateMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public com.common.grpc.DeleteAddressResponse deleteAddress(com.common.grpc.DeleteAddressRequest request) {
+    public com.google.protobuf.Empty softDelete(com.common.grpc.IdRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getDeleteAddressMethod(), getCallOptions(), request);
+          getChannel(), getSoftDeleteMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public com.common.grpc.SetDefaultResponse setDefault(com.common.grpc.SetDefaultRequest request) {
+    public com.google.protobuf.Empty setDefaultShipping(com.common.grpc.IdRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getSetDefaultMethod(), getCallOptions(), request);
+          getChannel(), getSetDefaultShippingMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public com.common.grpc.ListAddressesResponse listAddresses(com.common.grpc.ListAddressesRequest request) {
+    public com.google.protobuf.Empty setDefaultBilling(com.common.grpc.IdRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getListAddressesMethod(), getCallOptions(), request);
+          getChannel(), getSetDefaultBillingMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.common.grpc.PageAddress listByUser(com.common.grpc.UserIdRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getListByUserMethod(), getCallOptions(), request);
     }
   }
 
@@ -459,50 +519,59 @@ public final class AddressServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.common.grpc.CreateAddressResponse> createAddress(
-        com.common.grpc.CreateAddressRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> create(
+        com.common.grpc.AddressCreateRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getCreateAddressMethod(), getCallOptions()), request);
+          getChannel().newCall(getCreateMethod(), getCallOptions()), request);
     }
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.common.grpc.UpdateAddressResponse> updateAddress(
-        com.common.grpc.UpdateAddressRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> update(
+        com.common.grpc.AddressUpdateRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getUpdateAddressMethod(), getCallOptions()), request);
+          getChannel().newCall(getUpdateMethod(), getCallOptions()), request);
     }
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.common.grpc.DeleteAddressResponse> deleteAddress(
-        com.common.grpc.DeleteAddressRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> softDelete(
+        com.common.grpc.IdRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getDeleteAddressMethod(), getCallOptions()), request);
+          getChannel().newCall(getSoftDeleteMethod(), getCallOptions()), request);
     }
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.common.grpc.SetDefaultResponse> setDefault(
-        com.common.grpc.SetDefaultRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> setDefaultShipping(
+        com.common.grpc.IdRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getSetDefaultMethod(), getCallOptions()), request);
+          getChannel().newCall(getSetDefaultShippingMethod(), getCallOptions()), request);
     }
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.common.grpc.ListAddressesResponse> listAddresses(
-        com.common.grpc.ListAddressesRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> setDefaultBilling(
+        com.common.grpc.IdRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getListAddressesMethod(), getCallOptions()), request);
+          getChannel().newCall(getSetDefaultBillingMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.common.grpc.PageAddress> listByUser(
+        com.common.grpc.UserIdRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getListByUserMethod(), getCallOptions()), request);
     }
   }
 
-  private static final int METHODID_CREATE_ADDRESS = 0;
-  private static final int METHODID_UPDATE_ADDRESS = 1;
-  private static final int METHODID_DELETE_ADDRESS = 2;
-  private static final int METHODID_SET_DEFAULT = 3;
-  private static final int METHODID_LIST_ADDRESSES = 4;
+  private static final int METHODID_CREATE = 0;
+  private static final int METHODID_UPDATE = 1;
+  private static final int METHODID_SOFT_DELETE = 2;
+  private static final int METHODID_SET_DEFAULT_SHIPPING = 3;
+  private static final int METHODID_SET_DEFAULT_BILLING = 4;
+  private static final int METHODID_LIST_BY_USER = 5;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -521,25 +590,29 @@ public final class AddressServiceGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_CREATE_ADDRESS:
-          serviceImpl.createAddress((com.common.grpc.CreateAddressRequest) request,
-              (io.grpc.stub.StreamObserver<com.common.grpc.CreateAddressResponse>) responseObserver);
+        case METHODID_CREATE:
+          serviceImpl.create((com.common.grpc.AddressCreateRequest) request,
+              (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
           break;
-        case METHODID_UPDATE_ADDRESS:
-          serviceImpl.updateAddress((com.common.grpc.UpdateAddressRequest) request,
-              (io.grpc.stub.StreamObserver<com.common.grpc.UpdateAddressResponse>) responseObserver);
+        case METHODID_UPDATE:
+          serviceImpl.update((com.common.grpc.AddressUpdateRequest) request,
+              (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
           break;
-        case METHODID_DELETE_ADDRESS:
-          serviceImpl.deleteAddress((com.common.grpc.DeleteAddressRequest) request,
-              (io.grpc.stub.StreamObserver<com.common.grpc.DeleteAddressResponse>) responseObserver);
+        case METHODID_SOFT_DELETE:
+          serviceImpl.softDelete((com.common.grpc.IdRequest) request,
+              (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
           break;
-        case METHODID_SET_DEFAULT:
-          serviceImpl.setDefault((com.common.grpc.SetDefaultRequest) request,
-              (io.grpc.stub.StreamObserver<com.common.grpc.SetDefaultResponse>) responseObserver);
+        case METHODID_SET_DEFAULT_SHIPPING:
+          serviceImpl.setDefaultShipping((com.common.grpc.IdRequest) request,
+              (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
           break;
-        case METHODID_LIST_ADDRESSES:
-          serviceImpl.listAddresses((com.common.grpc.ListAddressesRequest) request,
-              (io.grpc.stub.StreamObserver<com.common.grpc.ListAddressesResponse>) responseObserver);
+        case METHODID_SET_DEFAULT_BILLING:
+          serviceImpl.setDefaultBilling((com.common.grpc.IdRequest) request,
+              (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
+          break;
+        case METHODID_LIST_BY_USER:
+          serviceImpl.listByUser((com.common.grpc.UserIdRequest) request,
+              (io.grpc.stub.StreamObserver<com.common.grpc.PageAddress>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -560,40 +633,47 @@ public final class AddressServiceGrpc {
   public static final io.grpc.ServerServiceDefinition bindService(AsyncService service) {
     return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
         .addMethod(
-          getCreateAddressMethod(),
+          getCreateMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
-              com.common.grpc.CreateAddressRequest,
-              com.common.grpc.CreateAddressResponse>(
-                service, METHODID_CREATE_ADDRESS)))
+              com.common.grpc.AddressCreateRequest,
+              com.google.protobuf.Empty>(
+                service, METHODID_CREATE)))
         .addMethod(
-          getUpdateAddressMethod(),
+          getUpdateMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
-              com.common.grpc.UpdateAddressRequest,
-              com.common.grpc.UpdateAddressResponse>(
-                service, METHODID_UPDATE_ADDRESS)))
+              com.common.grpc.AddressUpdateRequest,
+              com.google.protobuf.Empty>(
+                service, METHODID_UPDATE)))
         .addMethod(
-          getDeleteAddressMethod(),
+          getSoftDeleteMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
-              com.common.grpc.DeleteAddressRequest,
-              com.common.grpc.DeleteAddressResponse>(
-                service, METHODID_DELETE_ADDRESS)))
+              com.common.grpc.IdRequest,
+              com.google.protobuf.Empty>(
+                service, METHODID_SOFT_DELETE)))
         .addMethod(
-          getSetDefaultMethod(),
+          getSetDefaultShippingMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
-              com.common.grpc.SetDefaultRequest,
-              com.common.grpc.SetDefaultResponse>(
-                service, METHODID_SET_DEFAULT)))
+              com.common.grpc.IdRequest,
+              com.google.protobuf.Empty>(
+                service, METHODID_SET_DEFAULT_SHIPPING)))
         .addMethod(
-          getListAddressesMethod(),
+          getSetDefaultBillingMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
-              com.common.grpc.ListAddressesRequest,
-              com.common.grpc.ListAddressesResponse>(
-                service, METHODID_LIST_ADDRESSES)))
+              com.common.grpc.IdRequest,
+              com.google.protobuf.Empty>(
+                service, METHODID_SET_DEFAULT_BILLING)))
+        .addMethod(
+          getListByUserMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              com.common.grpc.UserIdRequest,
+              com.common.grpc.PageAddress>(
+                service, METHODID_LIST_BY_USER)))
         .build();
   }
 
@@ -603,7 +683,7 @@ public final class AddressServiceGrpc {
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return com.common.grpc.UserRoleAddressProto.getDescriptor();
+      return com.common.grpc.AddressProto.getDescriptor();
     }
 
     @java.lang.Override
@@ -642,11 +722,12 @@ public final class AddressServiceGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new AddressServiceFileDescriptorSupplier())
-              .addMethod(getCreateAddressMethod())
-              .addMethod(getUpdateAddressMethod())
-              .addMethod(getDeleteAddressMethod())
-              .addMethod(getSetDefaultMethod())
-              .addMethod(getListAddressesMethod())
+              .addMethod(getCreateMethod())
+              .addMethod(getUpdateMethod())
+              .addMethod(getSoftDeleteMethod())
+              .addMethod(getSetDefaultShippingMethod())
+              .addMethod(getSetDefaultBillingMethod())
+              .addMethod(getListByUserMethod())
               .build();
         }
       }

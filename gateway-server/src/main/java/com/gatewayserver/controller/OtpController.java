@@ -26,7 +26,7 @@ import reactor.core.publisher.Mono;
 public class OtpController {
 
     @GrpcClient("core")
-    private OtpServiceGrpc.OtpServiceBlockingStub otp;
+    private OtpServiceGrpc.OtpServiceBlockingStub stub;
 
     //OTP
     @PostMapping(
@@ -36,7 +36,7 @@ public class OtpController {
     )
     public Mono<ResponseEntity<Envelope<OtpResponseView>>> sendOtp(
             @RequestBody UserOtpRequestBody body) {
-        return GrpcHelper.callGrpc(() -> otp.sendOtp(UserOtpRequest.newBuilder()
+        return GrpcHelper.callGrpc(() -> stub.sendOtp(UserOtpRequest.newBuilder()
                         .setEmail(body.email())
                         .build()),
                 response -> new OtpResponseView(
@@ -53,7 +53,7 @@ public class OtpController {
     )
     public Mono<ResponseEntity<Envelope<Void>>> verifyOtp(
             OtpVerificationRequestBody body) {
-        return GrpcHelper.callGrpcVoid(() -> otp.verifyOtp(
+        return GrpcHelper.callGrpcVoid(() -> stub.verifyOtp(
                 OtpVerificationRequest.newBuilder()
                         .setEmail(body.email())
                         .setOtpCode(body.otpCode())
@@ -68,7 +68,7 @@ public class OtpController {
     )
     public Mono<ResponseEntity<Envelope<OtpResponseView>>> requestResetPassword(
             @RequestBody UserOtpRequestBody body) {
-        return GrpcHelper.callGrpc(() -> otp.requestResetPassword(
+        return GrpcHelper.callGrpc(() -> stub.requestResetPassword(
                         UserOtpRequest.newBuilder().setEmail(body.email()).build()),
                 response -> new OtpResponseView(
                         response.getEmail(),
@@ -84,7 +84,7 @@ public class OtpController {
     )
     public Mono<ResponseEntity<Envelope<Void>>> verifyOtpPassword(
             OtpVerificationRequestBody body) {
-        return GrpcHelper.callGrpcVoid(() -> otp.verifyOtpPassword(
+        return GrpcHelper.callGrpcVoid(() -> stub.verifyOtpPassword(
                 OtpVerificationRequest.newBuilder()
                         .setEmail(body.email())
                         .setOtpCode(body.otpCode())
@@ -98,7 +98,7 @@ public class OtpController {
     )
     public Mono<ResponseEntity<Envelope<Void>>> resetPassword(
             ResetPasswordRequestBody body) {
-        return GrpcHelper.callGrpcVoid(() -> otp.resetPassword(
+        return GrpcHelper.callGrpcVoid(() -> stub.resetPassword(
                 ResetPasswordRequest.newBuilder()
                         .setEmail(body.email())
                         .setOtp(body.otp())

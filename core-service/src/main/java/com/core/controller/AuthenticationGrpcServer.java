@@ -48,8 +48,8 @@ public class AuthenticationGrpcServer
                 .email(registerRequest.getEmail())
                 .password(registerRequest.getPassword())
                 .build());
-        streamObserver.onNext(RegisterResponse.newBuilder().build());
-        streamObserver.onCompleted();
+
+        GrpcStatusMapper.ok(streamObserver, RegisterResponse.newBuilder().build());
     }
 
     @Override
@@ -64,7 +64,8 @@ public class AuthenticationGrpcServer
                                     .email(loginRequest.getEmail())
                                     .password(loginRequest.getPassword())
                                     .build());
-            streamObserver.onNext(LoginResponse.newBuilder()
+
+            GrpcStatusMapper.ok(streamObserver, LoginResponse.newBuilder()
                     .setAccessToken(authenticationResponseDto.getAccessToken())
                     .setRefreshToken(
                             authenticationResponseDto.getRefreshToken())
@@ -75,7 +76,6 @@ public class AuthenticationGrpcServer
                             authenticationResponseDto.getRefreshExpiry()
                                     .toString())
                     .build());
-            streamObserver.onCompleted();
         } catch (ParseException exception) {
             GrpcStatusMapper.fail(streamObserver,
                     ErrorCode.FAILED_VALIDATE_TOKEN);
@@ -93,7 +93,7 @@ public class AuthenticationGrpcServer
                                     .token(refreshRequest.getToken())
                                     .build());
 
-            streamObserver.onNext(RefreshResponse.newBuilder()
+            GrpcStatusMapper.ok(streamObserver, RefreshResponse.newBuilder()
                     .setAccessToken(authenticationResponseDto.getAccessToken())
                     .setRefreshToken(
                             authenticationResponseDto.getRefreshToken())
@@ -102,7 +102,6 @@ public class AuthenticationGrpcServer
                     .setRefreshExpiry(String.valueOf(
                             authenticationResponseDto.getRefreshExpiry()))
                     .build());
-            streamObserver.onCompleted();
         } catch (ParseException | JOSEException exception) {
             GrpcStatusMapper.fail(streamObserver,
                     ErrorCode.FAILED_VALIDATE_TOKEN);
@@ -119,13 +118,12 @@ public class AuthenticationGrpcServer
                             .token(introspectRequest.getToken())
                             .build());
 
-            responseObserver.onNext(IntrospectResponse.newBuilder()
+            GrpcStatusMapper.ok(responseObserver, IntrospectResponse.newBuilder()
                     .setValid(introspectResponseDto.isValid())
                     .setUserId(introspectResponseDto.getUserId() == null
                             ? ""
                             : introspectResponseDto.getUserId())
                     .build());
-            responseObserver.onCompleted();
         } catch (ParseException | JOSEException exception) {
             GrpcStatusMapper.fail(responseObserver,
                     ErrorCode.FAILED_VALIDATE_TOKEN);
@@ -138,8 +136,7 @@ public class AuthenticationGrpcServer
             StreamObserver<LogoutResponse> responseObserver) {
         try {
             authenticationService.logout(logoutRequest.getToken());
-            responseObserver.onNext(LogoutResponse.newBuilder().build());
-            responseObserver.onCompleted();
+            GrpcStatusMapper.ok(responseObserver, LogoutResponse.newBuilder().build());
         } catch (ParseException | JOSEException exception) {
             GrpcStatusMapper.fail(responseObserver,
                     ErrorCode.FAILED_VALIDATE_TOKEN);

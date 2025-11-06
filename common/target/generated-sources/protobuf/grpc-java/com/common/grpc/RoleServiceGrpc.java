@@ -6,7 +6,7 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.72.0)",
-    comments = "Source: user-role-address.proto")
+    comments = "Source: role.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class RoleServiceGrpc {
 
@@ -16,152 +16,183 @@ public final class RoleServiceGrpc {
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<com.common.grpc.CreateRoleRequest,
-      com.common.grpc.CreateRoleResponse> getCreateRoleMethod;
+      com.google.protobuf.Empty> getCreateMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "CreateRole",
+      fullMethodName = SERVICE_NAME + '/' + "Create",
       requestType = com.common.grpc.CreateRoleRequest.class,
-      responseType = com.common.grpc.CreateRoleResponse.class,
+      responseType = com.google.protobuf.Empty.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<com.common.grpc.CreateRoleRequest,
-      com.common.grpc.CreateRoleResponse> getCreateRoleMethod() {
-    io.grpc.MethodDescriptor<com.common.grpc.CreateRoleRequest, com.common.grpc.CreateRoleResponse> getCreateRoleMethod;
-    if ((getCreateRoleMethod = RoleServiceGrpc.getCreateRoleMethod) == null) {
+      com.google.protobuf.Empty> getCreateMethod() {
+    io.grpc.MethodDescriptor<com.common.grpc.CreateRoleRequest, com.google.protobuf.Empty> getCreateMethod;
+    if ((getCreateMethod = RoleServiceGrpc.getCreateMethod) == null) {
       synchronized (RoleServiceGrpc.class) {
-        if ((getCreateRoleMethod = RoleServiceGrpc.getCreateRoleMethod) == null) {
-          RoleServiceGrpc.getCreateRoleMethod = getCreateRoleMethod =
-              io.grpc.MethodDescriptor.<com.common.grpc.CreateRoleRequest, com.common.grpc.CreateRoleResponse>newBuilder()
+        if ((getCreateMethod = RoleServiceGrpc.getCreateMethod) == null) {
+          RoleServiceGrpc.getCreateMethod = getCreateMethod =
+              io.grpc.MethodDescriptor.<com.common.grpc.CreateRoleRequest, com.google.protobuf.Empty>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "CreateRole"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Create"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   com.common.grpc.CreateRoleRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.common.grpc.CreateRoleResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new RoleServiceMethodDescriptorSupplier("CreateRole"))
+                  com.google.protobuf.Empty.getDefaultInstance()))
+              .setSchemaDescriptor(new RoleServiceMethodDescriptorSupplier("Create"))
               .build();
         }
       }
     }
-    return getCreateRoleMethod;
+    return getCreateMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<com.common.grpc.DeleteRoleRequest,
-      com.common.grpc.DeleteRoleResponse> getDeleteRoleMethod;
+  private static volatile io.grpc.MethodDescriptor<com.common.grpc.RoleName,
+      com.google.protobuf.Empty> getSoftDeleteMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "DeleteRole",
-      requestType = com.common.grpc.DeleteRoleRequest.class,
-      responseType = com.common.grpc.DeleteRoleResponse.class,
+      fullMethodName = SERVICE_NAME + '/' + "SoftDelete",
+      requestType = com.common.grpc.RoleName.class,
+      responseType = com.google.protobuf.Empty.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.common.grpc.DeleteRoleRequest,
-      com.common.grpc.DeleteRoleResponse> getDeleteRoleMethod() {
-    io.grpc.MethodDescriptor<com.common.grpc.DeleteRoleRequest, com.common.grpc.DeleteRoleResponse> getDeleteRoleMethod;
-    if ((getDeleteRoleMethod = RoleServiceGrpc.getDeleteRoleMethod) == null) {
+  public static io.grpc.MethodDescriptor<com.common.grpc.RoleName,
+      com.google.protobuf.Empty> getSoftDeleteMethod() {
+    io.grpc.MethodDescriptor<com.common.grpc.RoleName, com.google.protobuf.Empty> getSoftDeleteMethod;
+    if ((getSoftDeleteMethod = RoleServiceGrpc.getSoftDeleteMethod) == null) {
       synchronized (RoleServiceGrpc.class) {
-        if ((getDeleteRoleMethod = RoleServiceGrpc.getDeleteRoleMethod) == null) {
-          RoleServiceGrpc.getDeleteRoleMethod = getDeleteRoleMethod =
-              io.grpc.MethodDescriptor.<com.common.grpc.DeleteRoleRequest, com.common.grpc.DeleteRoleResponse>newBuilder()
+        if ((getSoftDeleteMethod = RoleServiceGrpc.getSoftDeleteMethod) == null) {
+          RoleServiceGrpc.getSoftDeleteMethod = getSoftDeleteMethod =
+              io.grpc.MethodDescriptor.<com.common.grpc.RoleName, com.google.protobuf.Empty>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DeleteRole"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SoftDelete"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.common.grpc.DeleteRoleRequest.getDefaultInstance()))
+                  com.common.grpc.RoleName.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.common.grpc.DeleteRoleResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new RoleServiceMethodDescriptorSupplier("DeleteRole"))
+                  com.google.protobuf.Empty.getDefaultInstance()))
+              .setSchemaDescriptor(new RoleServiceMethodDescriptorSupplier("SoftDelete"))
               .build();
         }
       }
     }
-    return getDeleteRoleMethod;
+    return getSoftDeleteMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.common.grpc.RoleName,
+      com.google.protobuf.Empty> getRestoreMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "Restore",
+      requestType = com.common.grpc.RoleName.class,
+      responseType = com.google.protobuf.Empty.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.common.grpc.RoleName,
+      com.google.protobuf.Empty> getRestoreMethod() {
+    io.grpc.MethodDescriptor<com.common.grpc.RoleName, com.google.protobuf.Empty> getRestoreMethod;
+    if ((getRestoreMethod = RoleServiceGrpc.getRestoreMethod) == null) {
+      synchronized (RoleServiceGrpc.class) {
+        if ((getRestoreMethod = RoleServiceGrpc.getRestoreMethod) == null) {
+          RoleServiceGrpc.getRestoreMethod = getRestoreMethod =
+              io.grpc.MethodDescriptor.<com.common.grpc.RoleName, com.google.protobuf.Empty>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Restore"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.common.grpc.RoleName.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.google.protobuf.Empty.getDefaultInstance()))
+              .setSchemaDescriptor(new RoleServiceMethodDescriptorSupplier("Restore"))
+              .build();
+        }
+      }
+    }
+    return getRestoreMethod;
   }
 
   private static volatile io.grpc.MethodDescriptor<com.common.grpc.AssignRoleRequest,
-      com.common.grpc.AssignRoleResponse> getAssignRoleMethod;
+      com.google.protobuf.Empty> getAssignMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "AssignRole",
+      fullMethodName = SERVICE_NAME + '/' + "Assign",
       requestType = com.common.grpc.AssignRoleRequest.class,
-      responseType = com.common.grpc.AssignRoleResponse.class,
+      responseType = com.google.protobuf.Empty.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<com.common.grpc.AssignRoleRequest,
-      com.common.grpc.AssignRoleResponse> getAssignRoleMethod() {
-    io.grpc.MethodDescriptor<com.common.grpc.AssignRoleRequest, com.common.grpc.AssignRoleResponse> getAssignRoleMethod;
-    if ((getAssignRoleMethod = RoleServiceGrpc.getAssignRoleMethod) == null) {
+      com.google.protobuf.Empty> getAssignMethod() {
+    io.grpc.MethodDescriptor<com.common.grpc.AssignRoleRequest, com.google.protobuf.Empty> getAssignMethod;
+    if ((getAssignMethod = RoleServiceGrpc.getAssignMethod) == null) {
       synchronized (RoleServiceGrpc.class) {
-        if ((getAssignRoleMethod = RoleServiceGrpc.getAssignRoleMethod) == null) {
-          RoleServiceGrpc.getAssignRoleMethod = getAssignRoleMethod =
-              io.grpc.MethodDescriptor.<com.common.grpc.AssignRoleRequest, com.common.grpc.AssignRoleResponse>newBuilder()
+        if ((getAssignMethod = RoleServiceGrpc.getAssignMethod) == null) {
+          RoleServiceGrpc.getAssignMethod = getAssignMethod =
+              io.grpc.MethodDescriptor.<com.common.grpc.AssignRoleRequest, com.google.protobuf.Empty>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "AssignRole"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Assign"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   com.common.grpc.AssignRoleRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.common.grpc.AssignRoleResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new RoleServiceMethodDescriptorSupplier("AssignRole"))
+                  com.google.protobuf.Empty.getDefaultInstance()))
+              .setSchemaDescriptor(new RoleServiceMethodDescriptorSupplier("Assign"))
               .build();
         }
       }
     }
-    return getAssignRoleMethod;
+    return getAssignMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<com.common.grpc.RemoveRoleRequest,
-      com.common.grpc.RemoveRoleResponse> getRemoveRoleMethod;
+  private static volatile io.grpc.MethodDescriptor<com.common.grpc.AssignRoleRequest,
+      com.google.protobuf.Empty> getRemoveMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "RemoveRole",
-      requestType = com.common.grpc.RemoveRoleRequest.class,
-      responseType = com.common.grpc.RemoveRoleResponse.class,
+      fullMethodName = SERVICE_NAME + '/' + "Remove",
+      requestType = com.common.grpc.AssignRoleRequest.class,
+      responseType = com.google.protobuf.Empty.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.common.grpc.RemoveRoleRequest,
-      com.common.grpc.RemoveRoleResponse> getRemoveRoleMethod() {
-    io.grpc.MethodDescriptor<com.common.grpc.RemoveRoleRequest, com.common.grpc.RemoveRoleResponse> getRemoveRoleMethod;
-    if ((getRemoveRoleMethod = RoleServiceGrpc.getRemoveRoleMethod) == null) {
+  public static io.grpc.MethodDescriptor<com.common.grpc.AssignRoleRequest,
+      com.google.protobuf.Empty> getRemoveMethod() {
+    io.grpc.MethodDescriptor<com.common.grpc.AssignRoleRequest, com.google.protobuf.Empty> getRemoveMethod;
+    if ((getRemoveMethod = RoleServiceGrpc.getRemoveMethod) == null) {
       synchronized (RoleServiceGrpc.class) {
-        if ((getRemoveRoleMethod = RoleServiceGrpc.getRemoveRoleMethod) == null) {
-          RoleServiceGrpc.getRemoveRoleMethod = getRemoveRoleMethod =
-              io.grpc.MethodDescriptor.<com.common.grpc.RemoveRoleRequest, com.common.grpc.RemoveRoleResponse>newBuilder()
+        if ((getRemoveMethod = RoleServiceGrpc.getRemoveMethod) == null) {
+          RoleServiceGrpc.getRemoveMethod = getRemoveMethod =
+              io.grpc.MethodDescriptor.<com.common.grpc.AssignRoleRequest, com.google.protobuf.Empty>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "RemoveRole"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "Remove"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.common.grpc.RemoveRoleRequest.getDefaultInstance()))
+                  com.common.grpc.AssignRoleRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.common.grpc.RemoveRoleResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new RoleServiceMethodDescriptorSupplier("RemoveRole"))
+                  com.google.protobuf.Empty.getDefaultInstance()))
+              .setSchemaDescriptor(new RoleServiceMethodDescriptorSupplier("Remove"))
               .build();
         }
       }
     }
-    return getRemoveRoleMethod;
+    return getRemoveMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<com.common.grpc.ListUserRolesRequest,
-      com.common.grpc.ListUserRolesResponse> getListUserRolesMethod;
+  private static volatile io.grpc.MethodDescriptor<com.common.grpc.AssignRoleRequest,
+      com.common.grpc.PageRole> getListUserRolesMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "ListUserRoles",
-      requestType = com.common.grpc.ListUserRolesRequest.class,
-      responseType = com.common.grpc.ListUserRolesResponse.class,
+      requestType = com.common.grpc.AssignRoleRequest.class,
+      responseType = com.common.grpc.PageRole.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.common.grpc.ListUserRolesRequest,
-      com.common.grpc.ListUserRolesResponse> getListUserRolesMethod() {
-    io.grpc.MethodDescriptor<com.common.grpc.ListUserRolesRequest, com.common.grpc.ListUserRolesResponse> getListUserRolesMethod;
+  public static io.grpc.MethodDescriptor<com.common.grpc.AssignRoleRequest,
+      com.common.grpc.PageRole> getListUserRolesMethod() {
+    io.grpc.MethodDescriptor<com.common.grpc.AssignRoleRequest, com.common.grpc.PageRole> getListUserRolesMethod;
     if ((getListUserRolesMethod = RoleServiceGrpc.getListUserRolesMethod) == null) {
       synchronized (RoleServiceGrpc.class) {
         if ((getListUserRolesMethod = RoleServiceGrpc.getListUserRolesMethod) == null) {
           RoleServiceGrpc.getListUserRolesMethod = getListUserRolesMethod =
-              io.grpc.MethodDescriptor.<com.common.grpc.ListUserRolesRequest, com.common.grpc.ListUserRolesResponse>newBuilder()
+              io.grpc.MethodDescriptor.<com.common.grpc.AssignRoleRequest, com.common.grpc.PageRole>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ListUserRoles"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.common.grpc.ListUserRolesRequest.getDefaultInstance()))
+                  com.common.grpc.AssignRoleRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.common.grpc.ListUserRolesResponse.getDefaultInstance()))
+                  com.common.grpc.PageRole.getDefaultInstance()))
               .setSchemaDescriptor(new RoleServiceMethodDescriptorSupplier("ListUserRoles"))
               .build();
         }
@@ -170,29 +201,29 @@ public final class RoleServiceGrpc {
     return getListUserRolesMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<com.common.grpc.ListUsersByRoleRequest,
-      com.common.grpc.ListUsersByRoleResponse> getListUsersByRoleMethod;
+  private static volatile io.grpc.MethodDescriptor<com.common.grpc.RoleName,
+      com.common.grpc.PageUser> getListUsersByRoleMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "ListUsersByRole",
-      requestType = com.common.grpc.ListUsersByRoleRequest.class,
-      responseType = com.common.grpc.ListUsersByRoleResponse.class,
+      requestType = com.common.grpc.RoleName.class,
+      responseType = com.common.grpc.PageUser.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.common.grpc.ListUsersByRoleRequest,
-      com.common.grpc.ListUsersByRoleResponse> getListUsersByRoleMethod() {
-    io.grpc.MethodDescriptor<com.common.grpc.ListUsersByRoleRequest, com.common.grpc.ListUsersByRoleResponse> getListUsersByRoleMethod;
+  public static io.grpc.MethodDescriptor<com.common.grpc.RoleName,
+      com.common.grpc.PageUser> getListUsersByRoleMethod() {
+    io.grpc.MethodDescriptor<com.common.grpc.RoleName, com.common.grpc.PageUser> getListUsersByRoleMethod;
     if ((getListUsersByRoleMethod = RoleServiceGrpc.getListUsersByRoleMethod) == null) {
       synchronized (RoleServiceGrpc.class) {
         if ((getListUsersByRoleMethod = RoleServiceGrpc.getListUsersByRoleMethod) == null) {
           RoleServiceGrpc.getListUsersByRoleMethod = getListUsersByRoleMethod =
-              io.grpc.MethodDescriptor.<com.common.grpc.ListUsersByRoleRequest, com.common.grpc.ListUsersByRoleResponse>newBuilder()
+              io.grpc.MethodDescriptor.<com.common.grpc.RoleName, com.common.grpc.PageUser>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ListUsersByRole"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.common.grpc.ListUsersByRoleRequest.getDefaultInstance()))
+                  com.common.grpc.RoleName.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.common.grpc.ListUsersByRoleResponse.getDefaultInstance()))
+                  com.common.grpc.PageUser.getDefaultInstance()))
               .setSchemaDescriptor(new RoleServiceMethodDescriptorSupplier("ListUsersByRole"))
               .build();
         }
@@ -201,35 +232,35 @@ public final class RoleServiceGrpc {
     return getListUsersByRoleMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<com.common.grpc.ListAllRolesRequest,
-      com.common.grpc.ListAllRolesResponse> getListAllRolesMethod;
+  private static volatile io.grpc.MethodDescriptor<com.common.grpc.PageRequest,
+      com.common.grpc.PageRole> getListAllMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "ListAllRoles",
-      requestType = com.common.grpc.ListAllRolesRequest.class,
-      responseType = com.common.grpc.ListAllRolesResponse.class,
+      fullMethodName = SERVICE_NAME + '/' + "ListAll",
+      requestType = com.common.grpc.PageRequest.class,
+      responseType = com.common.grpc.PageRole.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.common.grpc.ListAllRolesRequest,
-      com.common.grpc.ListAllRolesResponse> getListAllRolesMethod() {
-    io.grpc.MethodDescriptor<com.common.grpc.ListAllRolesRequest, com.common.grpc.ListAllRolesResponse> getListAllRolesMethod;
-    if ((getListAllRolesMethod = RoleServiceGrpc.getListAllRolesMethod) == null) {
+  public static io.grpc.MethodDescriptor<com.common.grpc.PageRequest,
+      com.common.grpc.PageRole> getListAllMethod() {
+    io.grpc.MethodDescriptor<com.common.grpc.PageRequest, com.common.grpc.PageRole> getListAllMethod;
+    if ((getListAllMethod = RoleServiceGrpc.getListAllMethod) == null) {
       synchronized (RoleServiceGrpc.class) {
-        if ((getListAllRolesMethod = RoleServiceGrpc.getListAllRolesMethod) == null) {
-          RoleServiceGrpc.getListAllRolesMethod = getListAllRolesMethod =
-              io.grpc.MethodDescriptor.<com.common.grpc.ListAllRolesRequest, com.common.grpc.ListAllRolesResponse>newBuilder()
+        if ((getListAllMethod = RoleServiceGrpc.getListAllMethod) == null) {
+          RoleServiceGrpc.getListAllMethod = getListAllMethod =
+              io.grpc.MethodDescriptor.<com.common.grpc.PageRequest, com.common.grpc.PageRole>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ListAllRoles"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ListAll"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.common.grpc.ListAllRolesRequest.getDefaultInstance()))
+                  com.common.grpc.PageRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.common.grpc.ListAllRolesResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new RoleServiceMethodDescriptorSupplier("ListAllRoles"))
+                  com.common.grpc.PageRole.getDefaultInstance()))
+              .setSchemaDescriptor(new RoleServiceMethodDescriptorSupplier("ListAll"))
               .build();
         }
       }
     }
-    return getListAllRolesMethod;
+    return getListAllMethod;
   }
 
   /**
@@ -297,51 +328,61 @@ public final class RoleServiceGrpc {
 
     /**
      */
-    default void createRole(com.common.grpc.CreateRoleRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.CreateRoleResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCreateRoleMethod(), responseObserver);
+    default void create(com.common.grpc.CreateRoleRequest request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCreateMethod(), responseObserver);
     }
 
     /**
      */
-    default void deleteRole(com.common.grpc.DeleteRoleRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.DeleteRoleResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteRoleMethod(), responseObserver);
+    default void softDelete(com.common.grpc.RoleName request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSoftDeleteMethod(), responseObserver);
     }
 
     /**
      */
-    default void assignRole(com.common.grpc.AssignRoleRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.AssignRoleResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getAssignRoleMethod(), responseObserver);
+    default void restore(com.common.grpc.RoleName request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRestoreMethod(), responseObserver);
     }
 
     /**
      */
-    default void removeRole(com.common.grpc.RemoveRoleRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.RemoveRoleResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRemoveRoleMethod(), responseObserver);
+    default void assign(com.common.grpc.AssignRoleRequest request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getAssignMethod(), responseObserver);
     }
 
     /**
      */
-    default void listUserRoles(com.common.grpc.ListUserRolesRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.ListUserRolesResponse> responseObserver) {
+    default void remove(com.common.grpc.AssignRoleRequest request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getRemoveMethod(), responseObserver);
+    }
+
+    /**
+     * <pre>
+     * use user_id, ignore role_name
+     * </pre>
+     */
+    default void listUserRoles(com.common.grpc.AssignRoleRequest request,
+        io.grpc.stub.StreamObserver<com.common.grpc.PageRole> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getListUserRolesMethod(), responseObserver);
     }
 
     /**
      */
-    default void listUsersByRole(com.common.grpc.ListUsersByRoleRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.ListUsersByRoleResponse> responseObserver) {
+    default void listUsersByRole(com.common.grpc.RoleName request,
+        io.grpc.stub.StreamObserver<com.common.grpc.PageUser> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getListUsersByRoleMethod(), responseObserver);
     }
 
     /**
      */
-    default void listAllRoles(com.common.grpc.ListAllRolesRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.ListAllRolesResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getListAllRolesMethod(), responseObserver);
+    default void listAll(com.common.grpc.PageRequest request,
+        io.grpc.stub.StreamObserver<com.common.grpc.PageRole> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getListAllMethod(), responseObserver);
     }
   }
 
@@ -374,58 +415,69 @@ public final class RoleServiceGrpc {
 
     /**
      */
-    public void createRole(com.common.grpc.CreateRoleRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.CreateRoleResponse> responseObserver) {
+    public void create(com.common.grpc.CreateRoleRequest request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getCreateRoleMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getCreateMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
      */
-    public void deleteRole(com.common.grpc.DeleteRoleRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.DeleteRoleResponse> responseObserver) {
+    public void softDelete(com.common.grpc.RoleName request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getDeleteRoleMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getSoftDeleteMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
      */
-    public void assignRole(com.common.grpc.AssignRoleRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.AssignRoleResponse> responseObserver) {
+    public void restore(com.common.grpc.RoleName request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getAssignRoleMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getRestoreMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
      */
-    public void removeRole(com.common.grpc.RemoveRoleRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.RemoveRoleResponse> responseObserver) {
+    public void assign(com.common.grpc.AssignRoleRequest request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getRemoveRoleMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getAssignMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
      */
-    public void listUserRoles(com.common.grpc.ListUserRolesRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.ListUserRolesResponse> responseObserver) {
+    public void remove(com.common.grpc.AssignRoleRequest request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getRemoveMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     * <pre>
+     * use user_id, ignore role_name
+     * </pre>
+     */
+    public void listUserRoles(com.common.grpc.AssignRoleRequest request,
+        io.grpc.stub.StreamObserver<com.common.grpc.PageRole> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getListUserRolesMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
      */
-    public void listUsersByRole(com.common.grpc.ListUsersByRoleRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.ListUsersByRoleResponse> responseObserver) {
+    public void listUsersByRole(com.common.grpc.RoleName request,
+        io.grpc.stub.StreamObserver<com.common.grpc.PageUser> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getListUsersByRoleMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
      */
-    public void listAllRoles(com.common.grpc.ListAllRolesRequest request,
-        io.grpc.stub.StreamObserver<com.common.grpc.ListAllRolesResponse> responseObserver) {
+    public void listAll(com.common.grpc.PageRequest request,
+        io.grpc.stub.StreamObserver<com.common.grpc.PageRole> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getListAllRolesMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getListAllMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -447,51 +499,61 @@ public final class RoleServiceGrpc {
 
     /**
      */
-    public com.common.grpc.CreateRoleResponse createRole(com.common.grpc.CreateRoleRequest request) {
+    public com.google.protobuf.Empty create(com.common.grpc.CreateRoleRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getCreateRoleMethod(), getCallOptions(), request);
+          getChannel(), getCreateMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public com.common.grpc.DeleteRoleResponse deleteRole(com.common.grpc.DeleteRoleRequest request) {
+    public com.google.protobuf.Empty softDelete(com.common.grpc.RoleName request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getDeleteRoleMethod(), getCallOptions(), request);
+          getChannel(), getSoftDeleteMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public com.common.grpc.AssignRoleResponse assignRole(com.common.grpc.AssignRoleRequest request) {
+    public com.google.protobuf.Empty restore(com.common.grpc.RoleName request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getAssignRoleMethod(), getCallOptions(), request);
+          getChannel(), getRestoreMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public com.common.grpc.RemoveRoleResponse removeRole(com.common.grpc.RemoveRoleRequest request) {
+    public com.google.protobuf.Empty assign(com.common.grpc.AssignRoleRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getRemoveRoleMethod(), getCallOptions(), request);
+          getChannel(), getAssignMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public com.common.grpc.ListUserRolesResponse listUserRoles(com.common.grpc.ListUserRolesRequest request) {
+    public com.google.protobuf.Empty remove(com.common.grpc.AssignRoleRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getRemoveMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * use user_id, ignore role_name
+     * </pre>
+     */
+    public com.common.grpc.PageRole listUserRoles(com.common.grpc.AssignRoleRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getListUserRolesMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public com.common.grpc.ListUsersByRoleResponse listUsersByRole(com.common.grpc.ListUsersByRoleRequest request) {
+    public com.common.grpc.PageUser listUsersByRole(com.common.grpc.RoleName request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getListUsersByRoleMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public com.common.grpc.ListAllRolesResponse listAllRoles(com.common.grpc.ListAllRolesRequest request) {
+    public com.common.grpc.PageRole listAll(com.common.grpc.PageRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getListAllRolesMethod(), getCallOptions(), request);
+          getChannel(), getListAllMethod(), getCallOptions(), request);
     }
   }
 
@@ -513,51 +575,61 @@ public final class RoleServiceGrpc {
 
     /**
      */
-    public com.common.grpc.CreateRoleResponse createRole(com.common.grpc.CreateRoleRequest request) {
+    public com.google.protobuf.Empty create(com.common.grpc.CreateRoleRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getCreateRoleMethod(), getCallOptions(), request);
+          getChannel(), getCreateMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public com.common.grpc.DeleteRoleResponse deleteRole(com.common.grpc.DeleteRoleRequest request) {
+    public com.google.protobuf.Empty softDelete(com.common.grpc.RoleName request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getDeleteRoleMethod(), getCallOptions(), request);
+          getChannel(), getSoftDeleteMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public com.common.grpc.AssignRoleResponse assignRole(com.common.grpc.AssignRoleRequest request) {
+    public com.google.protobuf.Empty restore(com.common.grpc.RoleName request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getAssignRoleMethod(), getCallOptions(), request);
+          getChannel(), getRestoreMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public com.common.grpc.RemoveRoleResponse removeRole(com.common.grpc.RemoveRoleRequest request) {
+    public com.google.protobuf.Empty assign(com.common.grpc.AssignRoleRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getRemoveRoleMethod(), getCallOptions(), request);
+          getChannel(), getAssignMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public com.common.grpc.ListUserRolesResponse listUserRoles(com.common.grpc.ListUserRolesRequest request) {
+    public com.google.protobuf.Empty remove(com.common.grpc.AssignRoleRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getRemoveMethod(), getCallOptions(), request);
+    }
+
+    /**
+     * <pre>
+     * use user_id, ignore role_name
+     * </pre>
+     */
+    public com.common.grpc.PageRole listUserRoles(com.common.grpc.AssignRoleRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getListUserRolesMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public com.common.grpc.ListUsersByRoleResponse listUsersByRole(com.common.grpc.ListUsersByRoleRequest request) {
+    public com.common.grpc.PageUser listUsersByRole(com.common.grpc.RoleName request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getListUsersByRoleMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public com.common.grpc.ListAllRolesResponse listAllRoles(com.common.grpc.ListAllRolesRequest request) {
+    public com.common.grpc.PageRole listAll(com.common.grpc.PageRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getListAllRolesMethod(), getCallOptions(), request);
+          getChannel(), getListAllMethod(), getCallOptions(), request);
     }
   }
 
@@ -579,68 +651,80 @@ public final class RoleServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.common.grpc.CreateRoleResponse> createRole(
+    public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> create(
         com.common.grpc.CreateRoleRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getCreateRoleMethod(), getCallOptions()), request);
+          getChannel().newCall(getCreateMethod(), getCallOptions()), request);
     }
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.common.grpc.DeleteRoleResponse> deleteRole(
-        com.common.grpc.DeleteRoleRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> softDelete(
+        com.common.grpc.RoleName request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getDeleteRoleMethod(), getCallOptions()), request);
+          getChannel().newCall(getSoftDeleteMethod(), getCallOptions()), request);
     }
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.common.grpc.AssignRoleResponse> assignRole(
+    public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> restore(
+        com.common.grpc.RoleName request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getRestoreMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> assign(
         com.common.grpc.AssignRoleRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getAssignRoleMethod(), getCallOptions()), request);
+          getChannel().newCall(getAssignMethod(), getCallOptions()), request);
     }
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.common.grpc.RemoveRoleResponse> removeRole(
-        com.common.grpc.RemoveRoleRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> remove(
+        com.common.grpc.AssignRoleRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getRemoveRoleMethod(), getCallOptions()), request);
+          getChannel().newCall(getRemoveMethod(), getCallOptions()), request);
     }
 
     /**
+     * <pre>
+     * use user_id, ignore role_name
+     * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.common.grpc.ListUserRolesResponse> listUserRoles(
-        com.common.grpc.ListUserRolesRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<com.common.grpc.PageRole> listUserRoles(
+        com.common.grpc.AssignRoleRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getListUserRolesMethod(), getCallOptions()), request);
     }
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.common.grpc.ListUsersByRoleResponse> listUsersByRole(
-        com.common.grpc.ListUsersByRoleRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<com.common.grpc.PageUser> listUsersByRole(
+        com.common.grpc.RoleName request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getListUsersByRoleMethod(), getCallOptions()), request);
     }
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.common.grpc.ListAllRolesResponse> listAllRoles(
-        com.common.grpc.ListAllRolesRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<com.common.grpc.PageRole> listAll(
+        com.common.grpc.PageRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getListAllRolesMethod(), getCallOptions()), request);
+          getChannel().newCall(getListAllMethod(), getCallOptions()), request);
     }
   }
 
-  private static final int METHODID_CREATE_ROLE = 0;
-  private static final int METHODID_DELETE_ROLE = 1;
-  private static final int METHODID_ASSIGN_ROLE = 2;
-  private static final int METHODID_REMOVE_ROLE = 3;
-  private static final int METHODID_LIST_USER_ROLES = 4;
-  private static final int METHODID_LIST_USERS_BY_ROLE = 5;
-  private static final int METHODID_LIST_ALL_ROLES = 6;
+  private static final int METHODID_CREATE = 0;
+  private static final int METHODID_SOFT_DELETE = 1;
+  private static final int METHODID_RESTORE = 2;
+  private static final int METHODID_ASSIGN = 3;
+  private static final int METHODID_REMOVE = 4;
+  private static final int METHODID_LIST_USER_ROLES = 5;
+  private static final int METHODID_LIST_USERS_BY_ROLE = 6;
+  private static final int METHODID_LIST_ALL = 7;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -659,33 +743,37 @@ public final class RoleServiceGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_CREATE_ROLE:
-          serviceImpl.createRole((com.common.grpc.CreateRoleRequest) request,
-              (io.grpc.stub.StreamObserver<com.common.grpc.CreateRoleResponse>) responseObserver);
+        case METHODID_CREATE:
+          serviceImpl.create((com.common.grpc.CreateRoleRequest) request,
+              (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
           break;
-        case METHODID_DELETE_ROLE:
-          serviceImpl.deleteRole((com.common.grpc.DeleteRoleRequest) request,
-              (io.grpc.stub.StreamObserver<com.common.grpc.DeleteRoleResponse>) responseObserver);
+        case METHODID_SOFT_DELETE:
+          serviceImpl.softDelete((com.common.grpc.RoleName) request,
+              (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
           break;
-        case METHODID_ASSIGN_ROLE:
-          serviceImpl.assignRole((com.common.grpc.AssignRoleRequest) request,
-              (io.grpc.stub.StreamObserver<com.common.grpc.AssignRoleResponse>) responseObserver);
+        case METHODID_RESTORE:
+          serviceImpl.restore((com.common.grpc.RoleName) request,
+              (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
           break;
-        case METHODID_REMOVE_ROLE:
-          serviceImpl.removeRole((com.common.grpc.RemoveRoleRequest) request,
-              (io.grpc.stub.StreamObserver<com.common.grpc.RemoveRoleResponse>) responseObserver);
+        case METHODID_ASSIGN:
+          serviceImpl.assign((com.common.grpc.AssignRoleRequest) request,
+              (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
+          break;
+        case METHODID_REMOVE:
+          serviceImpl.remove((com.common.grpc.AssignRoleRequest) request,
+              (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
           break;
         case METHODID_LIST_USER_ROLES:
-          serviceImpl.listUserRoles((com.common.grpc.ListUserRolesRequest) request,
-              (io.grpc.stub.StreamObserver<com.common.grpc.ListUserRolesResponse>) responseObserver);
+          serviceImpl.listUserRoles((com.common.grpc.AssignRoleRequest) request,
+              (io.grpc.stub.StreamObserver<com.common.grpc.PageRole>) responseObserver);
           break;
         case METHODID_LIST_USERS_BY_ROLE:
-          serviceImpl.listUsersByRole((com.common.grpc.ListUsersByRoleRequest) request,
-              (io.grpc.stub.StreamObserver<com.common.grpc.ListUsersByRoleResponse>) responseObserver);
+          serviceImpl.listUsersByRole((com.common.grpc.RoleName) request,
+              (io.grpc.stub.StreamObserver<com.common.grpc.PageUser>) responseObserver);
           break;
-        case METHODID_LIST_ALL_ROLES:
-          serviceImpl.listAllRoles((com.common.grpc.ListAllRolesRequest) request,
-              (io.grpc.stub.StreamObserver<com.common.grpc.ListAllRolesResponse>) responseObserver);
+        case METHODID_LIST_ALL:
+          serviceImpl.listAll((com.common.grpc.PageRequest) request,
+              (io.grpc.stub.StreamObserver<com.common.grpc.PageRole>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -706,54 +794,61 @@ public final class RoleServiceGrpc {
   public static final io.grpc.ServerServiceDefinition bindService(AsyncService service) {
     return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
         .addMethod(
-          getCreateRoleMethod(),
+          getCreateMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
               com.common.grpc.CreateRoleRequest,
-              com.common.grpc.CreateRoleResponse>(
-                service, METHODID_CREATE_ROLE)))
+              com.google.protobuf.Empty>(
+                service, METHODID_CREATE)))
         .addMethod(
-          getDeleteRoleMethod(),
+          getSoftDeleteMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
-              com.common.grpc.DeleteRoleRequest,
-              com.common.grpc.DeleteRoleResponse>(
-                service, METHODID_DELETE_ROLE)))
+              com.common.grpc.RoleName,
+              com.google.protobuf.Empty>(
+                service, METHODID_SOFT_DELETE)))
         .addMethod(
-          getAssignRoleMethod(),
+          getRestoreMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              com.common.grpc.RoleName,
+              com.google.protobuf.Empty>(
+                service, METHODID_RESTORE)))
+        .addMethod(
+          getAssignMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
               com.common.grpc.AssignRoleRequest,
-              com.common.grpc.AssignRoleResponse>(
-                service, METHODID_ASSIGN_ROLE)))
+              com.google.protobuf.Empty>(
+                service, METHODID_ASSIGN)))
         .addMethod(
-          getRemoveRoleMethod(),
+          getRemoveMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
-              com.common.grpc.RemoveRoleRequest,
-              com.common.grpc.RemoveRoleResponse>(
-                service, METHODID_REMOVE_ROLE)))
+              com.common.grpc.AssignRoleRequest,
+              com.google.protobuf.Empty>(
+                service, METHODID_REMOVE)))
         .addMethod(
           getListUserRolesMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
-              com.common.grpc.ListUserRolesRequest,
-              com.common.grpc.ListUserRolesResponse>(
+              com.common.grpc.AssignRoleRequest,
+              com.common.grpc.PageRole>(
                 service, METHODID_LIST_USER_ROLES)))
         .addMethod(
           getListUsersByRoleMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
-              com.common.grpc.ListUsersByRoleRequest,
-              com.common.grpc.ListUsersByRoleResponse>(
+              com.common.grpc.RoleName,
+              com.common.grpc.PageUser>(
                 service, METHODID_LIST_USERS_BY_ROLE)))
         .addMethod(
-          getListAllRolesMethod(),
+          getListAllMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
-              com.common.grpc.ListAllRolesRequest,
-              com.common.grpc.ListAllRolesResponse>(
-                service, METHODID_LIST_ALL_ROLES)))
+              com.common.grpc.PageRequest,
+              com.common.grpc.PageRole>(
+                service, METHODID_LIST_ALL)))
         .build();
   }
 
@@ -763,7 +858,7 @@ public final class RoleServiceGrpc {
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return com.common.grpc.UserRoleAddressProto.getDescriptor();
+      return com.common.grpc.RoleProto.getDescriptor();
     }
 
     @java.lang.Override
@@ -802,13 +897,14 @@ public final class RoleServiceGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new RoleServiceFileDescriptorSupplier())
-              .addMethod(getCreateRoleMethod())
-              .addMethod(getDeleteRoleMethod())
-              .addMethod(getAssignRoleMethod())
-              .addMethod(getRemoveRoleMethod())
+              .addMethod(getCreateMethod())
+              .addMethod(getSoftDeleteMethod())
+              .addMethod(getRestoreMethod())
+              .addMethod(getAssignMethod())
+              .addMethod(getRemoveMethod())
               .addMethod(getListUserRolesMethod())
               .addMethod(getListUsersByRoleMethod())
-              .addMethod(getListAllRolesMethod())
+              .addMethod(getListAllMethod())
               .build();
         }
       }

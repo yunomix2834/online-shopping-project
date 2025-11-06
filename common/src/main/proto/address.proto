@@ -1,0 +1,66 @@
+syntax = "proto3";
+package core.v1;
+option java_multiple_files = true;
+option java_package = "com.common.grpc";
+option java_outer_classname = "AddressProto";
+import "google/protobuf/empty.proto";
+
+message AddressCreateRequest {
+  string contact_name = 1;
+  string contact_phone = 2;
+  string address_line1 = 3;
+  string address_line2 = 4;
+  string district = 5;
+  string city = 6;
+  string country = 7;
+  string postal_code = 8;
+}
+message AddressUpdateRequest {
+  string id = 1;
+  string contact_name = 2;
+  string contact_phone = 3;
+  string address_line1 = 4;
+  string address_line2 = 5;
+  string district = 6;
+  string city = 7;
+  string country = 8;
+  string postal_code = 9;
+}
+message IdRequest {
+  string id = 1;
+}
+message UserIdRequest {
+  string user_id = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
+
+message AddressView {
+  string id = 1;
+  string contact_name = 2;
+  string contact_phone = 3;
+  string address_line1 = 4;
+  string address_line2 = 5;
+  string district = 6;
+  string city = 7;
+  string country = 8;
+  string postal_code = 9;
+  bool is_default_shipping = 10;
+  bool is_default_billing = 11;
+}
+message PageAddress {
+  int32 page = 1;
+  int32 size = 2;
+  int64 total = 3;
+  int32 total_pages = 4;
+  repeated AddressView docs = 5;
+}
+
+service AddressService {
+  rpc Create(AddressCreateRequest) returns (google.protobuf.Empty);
+  rpc Update(AddressUpdateRequest) returns (google.protobuf.Empty);
+  rpc SoftDelete(IdRequest) returns (google.protobuf.Empty);
+  rpc SetDefaultShipping(IdRequest) returns (google.protobuf.Empty);
+  rpc SetDefaultBilling(IdRequest) returns (google.protobuf.Empty);
+  rpc ListByUser(UserIdRequest) returns (PageAddress);
+}

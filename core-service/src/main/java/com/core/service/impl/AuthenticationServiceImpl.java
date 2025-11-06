@@ -9,10 +9,10 @@ import com.core.dto.response.authentication.IntrospectResponseDto;
 import com.core.entity.InvalidatedToken;
 import com.core.entity.Role;
 import com.core.entity.User;
-import com.core.mapper.UserMapper;
+import com.core.mapper.user.UserMapper;
 import com.core.repository.InvalidatedTokenRepository;
-import com.core.repository.RoleRepository;
 import com.core.repository.UserRepository;
+import com.core.repository.user.RoleRepository;
 import com.core.service.IAuthenticationService;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JOSEObjectType;
@@ -88,13 +88,12 @@ public class AuthenticationServiceImpl
             throw new AppException(ErrorCode.EMAIL_ALREADY_EXISTS);
         }
 
-        User user = userMapper.toUserFromUserCreationRequest(request);
+        User user = userMapper.toUserFromUserCreationRequestDto(request);
         user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));
         user.setRoles(new HashSet<>());
         roleRepository.findById("USER")
                 .ifPresent(r -> user.getRoles().add(r));
 
-        // Để Hard-code trước
         user.setIsActive(true);
         user.setIsVerified(false);
         userRepository.save(user);

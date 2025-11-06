@@ -41,4 +41,9 @@ public class GrpcStatusMapper {
         streamObserver.onNext(Empty.getDefaultInstance());
         streamObserver.onCompleted();
     }
+
+    public static <T> void ok(StreamObserver<? super T> streamObserver, T payload) {
+        streamObserver.onNext(payload);
+        streamObserver.onCompleted();
+    }
 }

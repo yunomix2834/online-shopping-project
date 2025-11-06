@@ -1,0 +1,56 @@
+syntax = "proto3";
+package core.v1;
+option java_multiple_files = true;
+option java_package = "com.common.grpc";
+option java_outer_classname = "RoleProto";
+import "google/protobuf/empty.proto";
+
+message CreateRoleRequest {
+  string name = 1;
+}
+message RoleName {
+  string name = 1;
+}
+message AssignRoleRequest {
+  string user_id = 1;
+  string role_name = 2;
+}
+message RoleResponse {
+  string name = 1;
+}
+
+message PageRequest {
+  int32 page = 1;
+  int32 size = 2;
+}
+message PageRole {
+  int32 page = 1;
+  int32 size = 2;
+  int64 total = 3;
+  int32 total_pages = 4;
+  repeated RoleResponse docs = 5;
+}
+message MeLite {
+  string id = 1;
+  string username = 2;
+  string email = 3;
+  string full_name = 4;
+}
+message PageUser {
+  int32 page = 1;
+  int32 size = 2;
+  int64 total = 3;
+  int32 total_pages = 4;
+  repeated MeLite docs = 5;
+}
+
+service RoleService {
+  rpc Create(CreateRoleRequest) returns (google.protobuf.Empty);
+  rpc SoftDelete(RoleName) returns (google.protobuf.Empty);
+  rpc Restore(RoleName) returns (google.protobuf.Empty);
+  rpc Assign(AssignRoleRequest) returns (google.protobuf.Empty);
+  rpc Remove(AssignRoleRequest) returns (google.protobuf.Empty);
+  rpc ListUserRoles(AssignRoleRequest) returns (PageRole); // use user_id, ignore role_name
+  rpc ListUsersByRole(RoleName) returns (PageUser);
+  rpc ListAll(PageRequest) returns (PageRole);
+}
