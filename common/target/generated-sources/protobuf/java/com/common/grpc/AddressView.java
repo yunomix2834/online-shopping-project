@@ -90,11 +90,11 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int CONTACTNAME_FIELD_NUMBER = 2;
+  public static final int CONTACT_NAME_FIELD_NUMBER = 2;
   @SuppressWarnings("serial")
   private volatile java.lang.Object contactName_ = "";
   /**
-   * <code>string contactName = 2;</code>
+   * <code>string contact_name = 2;</code>
    * @return The contactName.
    */
   @java.lang.Override
@@ -111,7 +111,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string contactName = 2;</code>
+   * <code>string contact_name = 2;</code>
    * @return The bytes for contactName.
    */
   @java.lang.Override
@@ -129,11 +129,11 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int CONTACTPHONE_FIELD_NUMBER = 3;
+  public static final int CONTACT_PHONE_FIELD_NUMBER = 3;
   @SuppressWarnings("serial")
   private volatile java.lang.Object contactPhone_ = "";
   /**
-   * <code>string contactPhone = 3;</code>
+   * <code>string contact_phone = 3;</code>
    * @return The contactPhone.
    */
   @java.lang.Override
@@ -150,7 +150,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string contactPhone = 3;</code>
+   * <code>string contact_phone = 3;</code>
    * @return The bytes for contactPhone.
    */
   @java.lang.Override
@@ -168,11 +168,11 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int ADDRESSLINE1_FIELD_NUMBER = 4;
+  public static final int ADDRESS_LINE1_FIELD_NUMBER = 4;
   @SuppressWarnings("serial")
   private volatile java.lang.Object addressLine1_ = "";
   /**
-   * <code>string addressLine1 = 4;</code>
+   * <code>string address_line1 = 4;</code>
    * @return The addressLine1.
    */
   @java.lang.Override
@@ -189,7 +189,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string addressLine1 = 4;</code>
+   * <code>string address_line1 = 4;</code>
    * @return The bytes for addressLine1.
    */
   @java.lang.Override
@@ -207,11 +207,11 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int ADDRESSLINE2_FIELD_NUMBER = 5;
+  public static final int ADDRESS_LINE2_FIELD_NUMBER = 5;
   @SuppressWarnings("serial")
   private volatile java.lang.Object addressLine2_ = "";
   /**
-   * <code>string addressLine2 = 5;</code>
+   * <code>string address_line2 = 5;</code>
    * @return The addressLine2.
    */
   @java.lang.Override
@@ -228,7 +228,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string addressLine2 = 5;</code>
+   * <code>string address_line2 = 5;</code>
    * @return The bytes for addressLine2.
    */
   @java.lang.Override
@@ -402,10 +402,10 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int ISDEFAULTSHIPPING_FIELD_NUMBER = 10;
+  public static final int IS_DEFAULT_SHIPPING_FIELD_NUMBER = 10;
   private boolean isDefaultShipping_ = false;
   /**
-   * <code>bool isDefaultShipping = 10;</code>
+   * <code>bool is_default_shipping = 10;</code>
    * @return The isDefaultShipping.
    */
   @java.lang.Override
@@ -413,10 +413,10 @@ private static final long serialVersionUID = 0L;
     return isDefaultShipping_;
   }
 
-  public static final int ISDEFAULTBILLING_FIELD_NUMBER = 11;
+  public static final int IS_DEFAULT_BILLING_FIELD_NUMBER = 11;
   private boolean isDefaultBilling_ = false;
   /**
-   * <code>bool isDefaultBilling = 11;</code>
+   * <code>bool is_default_billing = 11;</code>
    * @return The isDefaultBilling.
    */
   @java.lang.Override
@@ -565,13 +565,13 @@ private static final long serialVersionUID = 0L;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + ID_FIELD_NUMBER;
     hash = (53 * hash) + getId().hashCode();
-    hash = (37 * hash) + CONTACTNAME_FIELD_NUMBER;
+    hash = (37 * hash) + CONTACT_NAME_FIELD_NUMBER;
     hash = (53 * hash) + getContactName().hashCode();
-    hash = (37 * hash) + CONTACTPHONE_FIELD_NUMBER;
+    hash = (37 * hash) + CONTACT_PHONE_FIELD_NUMBER;
     hash = (53 * hash) + getContactPhone().hashCode();
-    hash = (37 * hash) + ADDRESSLINE1_FIELD_NUMBER;
+    hash = (37 * hash) + ADDRESS_LINE1_FIELD_NUMBER;
     hash = (53 * hash) + getAddressLine1().hashCode();
-    hash = (37 * hash) + ADDRESSLINE2_FIELD_NUMBER;
+    hash = (37 * hash) + ADDRESS_LINE2_FIELD_NUMBER;
     hash = (53 * hash) + getAddressLine2().hashCode();
     hash = (37 * hash) + DISTRICT_FIELD_NUMBER;
     hash = (53 * hash) + getDistrict().hashCode();
@@ -581,10 +581,10 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getCountry().hashCode();
     hash = (37 * hash) + POSTAL_CODE_FIELD_NUMBER;
     hash = (53 * hash) + getPostalCode().hashCode();
-    hash = (37 * hash) + ISDEFAULTSHIPPING_FIELD_NUMBER;
+    hash = (37 * hash) + IS_DEFAULT_SHIPPING_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getIsDefaultShipping());
-    hash = (37 * hash) + ISDEFAULTBILLING_FIELD_NUMBER;
+    hash = (37 * hash) + IS_DEFAULT_BILLING_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getIsDefaultBilling());
     hash = (29 * hash) + getUnknownFields().hashCode();
@@ -1032,7 +1032,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object contactName_ = "";
     /**
-     * <code>string contactName = 2;</code>
+     * <code>string contact_name = 2;</code>
      * @return The contactName.
      */
     public java.lang.String getContactName() {
@@ -1048,7 +1048,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string contactName = 2;</code>
+     * <code>string contact_name = 2;</code>
      * @return The bytes for contactName.
      */
     public com.google.protobuf.ByteString
@@ -1065,7 +1065,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string contactName = 2;</code>
+     * <code>string contact_name = 2;</code>
      * @param value The contactName to set.
      * @return This builder for chaining.
      */
@@ -1078,7 +1078,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string contactName = 2;</code>
+     * <code>string contact_name = 2;</code>
      * @return This builder for chaining.
      */
     public Builder clearContactName() {
@@ -1088,7 +1088,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string contactName = 2;</code>
+     * <code>string contact_name = 2;</code>
      * @param value The bytes for contactName to set.
      * @return This builder for chaining.
      */
@@ -1104,7 +1104,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object contactPhone_ = "";
     /**
-     * <code>string contactPhone = 3;</code>
+     * <code>string contact_phone = 3;</code>
      * @return The contactPhone.
      */
     public java.lang.String getContactPhone() {
@@ -1120,7 +1120,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string contactPhone = 3;</code>
+     * <code>string contact_phone = 3;</code>
      * @return The bytes for contactPhone.
      */
     public com.google.protobuf.ByteString
@@ -1137,7 +1137,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string contactPhone = 3;</code>
+     * <code>string contact_phone = 3;</code>
      * @param value The contactPhone to set.
      * @return This builder for chaining.
      */
@@ -1150,7 +1150,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string contactPhone = 3;</code>
+     * <code>string contact_phone = 3;</code>
      * @return This builder for chaining.
      */
     public Builder clearContactPhone() {
@@ -1160,7 +1160,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string contactPhone = 3;</code>
+     * <code>string contact_phone = 3;</code>
      * @param value The bytes for contactPhone to set.
      * @return This builder for chaining.
      */
@@ -1176,7 +1176,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object addressLine1_ = "";
     /**
-     * <code>string addressLine1 = 4;</code>
+     * <code>string address_line1 = 4;</code>
      * @return The addressLine1.
      */
     public java.lang.String getAddressLine1() {
@@ -1192,7 +1192,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string addressLine1 = 4;</code>
+     * <code>string address_line1 = 4;</code>
      * @return The bytes for addressLine1.
      */
     public com.google.protobuf.ByteString
@@ -1209,7 +1209,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string addressLine1 = 4;</code>
+     * <code>string address_line1 = 4;</code>
      * @param value The addressLine1 to set.
      * @return This builder for chaining.
      */
@@ -1222,7 +1222,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string addressLine1 = 4;</code>
+     * <code>string address_line1 = 4;</code>
      * @return This builder for chaining.
      */
     public Builder clearAddressLine1() {
@@ -1232,7 +1232,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string addressLine1 = 4;</code>
+     * <code>string address_line1 = 4;</code>
      * @param value The bytes for addressLine1 to set.
      * @return This builder for chaining.
      */
@@ -1248,7 +1248,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object addressLine2_ = "";
     /**
-     * <code>string addressLine2 = 5;</code>
+     * <code>string address_line2 = 5;</code>
      * @return The addressLine2.
      */
     public java.lang.String getAddressLine2() {
@@ -1264,7 +1264,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string addressLine2 = 5;</code>
+     * <code>string address_line2 = 5;</code>
      * @return The bytes for addressLine2.
      */
     public com.google.protobuf.ByteString
@@ -1281,7 +1281,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string addressLine2 = 5;</code>
+     * <code>string address_line2 = 5;</code>
      * @param value The addressLine2 to set.
      * @return This builder for chaining.
      */
@@ -1294,7 +1294,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string addressLine2 = 5;</code>
+     * <code>string address_line2 = 5;</code>
      * @return This builder for chaining.
      */
     public Builder clearAddressLine2() {
@@ -1304,7 +1304,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string addressLine2 = 5;</code>
+     * <code>string address_line2 = 5;</code>
      * @param value The bytes for addressLine2 to set.
      * @return This builder for chaining.
      */
@@ -1608,7 +1608,7 @@ private static final long serialVersionUID = 0L;
 
     private boolean isDefaultShipping_ ;
     /**
-     * <code>bool isDefaultShipping = 10;</code>
+     * <code>bool is_default_shipping = 10;</code>
      * @return The isDefaultShipping.
      */
     @java.lang.Override
@@ -1616,7 +1616,7 @@ private static final long serialVersionUID = 0L;
       return isDefaultShipping_;
     }
     /**
-     * <code>bool isDefaultShipping = 10;</code>
+     * <code>bool is_default_shipping = 10;</code>
      * @param value The isDefaultShipping to set.
      * @return This builder for chaining.
      */
@@ -1628,7 +1628,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>bool isDefaultShipping = 10;</code>
+     * <code>bool is_default_shipping = 10;</code>
      * @return This builder for chaining.
      */
     public Builder clearIsDefaultShipping() {
@@ -1640,7 +1640,7 @@ private static final long serialVersionUID = 0L;
 
     private boolean isDefaultBilling_ ;
     /**
-     * <code>bool isDefaultBilling = 11;</code>
+     * <code>bool is_default_billing = 11;</code>
      * @return The isDefaultBilling.
      */
     @java.lang.Override
@@ -1648,7 +1648,7 @@ private static final long serialVersionUID = 0L;
       return isDefaultBilling_;
     }
     /**
-     * <code>bool isDefaultBilling = 11;</code>
+     * <code>bool is_default_billing = 11;</code>
      * @param value The isDefaultBilling to set.
      * @return This builder for chaining.
      */
@@ -1660,7 +1660,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>bool isDefaultBilling = 11;</code>
+     * <code>bool is_default_billing = 11;</code>
      * @return This builder for chaining.
      */
     public Builder clearIsDefaultBilling() {

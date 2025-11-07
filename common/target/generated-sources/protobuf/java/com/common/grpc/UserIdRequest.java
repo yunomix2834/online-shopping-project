@@ -43,11 +43,11 @@ private static final long serialVersionUID = 0L;
             com.common.grpc.UserIdRequest.class, com.common.grpc.UserIdRequest.Builder.class);
   }
 
-  public static final int USERID_FIELD_NUMBER = 1;
+  public static final int USER_ID_FIELD_NUMBER = 1;
   @SuppressWarnings("serial")
   private volatile java.lang.Object userId_ = "";
   /**
-   * <code>string userId = 1;</code>
+   * <code>string user_id = 1;</code>
    * @return The userId.
    */
   @java.lang.Override
@@ -64,7 +64,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string userId = 1;</code>
+   * <code>string user_id = 1;</code>
    * @return The bytes for userId.
    */
   @java.lang.Override
@@ -179,7 +179,7 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + USERID_FIELD_NUMBER;
+    hash = (37 * hash) + USER_ID_FIELD_NUMBER;
     hash = (53 * hash) + getUserId().hashCode();
     hash = (37 * hash) + PAGE_FIELD_NUMBER;
     hash = (53 * hash) + getPage();
@@ -446,7 +446,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object userId_ = "";
     /**
-     * <code>string userId = 1;</code>
+     * <code>string user_id = 1;</code>
      * @return The userId.
      */
     public java.lang.String getUserId() {
@@ -462,7 +462,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string userId = 1;</code>
+     * <code>string user_id = 1;</code>
      * @return The bytes for userId.
      */
     public com.google.protobuf.ByteString
@@ -479,7 +479,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string userId = 1;</code>
+     * <code>string user_id = 1;</code>
      * @param value The userId to set.
      * @return This builder for chaining.
      */
@@ -492,7 +492,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string userId = 1;</code>
+     * <code>string user_id = 1;</code>
      * @return This builder for chaining.
      */
     public Builder clearUserId() {
@@ -502,7 +502,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string userId = 1;</code>
+     * <code>string user_id = 1;</code>
      * @param value The bytes for userId to set.
      * @return This builder for chaining.
      */

@@ -7,6 +7,7 @@ import com.gatewayserver.dto.request.user.UpdateProfileRequestBody;
 import com.gatewayserver.dto.response.user.MeResponseView;
 import com.gatewayserver.helper.GrpcHelper;
 import com.google.protobuf.Empty;
+import io.grpc.Channel;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.common.http.Envelope;
@@ -25,16 +26,17 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
-    private final GenericResponseService responseBuilder;
     @GrpcClient("core")
-    private UserServiceGrpc.UserServiceBlockingStub stub;
+    private Channel coreChannel;
 
     @PostMapping("/toggle-active")
     public Mono<ResponseEntity<Envelope<Void>>> toggleActive(
             @RequestParam String userId,
             @RequestParam boolean active){
-        return GrpcHelper.callGrpcVoid(() -> stub.toggleActive(
-                ToggleActiveRequest.newBuilder()
+        return GrpcHelper.callGrpcVoid(
+                coreChannel,
+                UserServiceGrpc::newBlockingStub,
+                stub -> stub.toggleActive(ToggleActiveRequest.newBuilder()
                         .setUserId(userId)
                         .setActive(active)
                         .build()));
@@ -43,15 +45,17 @@ public class UserController {
     @GetMapping("/me")
     public Mono<ResponseEntity<Envelope<MeResponseView>>> me(){
         return GrpcHelper.callGrpc(
-                () -> stub.getMe(Empty.getDefaultInstance()),
-                response -> new MeResponseView(
-                        response.getId(),
-                        response.getUsername(),
-                        response.getEmail(),
-                        response.getFullName(),
-                        response.getPhoneNumber(),
-                        response.getIsActive(),
-                        response.getIsVerified()
+                coreChannel,
+                UserServiceGrpc::newBlockingStub,
+                stub -> stub.getMe(Empty.getDefaultInstance()),
+                resp -> new MeResponseView(
+                        resp.getId(),
+                        resp.getUsername(),
+                        resp.getEmail(),
+                        resp.getFullName().isBlank() ? null : resp.getFullName(),
+                        resp.getPhoneNumber().isBlank() ? null : resp.getPhoneNumber(),
+                        resp.getIsActive(),
+                        resp.getIsVerified()
                 )
         );
     }
@@ -59,14 +63,15 @@ public class UserController {
     @PatchMapping("/me")
     public Mono<ResponseEntity<Envelope<Void>>> update(
             @RequestBody UpdateProfileRequestBody body){
-        return GrpcHelper.callGrpcVoid(() ->
-                stub.updateProfile(UpdateProfileRequest.newBuilder()
-                        .setFullName(body.fullName() == null
-                                ? ""
-                                : body.fullName())
-                        .setPhoneNumber(body.phoneNumber()==null
-                                ? ""
-                                : body.phoneNumber())
+        String fullName = body.fullName() == null ? "" : body.fullName();
+        String phone = body.phoneNumber() == null ? "" : body.phoneNumber();
+
+        return GrpcHelper.callGrpcVoid(
+                coreChannel,
+                UserServiceGrpc::newBlockingStub,
+                stub -> stub.updateProfile(UpdateProfileRequest.newBuilder()
+                        .setFullName(fullName)
+                        .setPhoneNumber(phone)
                         .build()));
     }
 }

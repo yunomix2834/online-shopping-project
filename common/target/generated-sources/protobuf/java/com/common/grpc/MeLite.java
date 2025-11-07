@@ -163,11 +163,11 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int FULLNAME_FIELD_NUMBER = 4;
+  public static final int FULL_NAME_FIELD_NUMBER = 4;
   @SuppressWarnings("serial")
   private volatile java.lang.Object fullName_ = "";
   /**
-   * <code>string fullName = 4;</code>
+   * <code>string full_name = 4;</code>
    * @return The fullName.
    */
   @java.lang.Override
@@ -184,7 +184,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string fullName = 4;</code>
+   * <code>string full_name = 4;</code>
    * @return The bytes for fullName.
    */
   @java.lang.Override
@@ -289,7 +289,7 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getUsername().hashCode();
     hash = (37 * hash) + EMAIL_FIELD_NUMBER;
     hash = (53 * hash) + getEmail().hashCode();
-    hash = (37 * hash) + FULLNAME_FIELD_NUMBER;
+    hash = (37 * hash) + FULL_NAME_FIELD_NUMBER;
     hash = (53 * hash) + getFullName().hashCode();
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
@@ -786,7 +786,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object fullName_ = "";
     /**
-     * <code>string fullName = 4;</code>
+     * <code>string full_name = 4;</code>
      * @return The fullName.
      */
     public java.lang.String getFullName() {
@@ -802,7 +802,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string fullName = 4;</code>
+     * <code>string full_name = 4;</code>
      * @return The bytes for fullName.
      */
     public com.google.protobuf.ByteString
@@ -819,7 +819,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string fullName = 4;</code>
+     * <code>string full_name = 4;</code>
      * @param value The fullName to set.
      * @return This builder for chaining.
      */
@@ -832,7 +832,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string fullName = 4;</code>
+     * <code>string full_name = 4;</code>
      * @return This builder for chaining.
      */
     public Builder clearFullName() {
@@ -842,7 +842,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string fullName = 4;</code>
+     * <code>string full_name = 4;</code>
      * @param value The bytes for fullName to set.
      * @return This builder for chaining.
      */

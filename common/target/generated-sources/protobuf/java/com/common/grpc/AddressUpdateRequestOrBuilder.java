@@ -22,48 +22,48 @@ public interface AddressUpdateRequestOrBuilder extends
       getIdBytes();
 
   /**
-   * <code>string contactName = 2;</code>
+   * <code>string contact_name = 2;</code>
    * @return The contactName.
    */
   java.lang.String getContactName();
   /**
-   * <code>string contactName = 2;</code>
+   * <code>string contact_name = 2;</code>
    * @return The bytes for contactName.
    */
   com.google.protobuf.ByteString
       getContactNameBytes();
 
   /**
-   * <code>string contactPhone = 3;</code>
+   * <code>string contact_phone = 3;</code>
    * @return The contactPhone.
    */
   java.lang.String getContactPhone();
   /**
-   * <code>string contactPhone = 3;</code>
+   * <code>string contact_phone = 3;</code>
    * @return The bytes for contactPhone.
    */
   com.google.protobuf.ByteString
       getContactPhoneBytes();
 
   /**
-   * <code>string addressLine1 = 4;</code>
+   * <code>string address_line1 = 4;</code>
    * @return The addressLine1.
    */
   java.lang.String getAddressLine1();
   /**
-   * <code>string addressLine1 = 4;</code>
+   * <code>string address_line1 = 4;</code>
    * @return The bytes for addressLine1.
    */
   com.google.protobuf.ByteString
       getAddressLine1Bytes();
 
   /**
-   * <code>string addressLine2 = 5;</code>
+   * <code>string address_line2 = 5;</code>
    * @return The addressLine2.
    */
   java.lang.String getAddressLine2();
   /**
-   * <code>string addressLine2 = 5;</code>
+   * <code>string address_line2 = 5;</code>
    * @return The bytes for addressLine2.
    */
   com.google.protobuf.ByteString
@@ -106,12 +106,12 @@ public interface AddressUpdateRequestOrBuilder extends
       getCountryBytes();
 
   /**
-   * <code>string postalCode = 9;</code>
+   * <code>string postal_code = 9;</code>
    * @return The postalCode.
    */
   java.lang.String getPostalCode();
   /**
-   * <code>string postalCode = 9;</code>
+   * <code>string postal_code = 9;</code>
    * @return The bytes for postalCode.
    */
   com.google.protobuf.ByteString

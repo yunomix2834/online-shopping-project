@@ -9,6 +9,7 @@ import com.gatewayserver.dto.request.user.AssignRoleRequestBody;
 import com.gatewayserver.dto.request.user.CreateRoleRequestBody;
 import com.gatewayserver.dto.response.user.RoleResponseView;
 import com.gatewayserver.helper.GrpcHelper;
+import io.grpc.Channel;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.common.http.Envelope;
@@ -29,21 +30,26 @@ import reactor.core.publisher.Mono;
 public class RoleController {
 
     @GrpcClient("core")
-    private RoleServiceGrpc.RoleServiceBlockingStub stub;
+    private Channel coreChannel;
 
     @PostMapping
     public Mono<ResponseEntity<Envelope<Void>>> create(
             @RequestBody CreateRoleRequestBody body){
-        return GrpcHelper.callGrpcVoid(() -> stub.create(CreateRoleRequest.newBuilder()
-                .setName(body.name())
-                .build()));
+        return GrpcHelper.callGrpcVoid(
+                coreChannel,
+                RoleServiceGrpc::newBlockingStub,
+                stub -> stub.create(CreateRoleRequest.newBuilder()
+                        .setName(body.name())
+                        .build()));
     }
 
     @DeleteMapping("/{name}")
     public Mono<ResponseEntity<Envelope<Void>>> softDelete(
             @PathVariable String name){
-        return GrpcHelper.callGrpcVoid(() ->
-                stub.softDelete(RoleName.newBuilder()
+        return GrpcHelper.callGrpcVoid(
+                coreChannel,
+                RoleServiceGrpc::newBlockingStub,
+                stub -> stub.softDelete(RoleName.newBuilder()
                         .setName(name)
                         .build()));
     }
@@ -51,8 +57,10 @@ public class RoleController {
     @PostMapping("/{name}/restore")
     public Mono<ResponseEntity<Envelope<Void>>> restore(
             @PathVariable String name){
-        return GrpcHelper.callGrpcVoid(() ->
-                stub.restore(RoleName.newBuilder()
+        return GrpcHelper.callGrpcVoid(
+                coreChannel,
+                RoleServiceGrpc::newBlockingStub,
+                stub -> stub.restore(RoleName.newBuilder()
                         .setName(name)
                         .build()));
     }
@@ -60,8 +68,10 @@ public class RoleController {
     @PostMapping("/assign")
     public Mono<ResponseEntity<Envelope<Void>>> assign(
             @RequestBody AssignRoleRequestBody body){
-        return GrpcHelper.callGrpcVoid(() ->
-                stub.assign(AssignRoleRequest.newBuilder()
+        return GrpcHelper.callGrpcVoid(
+                coreChannel,
+                RoleServiceGrpc::newBlockingStub,
+                stub -> stub.assign(AssignRoleRequest.newBuilder()
                         .setUserId(body.userId())
                         .setRoleName(body.roleName())
                         .build()));
@@ -70,18 +80,22 @@ public class RoleController {
     @PostMapping("/remove")
     public Mono<ResponseEntity<Envelope<Void>>> remove(
             @RequestBody AssignRoleRequestBody body){
-        return GrpcHelper.callGrpcVoid(() ->
-                stub.remove(AssignRoleRequest.newBuilder()
+        return GrpcHelper.callGrpcVoid(
+                coreChannel,
+                RoleServiceGrpc::newBlockingStub,
+                stub -> stub.remove(AssignRoleRequest.newBuilder()
                         .setUserId(body.userId())
-                        .setRoleName(body.roleName()).
-                        build()));
+                        .setRoleName(body.roleName())
+                        .build()));
     }
 
     @GetMapping("/user/{userId}")
     public Mono<ResponseEntity<Envelope<Envelope.Page<RoleResponseView>>>> listUserRoles(
             @PathVariable String userId){
         return GrpcHelper.callGrpc(
-                () -> stub.listUserRoles(AssignRoleRequest.newBuilder()
+                coreChannel,
+                RoleServiceGrpc::newBlockingStub,
+                stub -> stub.listUserRoles(AssignRoleRequest.newBuilder()
                         .setUserId(userId)
                         .build()),
                 p -> Envelope.Page.<RoleResponseView>builder()
@@ -89,13 +103,10 @@ public class RoleController {
                         .size(p.getSize())
                         .total(p.getTotal())
                         .totalPages(p.getTotalPages())
-                        .docs(p.getDocsList()
-                                .stream()
+                        .docs(p.getDocsList().stream()
                                 .map(d -> new RoleResponseView(d.getName()))
-                                .toList()
-                        )
-                        .build()
-        );
+                                .toList())
+                        .build());
     }
 
     @GetMapping
@@ -103,22 +114,20 @@ public class RoleController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size){
         return GrpcHelper.callGrpc(
-                () -> stub.listAll(
-                        PageRequest.newBuilder()
-                                .setPage(page)
-                                .setSize(size)
-                                .build()),
+                coreChannel,
+                RoleServiceGrpc::newBlockingStub,
+                stub -> stub.listAll(PageRequest.newBuilder()
+                        .setPage(page)
+                        .setSize(size)
+                        .build()),
                 p -> Envelope.Page.<RoleResponseView>builder()
                         .page(p.getPage())
                         .size(p.getSize())
                         .total(p.getTotal())
                         .totalPages(p.getTotalPages())
-                        .docs(p.getDocsList()
-                                .stream()
+                        .docs(p.getDocsList().stream()
                                 .map(d -> new RoleResponseView(d.getName()))
-                                .toList()
-                        )
-                        .build()
-        );
+                                .toList())
+                        .build());
     }
 }

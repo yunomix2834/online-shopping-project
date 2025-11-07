@@ -76,31 +76,31 @@ public final class RoleProto {
     java.lang.String[] descriptorData = {
       "\n\nrole.proto\022\007core.v1\032\033google/protobuf/e" +
       "mpty.proto\"!\n\021CreateRoleRequest\022\014\n\004name\030" +
-      "\001 \001(\t\"\030\n\010RoleName\022\014\n\004name\030\001 \001(\t\"5\n\021Assig" +
-      "nRoleRequest\022\016\n\006userId\030\001 \001(\t\022\020\n\010roleName" +
-      "\030\002 \001(\t\"\034\n\014RoleResponse\022\014\n\004name\030\001 \001(\t\")\n\013" +
-      "PageRequest\022\014\n\004page\030\001 \001(\005\022\014\n\004size\030\002 \001(\005\"" +
-      "n\n\010PageRole\022\014\n\004page\030\001 \001(\005\022\014\n\004size\030\002 \001(\005\022" +
-      "\r\n\005total\030\003 \001(\003\022\022\n\ntotalPages\030\004 \001(\005\022#\n\004do" +
-      "cs\030\005 \003(\0132\025.core.v1.RoleResponse\"G\n\006MeLit" +
-      "e\022\n\n\002id\030\001 \001(\t\022\020\n\010username\030\002 \001(\t\022\r\n\005email" +
-      "\030\003 \001(\t\022\020\n\010fullName\030\004 \001(\t\"h\n\010PageUser\022\014\n\004" +
-      "page\030\001 \001(\005\022\014\n\004size\030\002 \001(\005\022\r\n\005total\030\003 \001(\003\022" +
-      "\022\n\ntotalPages\030\004 \001(\005\022\035\n\004docs\030\005 \003(\0132\017.core" +
-      ".v1.MeLite2\343\003\n\013RoleService\022<\n\006Create\022\032.c" +
-      "ore.v1.CreateRoleRequest\032\026.google.protob" +
-      "uf.Empty\0227\n\nSoftDelete\022\021.core.v1.RoleNam" +
-      "e\032\026.google.protobuf.Empty\0224\n\007Restore\022\021.c" +
-      "ore.v1.RoleName\032\026.google.protobuf.Empty\022" +
-      "<\n\006Assign\022\032.core.v1.AssignRoleRequest\032\026." +
-      "google.protobuf.Empty\022<\n\006Remove\022\032.core.v" +
-      "1.AssignRoleRequest\032\026.google.protobuf.Em" +
-      "pty\022>\n\rListUserRoles\022\032.core.v1.AssignRol" +
-      "eRequest\032\021.core.v1.PageRole\0227\n\017ListUsers" +
-      "ByRole\022\021.core.v1.RoleName\032\021.core.v1.Page" +
-      "User\0222\n\007ListAll\022\024.core.v1.PageRequest\032\021." +
-      "core.v1.PageRoleB\036\n\017com.common.grpcB\tRol" +
-      "eProtoP\001b\006proto3"
+      "\001 \001(\t\"\030\n\010RoleName\022\014\n\004name\030\001 \001(\t\"7\n\021Assig" +
+      "nRoleRequest\022\017\n\007user_id\030\001 \001(\t\022\021\n\trole_na" +
+      "me\030\002 \001(\t\"\034\n\014RoleResponse\022\014\n\004name\030\001 \001(\t\")" +
+      "\n\013PageRequest\022\014\n\004page\030\001 \001(\005\022\014\n\004size\030\002 \001(" +
+      "\005\"o\n\010PageRole\022\014\n\004page\030\001 \001(\005\022\014\n\004size\030\002 \001(" +
+      "\005\022\r\n\005total\030\003 \001(\003\022\023\n\013total_pages\030\004 \001(\005\022#\n" +
+      "\004docs\030\005 \003(\0132\025.core.v1.RoleResponse\"H\n\006Me" +
+      "Lite\022\n\n\002id\030\001 \001(\t\022\020\n\010username\030\002 \001(\t\022\r\n\005em" +
+      "ail\030\003 \001(\t\022\021\n\tfull_name\030\004 \001(\t\"i\n\010PageUser" +
+      "\022\014\n\004page\030\001 \001(\005\022\014\n\004size\030\002 \001(\005\022\r\n\005total\030\003 " +
+      "\001(\003\022\023\n\013total_pages\030\004 \001(\005\022\035\n\004docs\030\005 \003(\0132\017" +
+      ".core.v1.MeLite2\343\003\n\013RoleService\022<\n\006Creat" +
+      "e\022\032.core.v1.CreateRoleRequest\032\026.google.p" +
+      "rotobuf.Empty\0227\n\nSoftDelete\022\021.core.v1.Ro" +
+      "leName\032\026.google.protobuf.Empty\0224\n\007Restor" +
+      "e\022\021.core.v1.RoleName\032\026.google.protobuf.E" +
+      "mpty\022<\n\006Assign\022\032.core.v1.AssignRoleReque" +
+      "st\032\026.google.protobuf.Empty\022<\n\006Remove\022\032.c" +
+      "ore.v1.AssignRoleRequest\032\026.google.protob" +
+      "uf.Empty\022>\n\rListUserRoles\022\032.core.v1.Assi" +
+      "gnRoleRequest\032\021.core.v1.PageRole\0227\n\017List" +
+      "UsersByRole\022\021.core.v1.RoleName\032\021.core.v1" +
+      ".PageUser\0222\n\007ListAll\022\024.core.v1.PageReque" +
+      "st\032\021.core.v1.PageRoleB\036\n\017com.common.grpc" +
+      "B\tRoleProtoP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

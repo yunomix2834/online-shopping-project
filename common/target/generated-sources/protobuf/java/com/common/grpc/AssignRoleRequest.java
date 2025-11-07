@@ -44,11 +44,11 @@ private static final long serialVersionUID = 0L;
             com.common.grpc.AssignRoleRequest.class, com.common.grpc.AssignRoleRequest.Builder.class);
   }
 
-  public static final int USERID_FIELD_NUMBER = 1;
+  public static final int USER_ID_FIELD_NUMBER = 1;
   @SuppressWarnings("serial")
   private volatile java.lang.Object userId_ = "";
   /**
-   * <code>string userId = 1;</code>
+   * <code>string user_id = 1;</code>
    * @return The userId.
    */
   @java.lang.Override
@@ -65,7 +65,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string userId = 1;</code>
+   * <code>string user_id = 1;</code>
    * @return The bytes for userId.
    */
   @java.lang.Override
@@ -83,11 +83,11 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int ROLENAME_FIELD_NUMBER = 2;
+  public static final int ROLE_NAME_FIELD_NUMBER = 2;
   @SuppressWarnings("serial")
   private volatile java.lang.Object roleName_ = "";
   /**
-   * <code>string roleName = 2;</code>
+   * <code>string role_name = 2;</code>
    * @return The roleName.
    */
   @java.lang.Override
@@ -104,7 +104,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string roleName = 2;</code>
+   * <code>string role_name = 2;</code>
    * @return The bytes for roleName.
    */
   @java.lang.Override
@@ -187,9 +187,9 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + USERID_FIELD_NUMBER;
+    hash = (37 * hash) + USER_ID_FIELD_NUMBER;
     hash = (53 * hash) + getUserId().hashCode();
-    hash = (37 * hash) + ROLENAME_FIELD_NUMBER;
+    hash = (37 * hash) + ROLE_NAME_FIELD_NUMBER;
     hash = (53 * hash) + getRoleName().hashCode();
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
@@ -442,7 +442,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object userId_ = "";
     /**
-     * <code>string userId = 1;</code>
+     * <code>string user_id = 1;</code>
      * @return The userId.
      */
     public java.lang.String getUserId() {
@@ -458,7 +458,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string userId = 1;</code>
+     * <code>string user_id = 1;</code>
      * @return The bytes for userId.
      */
     public com.google.protobuf.ByteString
@@ -475,7 +475,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string userId = 1;</code>
+     * <code>string user_id = 1;</code>
      * @param value The userId to set.
      * @return This builder for chaining.
      */
@@ -488,7 +488,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string userId = 1;</code>
+     * <code>string user_id = 1;</code>
      * @return This builder for chaining.
      */
     public Builder clearUserId() {
@@ -498,7 +498,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string userId = 1;</code>
+     * <code>string user_id = 1;</code>
      * @param value The bytes for userId to set.
      * @return This builder for chaining.
      */
@@ -514,7 +514,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object roleName_ = "";
     /**
-     * <code>string roleName = 2;</code>
+     * <code>string role_name = 2;</code>
      * @return The roleName.
      */
     public java.lang.String getRoleName() {
@@ -530,7 +530,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string roleName = 2;</code>
+     * <code>string role_name = 2;</code>
      * @return The bytes for roleName.
      */
     public com.google.protobuf.ByteString
@@ -547,7 +547,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string roleName = 2;</code>
+     * <code>string role_name = 2;</code>
      * @param value The roleName to set.
      * @return This builder for chaining.
      */
@@ -560,7 +560,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string roleName = 2;</code>
+     * <code>string role_name = 2;</code>
      * @return This builder for chaining.
      */
     public Builder clearRoleName() {
@@ -570,7 +570,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string roleName = 2;</code>
+     * <code>string role_name = 2;</code>
      * @param value The bytes for roleName to set.
      * @return This builder for chaining.
      */

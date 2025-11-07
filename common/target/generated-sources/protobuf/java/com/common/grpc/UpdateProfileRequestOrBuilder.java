@@ -10,24 +10,24 @@ public interface UpdateProfileRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string fullName = 1;</code>
+   * <code>string full_name = 1;</code>
    * @return The fullName.
    */
   java.lang.String getFullName();
   /**
-   * <code>string fullName = 1;</code>
+   * <code>string full_name = 1;</code>
    * @return The bytes for fullName.
    */
   com.google.protobuf.ByteString
       getFullNameBytes();
 
   /**
-   * <code>string phoneNumber = 2;</code>
+   * <code>string phone_number = 2;</code>
    * @return The phoneNumber.
    */
   java.lang.String getPhoneNumber();
   /**
-   * <code>string phoneNumber = 2;</code>
+   * <code>string phone_number = 2;</code>
    * @return The bytes for phoneNumber.
    */
   com.google.protobuf.ByteString

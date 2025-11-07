@@ -52,7 +52,7 @@ public class OtpController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Mono<ResponseEntity<Envelope<Void>>> verifyOtp(
-            OtpVerificationRequestBody body) {
+            @RequestBody OtpVerificationRequestBody body) {
         return GrpcHelper.callGrpcVoid(() -> stub.verifyOtp(
                 OtpVerificationRequest.newBuilder()
                         .setEmail(body.email())
@@ -69,7 +69,8 @@ public class OtpController {
     public Mono<ResponseEntity<Envelope<OtpResponseView>>> requestResetPassword(
             @RequestBody UserOtpRequestBody body) {
         return GrpcHelper.callGrpc(() -> stub.requestResetPassword(
-                        UserOtpRequest.newBuilder().setEmail(body.email()).build()),
+                        UserOtpRequest.newBuilder()
+                                .setEmail(body.email()).build()),
                 response -> new OtpResponseView(
                         response.getEmail(),
                         response.getMessage()
@@ -83,7 +84,7 @@ public class OtpController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Mono<ResponseEntity<Envelope<Void>>> verifyOtpPassword(
-            OtpVerificationRequestBody body) {
+            @RequestBody OtpVerificationRequestBody body) {
         return GrpcHelper.callGrpcVoid(() -> stub.verifyOtpPassword(
                 OtpVerificationRequest.newBuilder()
                         .setEmail(body.email())
@@ -97,7 +98,7 @@ public class OtpController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Mono<ResponseEntity<Envelope<Void>>> resetPassword(
-            ResetPasswordRequestBody body) {
+            @RequestBody ResetPasswordRequestBody body) {
         return GrpcHelper.callGrpcVoid(() -> stub.resetPassword(
                 ResetPasswordRequest.newBuilder()
                         .setEmail(body.email())

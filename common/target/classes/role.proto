@@ -12,8 +12,8 @@ message RoleName {
   string name = 1;
 }
 message AssignRoleRequest {
-  string userId = 1;
-  string roleName = 2;
+  string user_id = 1;
+  string role_name = 2;
 }
 message RoleResponse {
   string name = 1;
@@ -27,20 +27,20 @@ message PageRole {
   int32 page = 1;
   int32 size = 2;
   int64 total = 3;
-  int32 totalPages = 4;
+  int32 total_pages = 4;
   repeated RoleResponse docs = 5;
 }
 message MeLite {
   string id = 1;
   string username = 2;
   string email = 3;
-  string fullName = 4;
+  string full_name = 4;
 }
 message PageUser {
   int32 page = 1;
   int32 size = 2;
   int64 total = 3;
-  int32 totalPages = 4;
+  int32 total_pages = 4;
   repeated MeLite docs = 5;
 }
 

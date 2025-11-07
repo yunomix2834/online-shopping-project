@@ -65,38 +65,39 @@ public final class AddressProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\raddress.proto\022\007core.v1\032\033google/protobu" +
-      "f/empty.proto\"\262\001\n\024AddressCreateRequest\022\023" +
-      "\n\013contactName\030\001 \001(\t\022\024\n\014contactPhone\030\002 \001(" +
-      "\t\022\024\n\014addressLine1\030\003 \001(\t\022\024\n\014addressLine2\030" +
-      "\004 \001(\t\022\020\n\010district\030\005 \001(\t\022\014\n\004city\030\006 \001(\t\022\017\n" +
-      "\007country\030\007 \001(\t\022\022\n\npostalCode\030\010 \001(\t\"\276\001\n\024A" +
-      "ddressUpdateRequest\022\n\n\002id\030\001 \001(\t\022\023\n\013conta" +
-      "ctName\030\002 \001(\t\022\024\n\014contactPhone\030\003 \001(\t\022\024\n\014ad" +
-      "dressLine1\030\004 \001(\t\022\024\n\014addressLine2\030\005 \001(\t\022\020" +
-      "\n\010district\030\006 \001(\t\022\014\n\004city\030\007 \001(\t\022\017\n\007countr" +
-      "y\030\010 \001(\t\022\022\n\npostalCode\030\t \001(\t\"\027\n\tIdRequest" +
-      "\022\n\n\002id\030\001 \001(\t\";\n\rUserIdRequest\022\016\n\006userId\030" +
-      "\001 \001(\t\022\014\n\004page\030\002 \001(\005\022\014\n\004size\030\003 \001(\005\"\353\001\n\013Ad" +
-      "dressView\022\n\n\002id\030\001 \001(\t\022\023\n\013contactName\030\002 \001" +
-      "(\t\022\024\n\014contactPhone\030\003 \001(\t\022\024\n\014addressLine1" +
-      "\030\004 \001(\t\022\024\n\014addressLine2\030\005 \001(\t\022\020\n\010district" +
-      "\030\006 \001(\t\022\014\n\004city\030\007 \001(\t\022\017\n\007country\030\010 \001(\t\022\023\n" +
-      "\013postal_code\030\t \001(\t\022\031\n\021isDefaultShipping\030" +
-      "\n \001(\010\022\030\n\020isDefaultBilling\030\013 \001(\010\"p\n\013PageA" +
-      "ddress\022\014\n\004page\030\001 \001(\005\022\014\n\004size\030\002 \001(\005\022\r\n\005to" +
-      "tal\030\003 \001(\003\022\022\n\ntotalPages\030\004 \001(\005\022\"\n\004docs\030\005 " +
-      "\003(\0132\024.core.v1.AddressView2\213\003\n\016AddressSer" +
-      "vice\022?\n\006Create\022\035.core.v1.AddressCreateRe" +
-      "quest\032\026.google.protobuf.Empty\022?\n\006Update\022" +
-      "\035.core.v1.AddressUpdateRequest\032\026.google." +
-      "protobuf.Empty\0228\n\nSoftDelete\022\022.core.v1.I" +
-      "dRequest\032\026.google.protobuf.Empty\022@\n\022SetD" +
-      "efaultShipping\022\022.core.v1.IdRequest\032\026.goo" +
-      "gle.protobuf.Empty\022?\n\021SetDefaultBilling\022" +
-      "\022.core.v1.IdRequest\032\026.google.protobuf.Em" +
-      "pty\022:\n\nListByUser\022\026.core.v1.UserIdReques" +
-      "t\032\024.core.v1.PageAddressB!\n\017com.common.gr" +
-      "pcB\014AddressProtoP\001b\006proto3"
+      "f/empty.proto\"\267\001\n\024AddressCreateRequest\022\024" +
+      "\n\014contact_name\030\001 \001(\t\022\025\n\rcontact_phone\030\002 " +
+      "\001(\t\022\025\n\raddress_line1\030\003 \001(\t\022\025\n\raddress_li" +
+      "ne2\030\004 \001(\t\022\020\n\010district\030\005 \001(\t\022\014\n\004city\030\006 \001(" +
+      "\t\022\017\n\007country\030\007 \001(\t\022\023\n\013postal_code\030\010 \001(\t\"" +
+      "\303\001\n\024AddressUpdateRequest\022\n\n\002id\030\001 \001(\t\022\024\n\014" +
+      "contact_name\030\002 \001(\t\022\025\n\rcontact_phone\030\003 \001(" +
+      "\t\022\025\n\raddress_line1\030\004 \001(\t\022\025\n\raddress_line" +
+      "2\030\005 \001(\t\022\020\n\010district\030\006 \001(\t\022\014\n\004city\030\007 \001(\t\022" +
+      "\017\n\007country\030\010 \001(\t\022\023\n\013postal_code\030\t \001(\t\"\027\n" +
+      "\tIdRequest\022\n\n\002id\030\001 \001(\t\"<\n\rUserIdRequest\022" +
+      "\017\n\007user_id\030\001 \001(\t\022\014\n\004page\030\002 \001(\005\022\014\n\004size\030\003" +
+      " \001(\005\"\363\001\n\013AddressView\022\n\n\002id\030\001 \001(\t\022\024\n\014cont" +
+      "act_name\030\002 \001(\t\022\025\n\rcontact_phone\030\003 \001(\t\022\025\n" +
+      "\raddress_line1\030\004 \001(\t\022\025\n\raddress_line2\030\005 " +
+      "\001(\t\022\020\n\010district\030\006 \001(\t\022\014\n\004city\030\007 \001(\t\022\017\n\007c" +
+      "ountry\030\010 \001(\t\022\023\n\013postal_code\030\t \001(\t\022\033\n\023is_" +
+      "default_shipping\030\n \001(\010\022\032\n\022is_default_bil" +
+      "ling\030\013 \001(\010\"q\n\013PageAddress\022\014\n\004page\030\001 \001(\005\022" +
+      "\014\n\004size\030\002 \001(\005\022\r\n\005total\030\003 \001(\003\022\023\n\013total_pa" +
+      "ges\030\004 \001(\005\022\"\n\004docs\030\005 \003(\0132\024.core.v1.Addres" +
+      "sView2\213\003\n\016AddressService\022?\n\006Create\022\035.cor" +
+      "e.v1.AddressCreateRequest\032\026.google.proto" +
+      "buf.Empty\022?\n\006Update\022\035.core.v1.AddressUpd" +
+      "ateRequest\032\026.google.protobuf.Empty\0228\n\nSo" +
+      "ftDelete\022\022.core.v1.IdRequest\032\026.google.pr" +
+      "otobuf.Empty\022@\n\022SetDefaultShipping\022\022.cor" +
+      "e.v1.IdRequest\032\026.google.protobuf.Empty\022?" +
+      "\n\021SetDefaultBilling\022\022.core.v1.IdRequest\032" +
+      "\026.google.protobuf.Empty\022:\n\nListByUser\022\026." +
+      "core.v1.UserIdRequest\032\024.core.v1.PageAddr" +
+      "essB!\n\017com.common.grpcB\014AddressProtoP\001b\006" +
+      "proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

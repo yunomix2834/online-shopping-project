@@ -10,24 +10,24 @@ public interface AssignRoleRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string userId = 1;</code>
+   * <code>string user_id = 1;</code>
    * @return The userId.
    */
   java.lang.String getUserId();
   /**
-   * <code>string userId = 1;</code>
+   * <code>string user_id = 1;</code>
    * @return The bytes for userId.
    */
   com.google.protobuf.ByteString
       getUserIdBytes();
 
   /**
-   * <code>string roleName = 2;</code>
+   * <code>string role_name = 2;</code>
    * @return The roleName.
    */
   java.lang.String getRoleName();
   /**
-   * <code>string roleName = 2;</code>
+   * <code>string role_name = 2;</code>
    * @return The bytes for roleName.
    */
   com.google.protobuf.ByteString

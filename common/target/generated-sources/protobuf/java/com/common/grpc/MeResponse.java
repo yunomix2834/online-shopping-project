@@ -164,11 +164,11 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int FULLNAME_FIELD_NUMBER = 4;
+  public static final int FULL_NAME_FIELD_NUMBER = 4;
   @SuppressWarnings("serial")
   private volatile java.lang.Object fullName_ = "";
   /**
-   * <code>string fullName = 4;</code>
+   * <code>string full_name = 4;</code>
    * @return The fullName.
    */
   @java.lang.Override
@@ -185,7 +185,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string fullName = 4;</code>
+   * <code>string full_name = 4;</code>
    * @return The bytes for fullName.
    */
   @java.lang.Override
@@ -203,11 +203,11 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int PHONENUMBER_FIELD_NUMBER = 5;
+  public static final int PHONE_NUMBER_FIELD_NUMBER = 5;
   @SuppressWarnings("serial")
   private volatile java.lang.Object phoneNumber_ = "";
   /**
-   * <code>string phoneNumber = 5;</code>
+   * <code>string phone_number = 5;</code>
    * @return The phoneNumber.
    */
   @java.lang.Override
@@ -224,7 +224,7 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <code>string phoneNumber = 5;</code>
+   * <code>string phone_number = 5;</code>
    * @return The bytes for phoneNumber.
    */
   @java.lang.Override
@@ -242,10 +242,10 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int ISACTIVE_FIELD_NUMBER = 6;
+  public static final int IS_ACTIVE_FIELD_NUMBER = 6;
   private boolean isActive_ = false;
   /**
-   * <code>bool isActive = 6;</code>
+   * <code>bool is_active = 6;</code>
    * @return The isActive.
    */
   @java.lang.Override
@@ -253,10 +253,10 @@ private static final long serialVersionUID = 0L;
     return isActive_;
   }
 
-  public static final int ISVERIFIED_FIELD_NUMBER = 7;
+  public static final int IS_VERIFIED_FIELD_NUMBER = 7;
   private boolean isVerified_ = false;
   /**
-   * <code>bool isVerified = 7;</code>
+   * <code>bool is_verified = 7;</code>
    * @return The isVerified.
    */
   @java.lang.Override
@@ -377,14 +377,14 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getUsername().hashCode();
     hash = (37 * hash) + EMAIL_FIELD_NUMBER;
     hash = (53 * hash) + getEmail().hashCode();
-    hash = (37 * hash) + FULLNAME_FIELD_NUMBER;
+    hash = (37 * hash) + FULL_NAME_FIELD_NUMBER;
     hash = (53 * hash) + getFullName().hashCode();
-    hash = (37 * hash) + PHONENUMBER_FIELD_NUMBER;
+    hash = (37 * hash) + PHONE_NUMBER_FIELD_NUMBER;
     hash = (53 * hash) + getPhoneNumber().hashCode();
-    hash = (37 * hash) + ISACTIVE_FIELD_NUMBER;
+    hash = (37 * hash) + IS_ACTIVE_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getIsActive());
-    hash = (37 * hash) + ISVERIFIED_FIELD_NUMBER;
+    hash = (37 * hash) + IS_VERIFIED_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getIsVerified());
     hash = (29 * hash) + getUnknownFields().hashCode();
@@ -920,7 +920,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object fullName_ = "";
     /**
-     * <code>string fullName = 4;</code>
+     * <code>string full_name = 4;</code>
      * @return The fullName.
      */
     public java.lang.String getFullName() {
@@ -936,7 +936,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string fullName = 4;</code>
+     * <code>string full_name = 4;</code>
      * @return The bytes for fullName.
      */
     public com.google.protobuf.ByteString
@@ -953,7 +953,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string fullName = 4;</code>
+     * <code>string full_name = 4;</code>
      * @param value The fullName to set.
      * @return This builder for chaining.
      */
@@ -966,7 +966,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string fullName = 4;</code>
+     * <code>string full_name = 4;</code>
      * @return This builder for chaining.
      */
     public Builder clearFullName() {
@@ -976,7 +976,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string fullName = 4;</code>
+     * <code>string full_name = 4;</code>
      * @param value The bytes for fullName to set.
      * @return This builder for chaining.
      */
@@ -992,7 +992,7 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object phoneNumber_ = "";
     /**
-     * <code>string phoneNumber = 5;</code>
+     * <code>string phone_number = 5;</code>
      * @return The phoneNumber.
      */
     public java.lang.String getPhoneNumber() {
@@ -1008,7 +1008,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string phoneNumber = 5;</code>
+     * <code>string phone_number = 5;</code>
      * @return The bytes for phoneNumber.
      */
     public com.google.protobuf.ByteString
@@ -1025,7 +1025,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>string phoneNumber = 5;</code>
+     * <code>string phone_number = 5;</code>
      * @param value The phoneNumber to set.
      * @return This builder for chaining.
      */
@@ -1038,7 +1038,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string phoneNumber = 5;</code>
+     * <code>string phone_number = 5;</code>
      * @return This builder for chaining.
      */
     public Builder clearPhoneNumber() {
@@ -1048,7 +1048,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>string phoneNumber = 5;</code>
+     * <code>string phone_number = 5;</code>
      * @param value The bytes for phoneNumber to set.
      * @return This builder for chaining.
      */
@@ -1064,7 +1064,7 @@ private static final long serialVersionUID = 0L;
 
     private boolean isActive_ ;
     /**
-     * <code>bool isActive = 6;</code>
+     * <code>bool is_active = 6;</code>
      * @return The isActive.
      */
     @java.lang.Override
@@ -1072,7 +1072,7 @@ private static final long serialVersionUID = 0L;
       return isActive_;
     }
     /**
-     * <code>bool isActive = 6;</code>
+     * <code>bool is_active = 6;</code>
      * @param value The isActive to set.
      * @return This builder for chaining.
      */
@@ -1084,7 +1084,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>bool isActive = 6;</code>
+     * <code>bool is_active = 6;</code>
      * @return This builder for chaining.
      */
     public Builder clearIsActive() {
@@ -1096,7 +1096,7 @@ private static final long serialVersionUID = 0L;
 
     private boolean isVerified_ ;
     /**
-     * <code>bool isVerified = 7;</code>
+     * <code>bool is_verified = 7;</code>
      * @return The isVerified.
      */
     @java.lang.Override
@@ -1104,7 +1104,7 @@ private static final long serialVersionUID = 0L;
       return isVerified_;
     }
     /**
-     * <code>bool isVerified = 7;</code>
+     * <code>bool is_verified = 7;</code>
      * @param value The isVerified to set.
      * @return This builder for chaining.
      */
@@ -1116,7 +1116,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>bool isVerified = 7;</code>
+     * <code>bool is_verified = 7;</code>
      * @return This builder for chaining.
      */
     public Builder clearIsVerified() {

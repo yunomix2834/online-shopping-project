@@ -46,12 +46,12 @@ public interface MeLiteOrBuilder extends
       getEmailBytes();
 
   /**
-   * <code>string fullName = 4;</code>
+   * <code>string full_name = 4;</code>
    * @return The fullName.
    */
   java.lang.String getFullName();
   /**
-   * <code>string fullName = 4;</code>
+   * <code>string full_name = 4;</code>
    * @return The bytes for fullName.
    */
   com.google.protobuf.ByteString

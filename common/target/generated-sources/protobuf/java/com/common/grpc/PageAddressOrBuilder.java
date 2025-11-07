@@ -28,7 +28,7 @@ public interface PageAddressOrBuilder extends
   long getTotal();
 
   /**
-   * <code>int32 totalPages = 4;</code>
+   * <code>int32 total_pages = 4;</code>
    * @return The totalPages.
    */
   int getTotalPages();

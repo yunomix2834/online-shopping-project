@@ -66,11 +66,12 @@ public class RoleServiceImpl implements IRoleService {
     @Transactional
     public void restore(String roleName) {
         AuthenticationHelper.requireAdmin();
-        Role r = roleRepository.findById(roleName)
+        roleRepository.findById(roleName)
                 .orElseThrow(() -> new AppException(ErrorCode.ROLE_NOT_FOUND));
-        r.setDeletedAt(null);
-        r.setDeletedBy(null);
-        roleRepository.save(r);
+        int n = roleRepository.nativeRestore(roleName);
+        if (n == 0) {
+            throw new AppException(ErrorCode.ROLE_NOT_FOUND);
+        }
     }
 
     @Override @Transactional

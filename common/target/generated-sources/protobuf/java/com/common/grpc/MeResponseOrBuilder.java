@@ -46,37 +46,37 @@ public interface MeResponseOrBuilder extends
       getEmailBytes();
 
   /**
-   * <code>string fullName = 4;</code>
+   * <code>string full_name = 4;</code>
    * @return The fullName.
    */
   java.lang.String getFullName();
   /**
-   * <code>string fullName = 4;</code>
+   * <code>string full_name = 4;</code>
    * @return The bytes for fullName.
    */
   com.google.protobuf.ByteString
       getFullNameBytes();
 
   /**
-   * <code>string phoneNumber = 5;</code>
+   * <code>string phone_number = 5;</code>
    * @return The phoneNumber.
    */
   java.lang.String getPhoneNumber();
   /**
-   * <code>string phoneNumber = 5;</code>
+   * <code>string phone_number = 5;</code>
    * @return The bytes for phoneNumber.
    */
   com.google.protobuf.ByteString
       getPhoneNumberBytes();
 
   /**
-   * <code>bool isActive = 6;</code>
+   * <code>bool is_active = 6;</code>
    * @return The isActive.
    */
   boolean getIsActive();
 
   /**
-   * <code>bool isVerified = 7;</code>
+   * <code>bool is_verified = 7;</code>
    * @return The isVerified.
    */
   boolean getIsVerified();

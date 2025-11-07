@@ -76,10 +76,10 @@ private static final long serialVersionUID = 0L;
     return total_;
   }
 
-  public static final int TOTALPAGES_FIELD_NUMBER = 4;
+  public static final int TOTAL_PAGES_FIELD_NUMBER = 4;
   private int totalPages_ = 0;
   /**
-   * <code>int32 totalPages = 4;</code>
+   * <code>int32 total_pages = 4;</code>
    * @return The totalPages.
    */
   @java.lang.Override
@@ -229,7 +229,7 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + TOTAL_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getTotal());
-    hash = (37 * hash) + TOTALPAGES_FIELD_NUMBER;
+    hash = (37 * hash) + TOTAL_PAGES_FIELD_NUMBER;
     hash = (53 * hash) + getTotalPages();
     if (getDocsCount() > 0) {
       hash = (37 * hash) + DOCS_FIELD_NUMBER;
@@ -661,7 +661,7 @@ private static final long serialVersionUID = 0L;
 
     private int totalPages_ ;
     /**
-     * <code>int32 totalPages = 4;</code>
+     * <code>int32 total_pages = 4;</code>
      * @return The totalPages.
      */
     @java.lang.Override
@@ -669,7 +669,7 @@ private static final long serialVersionUID = 0L;
       return totalPages_;
     }
     /**
-     * <code>int32 totalPages = 4;</code>
+     * <code>int32 total_pages = 4;</code>
      * @param value The totalPages to set.
      * @return This builder for chaining.
      */
@@ -681,7 +681,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>int32 totalPages = 4;</code>
+     * <code>int32 total_pages = 4;</code>
      * @return This builder for chaining.
      */
     public Builder clearTotalPages() {

@@ -10,48 +10,48 @@ public interface AddressCreateRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string contactName = 1;</code>
+   * <code>string contact_name = 1;</code>
    * @return The contactName.
    */
   java.lang.String getContactName();
   /**
-   * <code>string contactName = 1;</code>
+   * <code>string contact_name = 1;</code>
    * @return The bytes for contactName.
    */
   com.google.protobuf.ByteString
       getContactNameBytes();
 
   /**
-   * <code>string contactPhone = 2;</code>
+   * <code>string contact_phone = 2;</code>
    * @return The contactPhone.
    */
   java.lang.String getContactPhone();
   /**
-   * <code>string contactPhone = 2;</code>
+   * <code>string contact_phone = 2;</code>
    * @return The bytes for contactPhone.
    */
   com.google.protobuf.ByteString
       getContactPhoneBytes();
 
   /**
-   * <code>string addressLine1 = 3;</code>
+   * <code>string address_line1 = 3;</code>
    * @return The addressLine1.
    */
   java.lang.String getAddressLine1();
   /**
-   * <code>string addressLine1 = 3;</code>
+   * <code>string address_line1 = 3;</code>
    * @return The bytes for addressLine1.
    */
   com.google.protobuf.ByteString
       getAddressLine1Bytes();
 
   /**
-   * <code>string addressLine2 = 4;</code>
+   * <code>string address_line2 = 4;</code>
    * @return The addressLine2.
    */
   java.lang.String getAddressLine2();
   /**
-   * <code>string addressLine2 = 4;</code>
+   * <code>string address_line2 = 4;</code>
    * @return The bytes for addressLine2.
    */
   com.google.protobuf.ByteString
@@ -94,12 +94,12 @@ public interface AddressCreateRequestOrBuilder extends
       getCountryBytes();
 
   /**
-   * <code>string postalCode = 8;</code>
+   * <code>string postal_code = 8;</code>
    * @return The postalCode.
    */
   java.lang.String getPostalCode();
   /**
-   * <code>string postalCode = 8;</code>
+   * <code>string postal_code = 8;</code>
    * @return The bytes for postalCode.
    */
   com.google.protobuf.ByteString

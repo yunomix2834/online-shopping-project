@@ -50,19 +50,20 @@ public final class UserProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\nuser.proto\022\007core.v1\032\033google/protobuf/e" +
-      "mpty.proto\"5\n\023ToggleActiveRequest\022\016\n\006use" +
-      "rId\030\001 \001(\t\022\016\n\006active\030\002 \001(\010\"\206\001\n\nMeResponse" +
-      "\022\n\n\002id\030\001 \001(\t\022\020\n\010username\030\002 \001(\t\022\r\n\005email\030" +
-      "\003 \001(\t\022\020\n\010fullName\030\004 \001(\t\022\023\n\013phoneNumber\030\005" +
-      " \001(\t\022\020\n\010isActive\030\006 \001(\010\022\022\n\nisVerified\030\007 \001" +
-      "(\010\"=\n\024UpdateProfileRequest\022\020\n\010fullName\030\001" +
-      " \001(\t\022\023\n\013phoneNumber\030\002 \001(\t2\321\001\n\013UserServic" +
-      "e\022D\n\014ToggleActive\022\034.core.v1.ToggleActive" +
-      "Request\032\026.google.protobuf.Empty\0224\n\005GetMe" +
-      "\022\026.google.protobuf.Empty\032\023.core.v1.MeRes" +
-      "ponse\022F\n\rUpdateProfile\022\035.core.v1.UpdateP" +
-      "rofileRequest\032\026.google.protobuf.EmptyB\036\n" +
-      "\017com.common.grpcB\tUserProtoP\001b\006proto3"
+      "mpty.proto\"6\n\023ToggleActiveRequest\022\017\n\007use" +
+      "r_id\030\001 \001(\t\022\016\n\006active\030\002 \001(\010\"\212\001\n\nMeRespons" +
+      "e\022\n\n\002id\030\001 \001(\t\022\020\n\010username\030\002 \001(\t\022\r\n\005email" +
+      "\030\003 \001(\t\022\021\n\tfull_name\030\004 \001(\t\022\024\n\014phone_numbe" +
+      "r\030\005 \001(\t\022\021\n\tis_active\030\006 \001(\010\022\023\n\013is_verifie" +
+      "d\030\007 \001(\010\"?\n\024UpdateProfileRequest\022\021\n\tfull_" +
+      "name\030\001 \001(\t\022\024\n\014phone_number\030\002 \001(\t2\321\001\n\013Use" +
+      "rService\022D\n\014ToggleActive\022\034.core.v1.Toggl" +
+      "eActiveRequest\032\026.google.protobuf.Empty\0224" +
+      "\n\005GetMe\022\026.google.protobuf.Empty\032\023.core.v" +
+      "1.MeResponse\022F\n\rUpdateProfile\022\035.core.v1." +
+      "UpdateProfileRequest\032\026.google.protobuf.E" +
+      "mptyB\036\n\017com.common.grpcB\tUserProtoP\001b\006pr" +
+      "oto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

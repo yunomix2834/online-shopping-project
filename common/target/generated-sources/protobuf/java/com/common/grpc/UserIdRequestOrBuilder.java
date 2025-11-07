@@ -10,12 +10,12 @@ public interface UserIdRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>string userId = 1;</code>
+   * <code>string user_id = 1;</code>
    * @return The userId.
    */
   java.lang.String getUserId();
   /**
-   * <code>string userId = 1;</code>
+   * <code>string user_id = 1;</code>
    * @return The bytes for userId.
    */
   com.google.protobuf.ByteString

@@ -6,7 +6,7 @@ option java_outer_classname = "UserProto";
 import "google/protobuf/empty.proto";
 
 message ToggleActiveRequest {
-  string userId = 1;
+  string user_id = 1;
   bool active = 2;
 }
 
@@ -14,14 +14,14 @@ message MeResponse {
   string id = 1;
   string username = 2;
   string email = 3;
-  string fullName = 4;
-  string phoneNumber = 5;
-  bool isActive = 6;
-  bool isVerified = 7;
+  string full_name = 4;
+  string phone_number = 5;
+  bool is_active = 6;
+  bool is_verified = 7;
 }
 message UpdateProfileRequest {
-  string fullName = 1;
-  string phoneNumber = 2;
+  string full_name = 1;
+  string phone_number = 2;
 }
 
 service UserService {
