@@ -54,28 +54,16 @@ public interface ProductListRequestOrBuilder extends
       getCategoryIdBytes();
 
   /**
-   * <pre>
-   * optional
-   * </pre>
-   *
    * <code>optional .onlineshopping.v1.ProductStatus status = 4;</code>
    * @return Whether the status field is set.
    */
   boolean hasStatus();
   /**
-   * <pre>
-   * optional
-   * </pre>
-   *
    * <code>optional .onlineshopping.v1.ProductStatus status = 4;</code>
    * @return The enum numeric value on the wire for status.
    */
   int getStatusValue();
   /**
-   * <pre>
-   * optional
-   * </pre>
-   *
    * <code>optional .onlineshopping.v1.ProductStatus status = 4;</code>
    * @return The status.
    */

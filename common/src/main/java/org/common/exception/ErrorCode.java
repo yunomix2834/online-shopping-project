@@ -45,6 +45,7 @@ public enum ErrorCode {
     VARIANT_NOT_FOUND(404, NOT_FOUND_STATUS, "Không tìm thấy biến thể", HttpStatus.NOT_FOUND),
     ATTRIBUTE_NOT_FOUND(404, NOT_FOUND_STATUS, "Không tìm thấy thuộc tính", HttpStatus.NOT_FOUND),
     IMAGE_NOT_FOUND(404, NOT_FOUND_STATUS, "Không tìm thấy ảnh", HttpStatus.NOT_FOUND),
+    DISCOUNT_NOT_FOUND(404, NOT_FOUND_STATUS, "Không tìm thấy mã giảm giá", HttpStatus.NOT_FOUND),
 
     // 409
     USER_ALREADY_EXISTS(409, CONFLICT_STATUS, "Người dùng đã tồn tại!", HttpStatus.CONFLICT),

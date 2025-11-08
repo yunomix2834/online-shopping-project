@@ -65,5 +65,5 @@ public class Product extends AuditMetadata {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    ProductStatus status = ProductStatus.draft;
+    ProductStatus status = ProductStatus.DRAFT;
 }

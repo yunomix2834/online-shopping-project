@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package onlineshopping.v1;
+
+import "common.proto";
+import "google/protobuf/empty.proto";
+
+option java_multiple_files = true;
+option java_package = "com.common.grpc";
+option java_outer_classname = "VariantProto";
+
+message VariantCreateRequest {
+  string product_id = 1;
+  string sku = 2;
+  string price = 3;
+  string original_price = 4;
+}
+message VariantUpdateRequest {
+  string id = 1;
+  string sku = 2;
+  string price = 3;
+  string original_price = 4;
+}
+message VariantPricePatchRequest {
+  string id = 1;
+  string price = 2;
+  string original_price = 3;
+}
+message VariantBySkuRequest {
+  string sku = 1;
+}
+message VariantByProductRequest {
+  string product_id = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
+
+message VariantView {
+    string id = 1;
+    string product_id = 2;
+    string sku = 3;
+    string price = 4;
+    string original_price = 5;
+}
+message PageVariant {
+    int32 page = 1;
+    int32 size = 2;
+    int64 total = 3;
+    int32 total_pages = 4;
+    repeated VariantView docs = 5;
+}
+
+service VariantService {
+    rpc Create (VariantCreateRequest) returns (google.protobuf.Empty);
+    rpc Update (VariantUpdateRequest) returns (google.protobuf.Empty);
+    rpc SoftDelete (IdRequest) returns (google.protobuf.Empty);
+    rpc Restore (IdRequest) returns (google.protobuf.Empty);
+
+    rpc FindBySku (VariantBySkuRequest) returns (VariantView);
+    rpc PatchPrice (VariantPricePatchRequest) returns (google.protobuf.Empty);
+    rpc ListByProduct (VariantByProductRequest) returns (PageVariant);
+}

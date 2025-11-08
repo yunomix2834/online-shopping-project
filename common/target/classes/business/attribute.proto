@@ -1,0 +1,51 @@
+syntax = "proto3";
+package onlineshopping.v1;
+option java_multiple_files = true;
+option java_package = "com.common.grpc";
+option java_outer_classname = "AttributeProto";
+import "google/protobuf/empty.proto";
+import "common.proto";
+
+message AttributeCreateRequest {
+  string name = 1;
+  string value = 2;
+}
+message AttributeView {
+  string id = 1;
+  string name = 2;
+  string value = 3;
+}
+message AttributeListRequest {
+  string q = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
+message PageAttribute {
+  int32 page = 1;
+  int32 size = 2;
+  int64 total = 3;
+  int32 total_pages = 4;
+  repeated AttributeView docs = 5;
+}
+
+message VariantAttributeAssignRequest {
+  string variant_id = 1;
+  string attribute_id = 2;
+}
+message VariantIdRequest {
+  string variant_id = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
+
+service AttributeService {
+  rpc Create(AttributeCreateRequest) returns (google.protobuf.Empty);
+  rpc SoftDelete(IdRequest) returns (google.protobuf.Empty);
+  rpc Restore(IdRequest) returns (google.protobuf.Empty);
+
+  rpc List(AttributeListRequest) returns (PageAttribute);
+
+  rpc AssignToVariant(VariantAttributeAssignRequest) returns (google.protobuf.Empty);
+  rpc UnassignFromVariant(VariantAttributeAssignRequest) returns (google.protobuf.Empty);
+  rpc ListByVariant(VariantIdRequest) returns (PageAttribute);
+}

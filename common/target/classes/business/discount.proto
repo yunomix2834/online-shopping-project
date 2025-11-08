@@ -1,0 +1,41 @@
+syntax = "proto3";
+package onlineshopping.v1;
+option java_multiple_files = true;
+option java_package = "com.common.grpc";
+option java_outer_classname = "DiscountProto";
+import "google/protobuf/empty.proto";
+import "common.proto";
+
+enum DiscountTypeGrpc { PERCENTAGE = 0; FIXED_AMOUNT = 1; }
+
+message DiscountCreateRequest {
+  string code = 1; DiscountTypeGrpc type = 2; string value = 3;
+  string start_date = 4; string end_date = 5; string min_order_value = 6; bool is_active = 7;
+}
+message DiscountUpdateRequest {
+  string id = 1; string code = 2; DiscountTypeGrpc type = 3; string value = 4;
+  string start_date = 5; string end_date = 6; string min_order_value = 7; bool is_active = 8;
+}
+message DiscountToggleActiveRequest { string id = 1; bool is_active = 2; }
+message DiscountCodeRequest { string code = 1; string order_value = 2; string at = 3; }
+
+message DiscountView {
+  string id = 1; string code = 2; DiscountTypeGrpc type = 3; string value = 4;
+  string start_date = 5; string end_date = 6; string min_order_value = 7; bool is_active = 8;
+}
+message DiscountListRequest { bool only_effective = 1; string at = 2; int32 page = 3; int32 size = 4; }
+message PageDiscount { int32 page = 1; int32 size = 2; int64 total = 3; int32 total_pages = 4; repeated DiscountView docs = 5; }
+
+message DiscountValidationView { bool valid = 1; string reason = 2; string discount_amount = 3; }
+
+service DiscountService {
+  rpc Create(DiscountCreateRequest) returns (google.protobuf.Empty);
+  rpc Update(DiscountUpdateRequest) returns (google.protobuf.Empty);
+  rpc SoftDelete(IdRequest) returns (google.protobuf.Empty);
+  rpc Restore(IdRequest) returns (google.protobuf.Empty);
+  rpc ToggleActive(DiscountToggleActiveRequest) returns (google.protobuf.Empty);
+
+  rpc GetByCode(DiscountCodeRequest) returns (DiscountView);
+  rpc Validate(DiscountCodeRequest) returns (DiscountValidationView);
+  rpc List(DiscountListRequest) returns (PageDiscount);
+}

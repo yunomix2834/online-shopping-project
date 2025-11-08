@@ -41,7 +41,7 @@ message ProductListRequest {
   string q = 1;              // text search
   string brand_id = 2;
   string category_id = 3;
-  optional ProductStatus status = 4;  // optional
+  optional ProductStatus status = 4;
   int32 page = 5;
   int32 size = 6;
 }

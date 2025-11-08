@@ -1,0 +1,43 @@
+syntax = "proto3";
+package onlineshopping.v1;
+option java_multiple_files = true;
+option java_package = "com.common.grpc";
+option java_outer_classname = "ProductImageProto";
+import "google/protobuf/empty.proto";
+import "common.proto";
+
+message ImageCreateRequest {
+  string product_id = 1;
+  string variant_id = 2;
+  string image_url = 3;
+}
+message ImageView {
+  string id = 1;
+  string product_id = 2;
+  string variant_id = 3;
+  string image_url = 4;
+  bool is_thumbnail = 5;
+}
+message ImageListRequest {
+  string product_id = 1;
+  string variant_id = 2;
+  int32 page = 3;
+  int32 size = 4;
+}
+message PageImage {
+  int32 page = 1;
+  int32 size = 2;
+  int64 total = 3;
+  int32 total_pages = 4;
+  repeated ImageView docs = 5;
+}
+
+service ProductImageService {
+  rpc Create(ImageCreateRequest) returns (google.protobuf.Empty);
+  rpc SoftDelete(IdRequest) returns (google.protobuf.Empty);
+  rpc Restore(IdRequest) returns (google.protobuf.Empty);
+
+  rpc SetThumbnail(IdRequest) returns (google.protobuf.Empty);
+  rpc UnsetThumbnail(IdRequest) returns (google.protobuf.Empty);
+  rpc List(ImageListRequest) returns (PageImage);
+}

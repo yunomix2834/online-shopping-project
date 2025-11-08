@@ -175,10 +175,6 @@ private static final long serialVersionUID = 0L;
   public static final int STATUS_FIELD_NUMBER = 4;
   private int status_ = 0;
   /**
-   * <pre>
-   * optional
-   * </pre>
-   *
    * <code>optional .onlineshopping.v1.ProductStatus status = 4;</code>
    * @return Whether the status field is set.
    */
@@ -186,10 +182,6 @@ private static final long serialVersionUID = 0L;
     return ((bitField0_ & 0x00000001) != 0);
   }
   /**
-   * <pre>
-   * optional
-   * </pre>
-   *
    * <code>optional .onlineshopping.v1.ProductStatus status = 4;</code>
    * @return The enum numeric value on the wire for status.
    */
@@ -197,10 +189,6 @@ private static final long serialVersionUID = 0L;
     return status_;
   }
   /**
-   * <pre>
-   * optional
-   * </pre>
-   *
    * <code>optional .onlineshopping.v1.ProductStatus status = 4;</code>
    * @return The status.
    */
@@ -887,10 +875,6 @@ private static final long serialVersionUID = 0L;
 
     private int status_ = 0;
     /**
-     * <pre>
-     * optional
-     * </pre>
-     *
      * <code>optional .onlineshopping.v1.ProductStatus status = 4;</code>
      * @return Whether the status field is set.
      */
@@ -898,10 +882,6 @@ private static final long serialVersionUID = 0L;
       return ((bitField0_ & 0x00000008) != 0);
     }
     /**
-     * <pre>
-     * optional
-     * </pre>
-     *
      * <code>optional .onlineshopping.v1.ProductStatus status = 4;</code>
      * @return The enum numeric value on the wire for status.
      */
@@ -909,10 +889,6 @@ private static final long serialVersionUID = 0L;
       return status_;
     }
     /**
-     * <pre>
-     * optional
-     * </pre>
-     *
      * <code>optional .onlineshopping.v1.ProductStatus status = 4;</code>
      * @param value The enum numeric value on the wire for status to set.
      * @return This builder for chaining.
@@ -924,10 +900,6 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <pre>
-     * optional
-     * </pre>
-     *
      * <code>optional .onlineshopping.v1.ProductStatus status = 4;</code>
      * @return The status.
      */
@@ -937,10 +909,6 @@ private static final long serialVersionUID = 0L;
       return result == null ? com.common.grpc.ProductStatus.UNRECOGNIZED : result;
     }
     /**
-     * <pre>
-     * optional
-     * </pre>
-     *
      * <code>optional .onlineshopping.v1.ProductStatus status = 4;</code>
      * @param value The status to set.
      * @return This builder for chaining.
@@ -955,10 +923,6 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <pre>
-     * optional
-     * </pre>
-     *
      * <code>optional .onlineshopping.v1.ProductStatus status = 4;</code>
      * @return This builder for chaining.
      */
