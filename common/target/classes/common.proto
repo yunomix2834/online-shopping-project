@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package onlineshopping.v1;
+option java_package = "com.common.grpc";
+
+option java_multiple_files = true;
+
+message IdRequest {
+  string id = 1;
+}
+
+message SlugRequest {
+  string slug = 1;
+}

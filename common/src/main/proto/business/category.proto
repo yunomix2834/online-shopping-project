@@ -1,0 +1,75 @@
+syntax = "proto3";
+package onlineshopping.v1;
+option java_multiple_files = true;
+option java_package = "com.common.grpc";
+option java_outer_classname = "CategoryProto";
+import "google/protobuf/empty.proto";
+
+import "common.proto";
+
+message CategoryCreateRequest {
+  string name = 1;
+  string slug = 2;
+  string description = 3;
+  string parent_id = 4;   // optional
+}
+message CategoryUpdateRequest {
+  string id = 1;
+  string name = 2;
+  string slug = 3;
+  string description = 4;
+}
+message CategoryReparentRequest {
+  string id = 1;
+  string new_parent_id = 2; // null/empty => lên root
+}
+
+message CategoryView {
+  string id = 1;
+  string name = 2;
+  string slug = 3;
+  string description = 4;
+  string parent_id = 5;
+}
+
+message CategoryListRequest {
+  string q = 1;   // search theo name/slug
+  int32 page = 2;
+  int32 size = 3;
+}
+message PageCategory {
+  int32 page = 1;
+  int32 size = 2;
+  int64 total = 3;
+  int32 total_pages = 4;
+  repeated CategoryView docs = 5;
+}
+
+message CategoryTreeNode {
+  CategoryView data = 1;
+  repeated CategoryTreeNode children = 2;
+}
+
+message CategoryChildrenRequest {
+  string id = 1;     // lấy children của node (id = null -> root level)
+}
+message CategoryProductsRequest {
+  string category_id = 1;
+  int32 page = 2;
+  int32 size = 3;
+}
+
+service CategoryService {
+  rpc Create(CategoryCreateRequest) returns (google.protobuf.Empty);
+  rpc Update(CategoryUpdateRequest) returns (google.protobuf.Empty);
+  rpc SoftDelete(IdRequest) returns (google.protobuf.Empty);
+  rpc Restore(IdRequest) returns (google.protobuf.Empty);
+  rpc Reparent(CategoryReparentRequest) returns (google.protobuf.Empty);
+
+  rpc GetById(IdRequest) returns (CategoryView);
+  rpc GetBySlug(SlugRequest) returns (CategoryView);
+  rpc List(CategoryListRequest) returns (PageCategory);
+
+  rpc Tree(google.protobuf.Empty) returns (CategoryTreeNode);  // full tree
+  rpc Children(CategoryChildrenRequest) returns (PageCategory); // 1 cấp con
+}

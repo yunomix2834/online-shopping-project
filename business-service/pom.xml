@@ -39,6 +39,8 @@
         <mapstruct.version>1.6.3</mapstruct.version>
         <lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
         <springdoc-openapi.version>2.8.1</springdoc-openapi.version>
+        <grpc.server.starter.version>3.1.0.RELEASE</grpc.server.starter.version>
+        <grpc.server.client.version>3.1.0.RELEASE</grpc.server.client.version>
 
         <!-- Build-plugin -->
         <maven.compiler.plugin.version>3.12.1</maven.compiler.plugin.version>
@@ -146,6 +148,24 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.online-shopping</groupId>
+            <artifactId>common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!-- ========= gRPC Server ========= -->
+        <dependency>
+            <groupId>net.devh</groupId>
+            <artifactId>grpc-server-spring-boot-starter</artifactId>
+            <version>${grpc.server.starter.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.devh</groupId>
+            <artifactId>grpc-client-spring-boot-starter</artifactId>
+            <version>${grpc.server.client.version}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
     <dependencyManagement>

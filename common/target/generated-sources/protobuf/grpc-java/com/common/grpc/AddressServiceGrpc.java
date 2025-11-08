@@ -6,13 +6,13 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.72.0)",
-    comments = "Source: address.proto")
+    comments = "Source: core/address.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class AddressServiceGrpc {
 
   private AddressServiceGrpc() {}
 
-  public static final java.lang.String SERVICE_NAME = "core.v1.AddressService";
+  public static final java.lang.String SERVICE_NAME = "onlineshopping.v1.AddressService";
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<com.common.grpc.AddressCreateRequest,

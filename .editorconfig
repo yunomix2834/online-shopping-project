@@ -1,0 +1,41 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.java]
+indent_style = space
+indent_size = 2
+ij_continuation_indent_size = 4
+max_line_length = 100
+
+# Không dùng import wildcard
+ij_java_class_count_to_use_import_on_demand = 999
+ij_java_names_count_to_use_import_on_demand = 999
+
+# Google Style: 2 nhóm import: non-static, rồi static; mỗi nhóm sort lexicographic; 1 dòng trống giữa 2 nhóm
+ij_java_imports_layout = *,|,$*
+
+# Blank lines (gần Google)
+ij_java_blank_lines_after_package = 1
+ij_java_blank_lines_before_imports = 1
+ij_java_blank_lines_after_imports = 1
+ij_java_blank_lines_around_class = 1
+ij_java_blank_lines_around_method = 1
+ij_java_blank_lines_around_field = 0
+
+# Wrapping / alignment (phù hợp Google)
+ij_java_method_call_wrap = split_into_lines
+ij_java_call_parameters_wrap = split_into_lines
+ij_java_method_parameters_wrap = split_into_lines
+ij_java_extends_list_wrap = split_into_lines
+ij_java_throws_list_wrap = split_into_lines
+ij_java_align_multiline_parameters = true
+ij_java_align_multiline_chained_methods = false
+
+# Javadoc cơ bản (Google yêu cầu format chuẩn)
+ij_java_enable_javadoc_formatting = true
+ij_java_keep_empty_lines_in_javadoc = 1

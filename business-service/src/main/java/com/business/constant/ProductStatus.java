@@ -1,3 +1,8 @@
 package com.business.constant;
 
-public enum ProductStatus { published, draft, archived }
+public enum ProductStatus {
+    PUBLISHED,
+    UNPUBLISHED,
+    DRAFT,
+    ARCHIVED
+}

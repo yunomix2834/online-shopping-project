@@ -29,7 +29,7 @@ public class CustomJwtDecoder implements JwtDecoder {
     @Autowired
     private IAuthenticationService authenticationService;
 
-    private NimbusJwtDecoder nimbusJwtDecoder = null;
+    private NimbusJwtDecoder nimbusJwtDecoder;
 
     @Override
     public Jwt decode(String token) throws JwtException {

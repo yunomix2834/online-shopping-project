@@ -1,0 +1,85 @@
+syntax = "proto3";
+package onlineshopping.v1;
+option java_multiple_files = true;
+option java_package = "com.common.grpc";
+option java_outer_classname = "ProductProto";
+import "google/protobuf/empty.proto";
+
+import "common.proto";
+
+enum ProductStatus {
+  DRAFT = 0;
+  PUBLISHED = 1;
+  UNPUBLISHED = 2;
+  ARCHIVED = 3;
+}
+
+message ProductCreateRequest {
+  string name = 1;
+  string slug = 2;
+  string description = 3;
+  string brand_id = 4;     // gán brand
+}
+message ProductUpdateRequest {
+  string id = 1;
+  string name = 2;
+  string slug = 3;
+  string description = 4;
+  string brand_id = 5;
+}
+
+message ProductView {
+  string id = 1;
+  string name = 2;
+  string slug = 3;
+  string description = 4;
+  ProductStatus status = 5;
+  string brand_id = 6;
+}
+
+message ProductListRequest {
+  string q = 1;              // text search
+  string brand_id = 2;
+  string category_id = 3;
+  optional ProductStatus status = 4;
+  int32 page = 5;
+  int32 size = 6;
+}
+message PageProduct {
+  int32 page = 1;
+  int32 size = 2;
+  int64 total = 3;
+  int32 total_pages = 4;
+  repeated ProductView docs = 5;
+}
+
+message PublishRequest { string id = 1; }
+message UnpublishRequest { string id = 1; }
+message ArchiveRequest { string id = 1; }
+
+message AssignCategoryRequest {
+  string product_id = 1;
+  string category_id = 2;
+}
+message UnassignCategoryRequest {
+  string product_id = 1;
+  string category_id = 2;
+}
+
+service ProductService {
+  rpc Create(ProductCreateRequest) returns (google.protobuf.Empty);
+  rpc Update(ProductUpdateRequest) returns (google.protobuf.Empty);
+  rpc SoftDelete(IdRequest) returns (google.protobuf.Empty);
+  rpc Restore(IdRequest) returns (google.protobuf.Empty);
+
+  rpc Publish(PublishRequest) returns (google.protobuf.Empty);
+  rpc Unpublish(UnpublishRequest) returns (google.protobuf.Empty);
+  rpc Archive(ArchiveRequest) returns (google.protobuf.Empty);
+
+  rpc GetById(IdRequest) returns (ProductView);
+  rpc GetBySlug(SlugRequest) returns (ProductView);
+  rpc List(ProductListRequest) returns (PageProduct);
+
+  rpc AssignCategory(AssignCategoryRequest) returns (google.protobuf.Empty);
+  rpc UnassignCategory(UnassignCategoryRequest) returns (google.protobuf.Empty);
+}

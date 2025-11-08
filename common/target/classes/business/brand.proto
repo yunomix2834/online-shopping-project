@@ -1,0 +1,52 @@
+syntax = "proto3";
+package onlineshopping.v1;
+option java_multiple_files = true;
+option java_package = "com.common.grpc";
+option java_outer_classname = "BrandProto";
+import "google/protobuf/empty.proto";
+
+import "common.proto";
+
+message BrandCreateRequest {
+  string name = 1;
+  string slug = 2;
+  string description = 3;
+}
+message BrandUpdateRequest {
+  string id = 1;            // cập nhật theo id
+  string name = 2;
+  string slug = 3;
+  string description = 4;
+}
+
+message BrandView {
+  string id = 1;
+  string name = 2;
+  string slug = 3;
+  string description = 4;
+}
+
+message BrandListRequest {
+  string q = 1;         // search theo name/slug
+  int32 page = 2;
+  int32 size = 3;
+}
+message PageBrand {
+  int32 page = 1;
+  int32 size = 2;
+  int64 total = 3;
+  int32 total_pages = 4;
+  repeated BrandView docs = 5;
+}
+
+service BrandService {
+  rpc Create(BrandCreateRequest) returns (google.protobuf.Empty);
+  rpc Update(BrandUpdateRequest) returns (google.protobuf.Empty);
+  rpc SoftDelete(IdRequest) returns (google.protobuf.Empty);
+  rpc Restore(IdRequest) returns (google.protobuf.Empty);
+
+  rpc GetById(IdRequest) returns (BrandView);
+  rpc GetBySlug(SlugRequest) returns (BrandView);
+  rpc List(BrandListRequest) returns (PageBrand);
+}
+

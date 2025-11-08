@@ -6,13 +6,13 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.72.0)",
-    comments = "Source: role.proto")
+    comments = "Source: core/role.proto")
 @io.grpc.stub.annotations.GrpcGenerated
 public final class RoleServiceGrpc {
 
   private RoleServiceGrpc() {}
 
-  public static final java.lang.String SERVICE_NAME = "core.v1.RoleService";
+  public static final java.lang.String SERVICE_NAME = "onlineshopping.v1.RoleService";
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<com.common.grpc.CreateRoleRequest,

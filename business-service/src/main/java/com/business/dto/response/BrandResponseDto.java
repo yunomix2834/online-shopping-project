@@ -1,0 +1,19 @@
+package com.business.dto.response;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class BrandResponseDto {
+    String id;
+    String name;
+    String slug;
+    String description;
+}

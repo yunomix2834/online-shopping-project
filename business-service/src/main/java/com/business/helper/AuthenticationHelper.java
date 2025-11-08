@@ -1,54 +1,35 @@
 package com.business.helper;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.experimental.UtilityClass;
+import org.common.exception.AppException;
+import org.common.exception.ErrorCode;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.jwt.Jwt;
 
-import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-/**
- * Tiện ích hỗ trợ lấy thông tin người dùng hiện đang đăng nhập
- * từ ngữ cảnh bảo mật của Spring Security.
- */
-@Slf4j
+@UtilityClass
 public class AuthenticationHelper {
-    public static Collection<String> getMyAuthorities() {
-        Authentication auth =
-                SecurityContextHolder.getContext().getAuthentication();
-        return auth.getAuthorities()
+    public String getMyUserId() {
+        Authentication a = SecurityContextHolder.getContext().getAuthentication();
+        if (a == null || a.getName() == null) throw new AppException(ErrorCode.UNAUTHENTICATED);
+        return a.getName();
+    }
+
+    public Set<String> getMyRoles() {
+        Authentication a = SecurityContextHolder.getContext().getAuthentication();
+        if (a == null) throw new AppException(ErrorCode.UNAUTHENTICATED);
+        return a.getAuthorities()
                 .stream()
                 .map(GrantedAuthority::getAuthority)
-                .toList();
+                .collect(Collectors.toSet());
     }
 
-    /**
-     * Lấy ID của người dùng đã đăng nhập.
-     *
-     * @return chuỗi tên đăng nhập hoặc null nếu chưa xác thực
-     */
-    public static String getMyUserId() {
-        Authentication auth =
-                SecurityContextHolder.getContext().getAuthentication();
-        if (auth == null || !auth.isAuthenticated()) {
-            return null;
+    public void requireAdmin() {
+        if (!getMyRoles().contains("ROLE_ADMIN") && !getMyRoles().contains("ADMIN")) {
+            throw new AppException(ErrorCode.UNAUTHORIZED);
         }
-
-        Object principal = auth.getPrincipal();
-
-        if (principal instanceof Jwt jwt) {
-            // JwtAuthenticationToken giữ nguyên đối tượng Jwt làm principal,
-            return jwt.getClaimAsString("userId");
-        }
-
-        return null;
-    }
-
-    public static Collection<String> getMyRoles() {
-        return getMyAuthorities().stream()
-                .filter(role -> role.startsWith("ROLE_"))
-                .map(role -> role.substring("ROLE_".length()))
-                .toList();
     }
 }
