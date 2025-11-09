@@ -3,6 +3,8 @@ package com.business.entity;
 import com.business.entity.audit.AuditMetadata;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.Table;
@@ -32,6 +34,10 @@ import org.hibernate.annotations.Where;
 public class Cart extends AuditMetadata {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "card_id", length = 36)
+    String id;
+
     @Column(name = "user_id", length = 36)
-    String userId; // PK = user_id (1-1)
+    String userId;
 }

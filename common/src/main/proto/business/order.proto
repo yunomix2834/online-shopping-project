@@ -1,0 +1,109 @@
+syntax = "proto3";
+package onlineshopping.v1;
+option java_multiple_files = true;
+option java_package = "com.common.grpc";
+option java_outer_classname = "OrderProto";
+import "google/protobuf/empty.proto";
+import "common.proto";
+
+enum OrderStatusGrpc {
+  PENDING=0;
+  PROCESSING=1;
+  SHIPPED=2;
+  COMPLETED=3;
+  CANCELLED=4;
+}
+
+message OrderItemView {
+  string id=1;
+  string variant_id=2;
+  string sku=3;
+  string product_name=4;
+  string price=5;
+  int32 quantity=6;
+  string line_total=7;
+}
+message OrderView {
+  string id=1;
+  string user_id=2;
+  OrderStatusGrpc status=3;
+  string subtotal=4;
+  string discount_amount=5;
+  string shipping_fee=6;
+  string total_amount=7;
+  string shipping_address=8;
+  string billing_address=9;
+  string payment_method_name=10;
+  string shipping_method_name=11;
+  string discount_code=12;
+  repeated OrderItemView items=13;
+  string created_at=14;
+}
+message OrderListRequest {
+  string user_id=1;
+  string status=2;
+  string date_from=3;
+  string date_to=4;
+  int32 page=5;
+  int32 size=6;
+}
+message PageOrder {
+  int32 page=1;
+  int32 size=2;
+  int64 total=3;
+  int32 total_pages=4;
+  repeated OrderView docs=5;
+}
+
+message CreateOrderFromCartRequest {
+  string user_id=1;
+  string shipping_address=2;
+  string billing_address=3;
+  string payment_method_name=4;
+  string shipping_method_name=5;
+  string discount_code=6;
+}
+message CreateOrderDirectRequest {
+  string user_id=1;
+  string shipping_address=2;
+  string billing_address=3;
+  string payment_method_name=4;
+  string shipping_method_name=5;
+  string discount_code=6;
+  repeated DirectLine lines=7;
+  message DirectLine {
+    string variant_id=1;
+    int32 quantity=2;
+  }
+}
+message OrderIdRequest {
+  string id=1;
+}
+message OrderUpdateStatusRequest {
+  string id=1;
+  OrderStatusGrpc status=2;
+}
+message OrderCancelRequest {
+  string id=1;
+}
+message OrderPatchChargesRequest {
+  string id=1;
+  string shipping_fee=2;
+  string payment_method_name=3;
+  string shipping_method_name=4;
+}
+message OrderApplyOrSwapCodeRequest {
+  string id=1;
+  string discount_code=2;
+}
+
+service OrderService {
+  rpc CreateFromCart(CreateOrderFromCartRequest) returns (OrderView);
+  rpc CreateDirect(CreateOrderDirectRequest) returns (OrderView);
+  rpc GetDetail(OrderIdRequest) returns (OrderView);
+  rpc List(OrderListRequest) returns (PageOrder);
+  rpc UpdateStatus(OrderUpdateStatusRequest) returns (google.protobuf.Empty);
+  rpc Cancel(OrderCancelRequest) returns (google.protobuf.Empty);
+  rpc PatchCharges(OrderPatchChargesRequest) returns (google.protobuf.Empty);
+  rpc ApplyOrSwapCode(OrderApplyOrSwapCodeRequest) returns (google.protobuf.Empty);
+}
