@@ -57,6 +57,14 @@ app:
     expiry-minutes: 5
   password-reset:
     expiry-minutes: 15
+  admin:
+    username: admin
+    password: adminRoot123
+    email: adminRoot123@gmail.com
+  teacher:
+    username: userRoot
+    password: userRoot123
+    email: userRoot123@gmail.com
 
 core:
   http:
