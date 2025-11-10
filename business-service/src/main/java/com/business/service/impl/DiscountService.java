@@ -26,36 +26,36 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class DiscountService implements IDiscountService {
-  DiscountsRepository repo;
-  DiscountMapper mapper;
+  DiscountsRepository discountsRepository;
+  DiscountMapper discountMapper;
 
   @Override
   public void create(DiscountCreateRequestDto dto) {
     AuthenticationHelper.requireAdmin();
-    repo.save(mapper.toDiscountFromDiscountCreateRequestDto(dto));
+    discountsRepository.save(discountMapper.toDiscountFromDiscountCreateRequestDto(dto));
   }
 
   @Override public void update(
       String id,
       DiscountUpdateRequestDto dto) {
     AuthenticationHelper.requireAdmin();
-    Discount d = repo.findById(id)
+    Discount d = discountsRepository.findById(id)
         .orElseThrow(() -> new AppException(ErrorCode.DISCOUNT_NOT_FOUND));
-    mapper.patchDiscountFromDiscountUpdateRequestDto(d, dto);
-    repo.save(d);
+    discountMapper.patchDiscountFromDiscountUpdateRequestDto(d, dto);
+    discountsRepository.save(d);
   }
 
   @Override public void softDelete(String id) {
     AuthenticationHelper.requireAdmin();
-    Discount d = repo.findById(id)
+    Discount d = discountsRepository.findById(id)
         .orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND));
     d.markDeleted(AuthenticationHelper.getMyUserId());
-    repo.save(d);
+    discountsRepository.save(d);
   }
 
   @Override public void restore(String id) {
     AuthenticationHelper.requireAdmin();
-    if (repo.nativeRestore(id)==0) {
+    if (discountsRepository.nativeRestore(id)==0) {
       throw new AppException(ErrorCode.IMAGE_NOT_FOUND);
     }
   }
@@ -64,20 +64,20 @@ public class DiscountService implements IDiscountService {
       String id,
       boolean active) {
     AuthenticationHelper.requireAdmin();
-    Discount d = repo.findById(id)
+    Discount d = discountsRepository.findById(id)
         .orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND));
     d.setActive(active);
-    repo.save(d);
+    discountsRepository.save(d);
   }
   @Override
   public DiscountResponseDto getByCode(String code) {
-    Discount d = repo.findByCode(code)
+    Discount d = discountsRepository.findByCode(code)
         .orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND));
-    return mapper.toDiscountResponseDtoFromDiscount(d);
+    return discountMapper.toDiscountResponseDtoFromDiscount(d);
   }
   @Override public DiscountValidation validateAndAmount(
       String code, BigDecimal orderValue, Instant at) {
-    Discount d = repo.findByCode(code).orElse(null);
+    Discount d = discountsRepository.findByCode(code).orElse(null);
     if (d == null) {
       return DiscountValidation.builder()
           .valid(false)
@@ -136,10 +136,10 @@ public class DiscountService implements IDiscountService {
   @Override public Envelope.Page<DiscountResponseDto> list(
       boolean only,
       Instant at, int page, int size) {
-    Page<Discount> p = repo.listEffective(only, at, PageRequest.of(page, size));
+    Page<Discount> p = discountsRepository.listEffective(only, at, PageRequest.of(page, size));
     List<DiscountResponseDto> docs = p.getContent()
         .stream()
-        .map(mapper::toDiscountResponseDtoFromDiscount)
+        .map(discountMapper::toDiscountResponseDtoFromDiscount)
         .toList();
 
     return Envelope.okPage(

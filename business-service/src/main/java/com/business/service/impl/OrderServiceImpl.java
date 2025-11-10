@@ -19,6 +19,10 @@ import com.business.repository.ProductVariantsRepository;
 import com.business.service.IDiscountService;
 import com.business.service.IOrderService;
 import com.business.service.OrderPricingRule;
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.util.List;
+import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -29,20 +33,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class OrderServiceImpl implements IOrderService {
 
-  OrdersRepository ordersRepo;
-  OrderItemsRepository orderItemsRepo;
-  ProductVariantsRepository variantsRepo;
-  CartItemsRepository cartItemsRepo;
+  OrdersRepository ordersRepository;
+  OrderItemsRepository orderItemsRepository;
+  ProductVariantsRepository productVariantsRepository;
+  CartItemsRepository cartItemsRepository;
   CartsRepository cartsRepo;
   OrderPricingRule pricingRule;
   IDiscountService discountService;
@@ -52,7 +52,7 @@ public class OrderServiceImpl implements IOrderService {
   @Transactional
   public OrderResponseDto createFromCart(
       CreateOrderFromCartRequestDto dto) {
-    List<CartItem> cart = cartItemsRepo
+    List<CartItem> cart = cartItemsRepository
         .listWithSnapshot(dto.getUserId());
     if (cart.isEmpty()) {
       throw new AppException(ErrorCode.VALIDATION_FAILED);
@@ -74,11 +74,11 @@ public class OrderServiceImpl implements IOrderService {
         .shippingMethodName(dto.getShippingMethodName())
         .discountCode(dto.getDiscountCode())
         .build();
-    o = ordersRepo.save(o);
+    o = ordersRepository.save(o);
 
     for (CartItem ci : cart) {
       ProductVariant v = ci.getVariant();
-      orderItemsRepo.save(OrderItem.builder()
+      orderItemsRepository.save(OrderItem.builder()
           .order(o)
           .variant(v)
           .sku(v.getSku())
@@ -89,7 +89,7 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     // clear cart
-    cartItemsRepo.deleteAllByUserId(dto.getUserId());
+    cartItemsRepository.deleteAllByUserId(dto.getUserId());
     return getDetail(o.getId());
   }
 
@@ -102,7 +102,7 @@ public class OrderServiceImpl implements IOrderService {
 
     BigDecimal subtotal = BigDecimal.ZERO;
     for (var line : dto.getLines()) {
-      ProductVariant v = variantsRepo.findById(line.getVariantId())
+      ProductVariant v = productVariantsRepository.findById(line.getVariantId())
           .orElseThrow(() -> new AppException(ErrorCode.VARIANT_NOT_FOUND));
       subtotal = subtotal.add(v.getPrice()
           .multiply(new BigDecimal(line.getQuantity())));
@@ -111,7 +111,7 @@ public class OrderServiceImpl implements IOrderService {
     BigDecimal discount = discountAmount(dto.getDiscountCode(), subtotal);
     BigDecimal total = subtotal.add(shipping).subtract(discount);
 
-    Order o = ordersRepo.save(Order.builder()
+    Order o = ordersRepository.save(Order.builder()
         .userId(dto.getUserId())
         .status(OrderStatus.pending)
         .subtotal(subtotal)
@@ -126,9 +126,9 @@ public class OrderServiceImpl implements IOrderService {
         .build());
 
     for (var line : dto.getLines()) {
-      ProductVariant v = variantsRepo.findById(line.getVariantId())
+      ProductVariant v = productVariantsRepository.findById(line.getVariantId())
           .orElseThrow(() -> new AppException(ErrorCode.VARIANT_NOT_FOUND));
-      orderItemsRepo.save(OrderItem.builder()
+      orderItemsRepository.save(OrderItem.builder()
           .order(o)
           .variant(v)
           .sku(v.getSku())
@@ -143,9 +143,9 @@ public class OrderServiceImpl implements IOrderService {
   @Override
   @Transactional(readOnly = true)
   public OrderResponseDto getDetail(String id) {
-    Order o = ordersRepo.findById(id)
+    Order o = ordersRepository.findById(id)
         .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
-    List<OrderItemResponseDto> items = orderItemsRepo
+    List<OrderItemResponseDto> items = orderItemsRepository
         .listByOrder(id)
         .stream()
         .map(orderMapper::toOrderItemResponseDtoFromOrderItem)
@@ -176,7 +176,7 @@ public class OrderServiceImpl implements IOrderService {
       Instant from,
       Instant to,
       int page, int size) {
-    Page<Order> p = ordersRepo.filter(
+    Page<Order> p = ordersRepository.filter(
         userId,
         status,
         from, to,
@@ -200,7 +200,7 @@ public class OrderServiceImpl implements IOrderService {
       String id,
       OrderStatus toStatus) {
     AuthenticationHelper.requireAdmin();
-    Order o = ordersRepo.findById(id)
+    Order o = ordersRepository.findById(id)
         .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
 
     switch (o.getStatus()) {
@@ -220,18 +220,18 @@ public class OrderServiceImpl implements IOrderService {
           throw new AppException(ErrorCode.VALIDATION_FAILED);
     }
     o.setStatus(toStatus);
-    ordersRepo.save(o);
+    ordersRepository.save(o);
   }
 
   @Override
   @Transactional
   public void cancel(String id) {
-    Order o = ordersRepo.findById(id)
+    Order o = ordersRepository.findById(id)
         .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
     if (o.getStatus() != OrderStatus.pending && o.getStatus() != OrderStatus.processing)
       throw new AppException(ErrorCode.VALIDATION_FAILED);
     o.setStatus(OrderStatus.cancelled);
-    ordersRepo.save(o);
+    ordersRepository.save(o);
   }
 
   @Override @Transactional
@@ -241,7 +241,7 @@ public class OrderServiceImpl implements IOrderService {
       String paymentMethodName,
       String shippingMethodName) {
     AuthenticationHelper.requireAdmin();
-    Order o = ordersRepo.findById(id)
+    Order o = ordersRepository.findById(id)
         .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
     if (shippingFee!=null) {
       o.setShippingFee(shippingFee);
@@ -256,13 +256,13 @@ public class OrderServiceImpl implements IOrderService {
     o.setTotalAmount(o.getSubtotal()
         .add(o.getShippingFee())
         .subtract(o.getDiscountAmount()));
-    ordersRepo.save(o);
+    ordersRepository.save(o);
   }
 
   @Override
   @Transactional
   public void applyOrSwapCode(String id, String code) {
-    Order o = ordersRepo.findById(id)
+    Order o = ordersRepository.findById(id)
         .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
     BigDecimal discount = discountAmount(code, o.getSubtotal());
     o.setDiscountCode(code);
@@ -270,14 +270,9 @@ public class OrderServiceImpl implements IOrderService {
     o.setTotalAmount(o.getSubtotal()
         .add(o.getShippingFee())
         .subtract(discount));
-    ordersRepo.save(o);
+    ordersRepository.save(o);
   }
 
-  record Totals(
-      BigDecimal subtotal,
-      BigDecimal shipping,
-      BigDecimal discount,
-      BigDecimal total) {}
   private Totals totalsFromCart(
       List<CartItem> cart,
       String code) {
@@ -291,6 +286,7 @@ public class OrderServiceImpl implements IOrderService {
     BigDecimal total = subtotal.add(shipping).subtract(discount);
     return new Totals(subtotal, shipping, discount, total);
   }
+
   private BigDecimal discountAmount(
       String code,
       BigDecimal subtotal) {
@@ -298,4 +294,10 @@ public class OrderServiceImpl implements IOrderService {
     var v = discountService.validateAndAmount(code, subtotal, Instant.now());
     return v.isValid() ? v.getAmount() : BigDecimal.ZERO;
   }
+
+  record Totals(
+      BigDecimal subtotal,
+      BigDecimal shipping,
+      BigDecimal discount,
+      BigDecimal total) {}
 }

@@ -40,3 +40,4 @@ public interface ProductImagesRepository
       @Param("productId") String productId,
       @Param("variantId") String variantId);
 }
+

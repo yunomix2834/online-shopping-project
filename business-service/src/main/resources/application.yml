@@ -1,6 +1,14 @@
 server:
   port: 8094
 
+grpc:
+  server:
+    port: 50052
+    security:
+      enabled: false
+    negotiationType: plaintext
+
+
 spring:
   application:
     name: "business-ms"

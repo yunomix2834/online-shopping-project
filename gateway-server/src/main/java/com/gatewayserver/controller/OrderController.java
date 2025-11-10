@@ -2,6 +2,7 @@ package com.gatewayserver.controller;
 
 import com.common.grpc.CreateOrderDirectRequest;
 import com.common.grpc.CreateOrderFromCartRequest;
+import com.common.grpc.OrderApplyOrSwapCodeRequest;
 import com.common.grpc.OrderCancelRequest;
 import com.common.grpc.OrderIdRequest;
 import com.common.grpc.OrderListRequest;
@@ -17,25 +18,30 @@ import com.gatewayserver.dto.request.order.OrderPatchChargesBody;
 import com.gatewayserver.dto.response.order.OrderView;
 import com.gatewayserver.dto.response.order.PageOrderView;
 import com.gatewayserver.mapper.OrderMapper;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.common.http.Envelope;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/api/orders")
 public class OrderController {
 
+  private final OrderMapper mapper;
   @GrpcClient("core-grpc")
   private OrderServiceGrpc.OrderServiceBlockingStub orderStub;
-
-  private final OrderMapper mapper;
 
   @PostMapping(
       path = "/from-cart",
@@ -176,7 +182,7 @@ public class OrderController {
   public ResponseEntity<Envelope<Void>> applyOrSwapCode(
       @PathVariable String id,
       @RequestBody OrderApplyOrSwapCodeBody body){
-    orderStub.applyOrSwapCode(OrderApplyOrSwapCodeBody.newBuilder()
+    orderStub.applyOrSwapCode(OrderApplyOrSwapCodeRequest.newBuilder()
         .setId(id)
         .setDiscountCode(body.discountCode() == null
             ? ""

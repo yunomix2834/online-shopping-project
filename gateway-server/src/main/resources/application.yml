@@ -7,6 +7,9 @@ spring:
   config:
     import: "optional:configserver:http://localhost:8091/"
   cloud:
+    loadbalancer:
+      cache:
+        ttl: 10s
     gateway:
       server:
         webflux:
@@ -51,6 +54,12 @@ grpc:
     business:
       address: 'static://localhost:50052'
       negotiationType: PLAINTEXT
+  server:
+    port: 50050
+    security:
+      enabled: false
+    negotiationType: plaintext
+
 
 management:
   endpoints:
