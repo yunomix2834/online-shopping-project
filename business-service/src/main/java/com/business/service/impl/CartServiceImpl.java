@@ -86,12 +86,13 @@ public class CartServiceImpl implements ICartService {
       removeItem(cartItemId); return;
     }
     CartItem ci = cartItemsRepository.findById(cartItemId)
-        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND)); // dùng code 404 chung
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     ci.setQuantity(quantity);
     cartItemsRepository.save(ci);
   }
 
-  @Override @Transactional
+  @Override
+  @Transactional
   public void removeItem(String cartItemId) {
     if (!cartItemsRepository.existsById(cartItemId))
       throw new AppException(ErrorCode.RESOURCE_NOT_FOUND);

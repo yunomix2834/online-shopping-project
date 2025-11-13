@@ -12,7 +12,6 @@ import com.business.entity.ProductVariant;
 import com.business.helper.AuthenticationHelper;
 import com.business.mapper.OrderMapper;
 import com.business.repository.CartItemsRepository;
-import com.business.repository.CartsRepository;
 import com.business.repository.OrderItemsRepository;
 import com.business.repository.OrdersRepository;
 import com.business.repository.ProductVariantsRepository;
@@ -43,7 +42,6 @@ public class OrderServiceImpl implements IOrderService {
   OrderItemsRepository orderItemsRepository;
   ProductVariantsRepository productVariantsRepository;
   CartItemsRepository cartItemsRepository;
-  CartsRepository cartsRepo;
   OrderPricingRule pricingRule;
   IDiscountService discountService;
   OrderMapper orderMapper;
