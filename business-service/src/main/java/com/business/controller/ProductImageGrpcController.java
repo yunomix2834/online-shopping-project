@@ -21,7 +21,7 @@ import org.common.http.Envelope;
 @GrpcService
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class ProductImageGrpcServer
+public class ProductImageGrpcController
     extends ProductImageServiceGrpc.ProductImageServiceImplBase {
 
   IProductImageService imageService;

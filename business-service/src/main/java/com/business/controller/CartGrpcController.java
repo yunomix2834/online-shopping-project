@@ -17,18 +17,18 @@ import com.common.grpc.CartUpdateQtyRequest;
 import com.common.grpc.CartView;
 import com.google.protobuf.Empty;
 import io.grpc.stub.StreamObserver;
+import java.time.Instant;
+import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.common.exception.GrpcStatusMapper;
-import java.time.Instant;
-import java.util.Objects;
 
 @GrpcService
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class CartGrpcServer
+public class CartGrpcController
     extends CartServiceGrpc.CartServiceImplBase {
   ICartService cartService;
   CartMapper cartMapper;

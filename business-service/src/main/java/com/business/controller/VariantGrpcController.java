@@ -26,7 +26,7 @@ import org.common.http.Envelope;
 @GrpcService
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class VariantGrpcServer extends VariantServiceGrpc.VariantServiceImplBase {
+public class VariantGrpcController extends VariantServiceGrpc.VariantServiceImplBase {
   IVariantService variantService;
 
   private VariantView mapVariantResponseDtoToVariantView(

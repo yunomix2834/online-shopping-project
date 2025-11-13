@@ -25,10 +25,10 @@ import org.common.http.Envelope;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
-public class AddressGrpcServer extends AddressServiceGrpc.AddressServiceImplBase {
+public class AddressGrpcController extends AddressServiceGrpc.AddressServiceImplBase {
     private final IAddressService addressService;
 
-    @Override 
+    @Override
     public void create(
             AddressCreateRequest r,
             StreamObserver<Empty> responseObserver){
@@ -47,9 +47,9 @@ public class AddressGrpcServer extends AddressServiceGrpc.AddressServiceImplBase
         GrpcStatusMapper.ok(responseObserver);
     }
 
-    @Override 
+    @Override
     public void update(
-            AddressUpdateRequest r, 
+            AddressUpdateRequest r,
             StreamObserver<Empty> responseObserver){
         AddressUpdateRequestDto dto = AddressUpdateRequestDto.builder()
                 .contactName(r.getContactName())
@@ -64,9 +64,9 @@ public class AddressGrpcServer extends AddressServiceGrpc.AddressServiceImplBase
         addressService.update(r.getId(), dto);
         GrpcStatusMapper.ok(responseObserver);
     }
-    
-    
-    @Override 
+
+
+    @Override
     public void softDelete(
             IdRequest r, StreamObserver<Empty> responseObserver){
         addressService.softDelete(r.getId());

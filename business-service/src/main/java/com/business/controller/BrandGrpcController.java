@@ -14,9 +14,9 @@ import com.common.grpc.PageBrand;
 import com.common.grpc.SlugRequest;
 import com.google.protobuf.Empty;
 import io.grpc.stub.StreamObserver;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.AccessLevel;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.common.exception.GrpcStatusMapper;
 import org.common.http.Envelope;
@@ -24,7 +24,7 @@ import org.common.http.Envelope;
 @GrpcService
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class BrandGrpcServer
+public class BrandGrpcController
         extends BrandServiceGrpc.BrandServiceImplBase {
     IBrandService brandService;
 

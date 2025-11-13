@@ -20,17 +20,17 @@ import org.common.exception.GrpcStatusMapper;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
-public class UserGrpcServer extends UserServiceGrpc.UserServiceImplBase {
+public class UserGrpcController extends UserServiceGrpc.UserServiceImplBase {
     private final IUserService userService;
 
     @Override
     public void toggleActive(
-            ToggleActiveRequest request, 
+            ToggleActiveRequest request,
             StreamObserver<Empty> responseObserver) {
         userService.toggleActive(
-                request.getUserId(), 
+                request.getUserId(),
                 request.getActive());
-        
+
         GrpcStatusMapper.ok(responseObserver);
     }
 

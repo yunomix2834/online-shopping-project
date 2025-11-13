@@ -27,7 +27,7 @@ import org.common.http.Envelope;
 @GrpcService
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class CategoryGrpcServer extends CategoryServiceGrpc.CategoryServiceImplBase {
+public class CategoryGrpcController extends CategoryServiceGrpc.CategoryServiceImplBase {
 
     ICategoryService categoryService;
 

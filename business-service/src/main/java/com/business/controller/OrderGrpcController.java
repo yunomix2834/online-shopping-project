@@ -23,19 +23,19 @@ import com.common.grpc.OrderView;
 import com.common.grpc.PageOrder;
 import com.google.protobuf.Empty;
 import io.grpc.stub.StreamObserver;
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.common.exception.GrpcStatusMapper;
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.Objects;
 
 @GrpcService
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class OrderGrpcServer
+public class OrderGrpcController
     extends OrderServiceGrpc.OrderServiceImplBase {
   IOrderService orderService;
   OrderMapper mapper;

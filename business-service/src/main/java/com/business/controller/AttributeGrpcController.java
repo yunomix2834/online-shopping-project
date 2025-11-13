@@ -22,7 +22,7 @@ import org.common.http.Envelope;
 @GrpcService
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class AttributeGrpcServer
+public class AttributeGrpcController
     extends AttributeServiceGrpc.AttributeServiceImplBase {
 
   IAttributeService attributeService;

@@ -20,6 +20,7 @@ import com.core.dto.response.authentication.IntrospectResponseDto;
 import com.core.service.IAuthenticationService;
 import com.nimbusds.jose.JOSEException;
 import io.grpc.stub.StreamObserver;
+import java.text.ParseException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -28,13 +29,11 @@ import net.devh.boot.grpc.server.service.GrpcService;
 import org.common.exception.ErrorCode;
 import org.common.exception.GrpcStatusMapper;
 
-import java.text.ParseException;
-
 @GrpcService
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
-public class AuthenticationGrpcServer
+public class AuthenticationGrpcController
         extends AuthServiceGrpc.AuthServiceImplBase {
 
     IAuthenticationService authenticationService;

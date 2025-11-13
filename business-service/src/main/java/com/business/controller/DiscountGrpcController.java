@@ -32,7 +32,7 @@ import org.common.http.Envelope;
 @GrpcService
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class DiscountGrpcServer
+public class DiscountGrpcController
     extends DiscountServiceGrpc.DiscountServiceImplBase {
 
   IDiscountService discountService;

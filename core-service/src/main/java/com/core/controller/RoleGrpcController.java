@@ -28,21 +28,21 @@ import org.common.http.Envelope;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
-public class RoleGrpcServer extends RoleServiceGrpc.RoleServiceImplBase {
+public class RoleGrpcController extends RoleServiceGrpc.RoleServiceImplBase {
     private final IRoleService roleService;
 
-    @Override 
+    @Override
     public void create(
-            CreateRoleRequest r, 
-            StreamObserver<Empty> responseObserver){ 
+            CreateRoleRequest r,
+            StreamObserver<Empty> responseObserver){
         roleService.create(CreateRoleRequestDto.builder()
                 .name(r.getName())
                 .build());
         GrpcStatusMapper.ok(responseObserver);
     }
-    @Override 
+    @Override
     public void softDelete(
-            RoleName r, 
+            RoleName r,
             StreamObserver<Empty> responseObserver){
         roleService.softDelete(r.getName());
         GrpcStatusMapper.ok(responseObserver);
@@ -68,13 +68,13 @@ public class RoleGrpcServer extends RoleServiceGrpc.RoleServiceImplBase {
     @Override
     public void remove(
             AssignRoleRequest r,
-            StreamObserver<Empty> responseObserver){ 
+            StreamObserver<Empty> responseObserver){
         AssignRoleRequestDto dto = AssignRoleRequestDto.builder()
                 .userId(r.getUserId())
                 .roleName(r.getRoleName())
                 .build();
-        roleService.remove(dto); 
-        GrpcStatusMapper.ok(responseObserver); 
+        roleService.remove(dto);
+        GrpcStatusMapper.ok(responseObserver);
     }
 
     @Override

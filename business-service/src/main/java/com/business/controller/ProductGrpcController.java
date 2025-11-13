@@ -35,7 +35,7 @@ import static com.business.constant.ProductStatus.UNPUBLISHED;
 @GrpcService
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class ProductGrpcServer extends ProductServiceGrpc.ProductServiceImplBase {
+public class ProductGrpcController extends ProductServiceGrpc.ProductServiceImplBase {
     IProductService productService;
 
     private ProductView map(ProductResponseDto d){

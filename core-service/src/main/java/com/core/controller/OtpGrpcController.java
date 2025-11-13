@@ -24,7 +24,7 @@ import org.common.exception.GrpcStatusMapper;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
-public class OtpGrpcServer
+public class OtpGrpcController
         extends OtpServiceGrpc.OtpServiceImplBase {
 
     IOtpService otpService;
