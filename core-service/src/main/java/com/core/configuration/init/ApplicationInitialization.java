@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -23,10 +22,10 @@ public class ApplicationInitialization {
   Environment env;
 
   @Bean
-  @ConditionalOnProperty(
-      prefix = "spring.datasource",
-      value = "driver-class-name",
-      havingValue = "org.postgresql.Driver")
+//  @ConditionalOnProperty(
+//      prefix = "spring.datasource",
+//      value = "driver-class-name",
+//      havingValue = "com.mysql.cj.jdbc.Driver")
   ApplicationRunner applicationRunner() {
     log.info("Khởi chạy ứng dụng!");
     return args -> {
@@ -43,10 +42,10 @@ public class ApplicationInitialization {
           env.getProperty("app.init.admin.email")
       );
       applicationInitializationService.createUserIfProvided(
-          env.getProperty("app.init.student.username"),
+          env.getProperty("app.init.user.username"),
           USER_ROLE,
-          env.getProperty("app.init.student.password"),
-          env.getProperty("app.init.student.email")
+          env.getProperty("app.init.user.password"),
+          env.getProperty("app.init.user.email")
       );
 
       log.info("khởi chạy ứng dụng thành công .....");

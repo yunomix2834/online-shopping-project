@@ -10,6 +10,9 @@ import com.core.entity.otp.PasswordResetToken;
 import com.core.repository.UserRepository;
 import com.core.repository.otp.PasswordResetTokenRepository;
 import com.core.service.IPasswordResetService;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Random;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -22,10 +25,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -51,7 +50,7 @@ public class PasswordResetServiceImpl
     public OtpResponseDto requestResetPassword(
             UserOtpRequestDto request) {
         User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new AppException(ErrorCode.EMAIL_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
 
         String otp = genOtp();
         Instant expiry = Instant.now()
@@ -91,7 +90,7 @@ public class PasswordResetServiceImpl
         PasswordResetToken token =
                 tokenRepository.findByEmail(request.getEmail())
                         .orElseThrow(() -> new AppException(
-                                ErrorCode.EMAIL_NOT_FOUND));
+                                ErrorCode.RESOURCE_NOT_FOUND));
 
         if (token.isConsumed()) {
             throw new AppException(ErrorCode.INVALID_OTP);
@@ -109,7 +108,7 @@ public class PasswordResetServiceImpl
         PasswordResetToken token =
                 tokenRepository.findByEmail(request.getEmail())
                         .orElseThrow(() -> new AppException(
-                                ErrorCode.EMAIL_NOT_FOUND));
+                                ErrorCode.RESOURCE_NOT_FOUND));
 
         if (token.isConsumed()) {
             throw new AppException(ErrorCode.INVALID_OTP);
@@ -122,7 +121,7 @@ public class PasswordResetServiceImpl
         }
 
         User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
 
         user.setPasswordHash(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(user);

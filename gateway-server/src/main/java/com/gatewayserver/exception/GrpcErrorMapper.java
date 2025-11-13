@@ -6,48 +6,67 @@ import lombok.NoArgsConstructor;
 import org.common.exception.ErrorCode;
 import org.common.http.Envelope;
 
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.Optional;
-
 @NoArgsConstructor
 public final class GrpcErrorMapper {
-    private static final Map<Status.Code, ErrorCode> FALLBACK_BY_GRPC =
-            new EnumMap<>(Status.Code.class);
-    static {
-        FALLBACK_BY_GRPC.put(Status.Code.UNAUTHENTICATED, ErrorCode.UNAUTHENTICATED);
-        FALLBACK_BY_GRPC.put(Status.Code.PERMISSION_DENIED, ErrorCode.UNAUTHORIZED);
-        FALLBACK_BY_GRPC.put(Status.Code.NOT_FOUND, ErrorCode.USER_NOT_FOUND);
-        FALLBACK_BY_GRPC.put(Status.Code.ALREADY_EXISTS, ErrorCode.USER_ALREADY_EXISTS);
-        FALLBACK_BY_GRPC.put(Status.Code.INVALID_ARGUMENT, ErrorCode.FAILED_VALIDATE_TOKEN);
-        FALLBACK_BY_GRPC.put(Status.Code.FAILED_PRECONDITION, ErrorCode.FAILED_VALIDATE_TOKEN);
-    }
-
-    private static Optional<ErrorCode> fromName(
-            String name){
-        if (name == null || name.isBlank()) {
-            return Optional.empty();
-        }
-        try {
-            return Optional.of(ErrorCode.valueOf(name));
-        } catch (IllegalArgumentException ex) {
-            return Optional.empty();
-        }
-    }
 
     public static <T> Envelope<T> toEnvelope(
-            StatusRuntimeException exception){
-        String description = exception.getStatus().getDescription();
-        Status.Code grpc = exception.getStatus().getCode();
+            StatusRuntimeException ex){
+      Status status = ex.getStatus();
+      String desc = status.getDescription();
 
-        ErrorCode errorCode = fromName(description)
-                .orElse(FALLBACK_BY_GRPC.getOrDefault(grpc, ErrorCode.UNCATEGORIZED_EXCEPTION));
+      ErrorCode errorCode = resolveErrorCode(status, desc);
 
-        return Envelope.err(
-                errorCode.http(),
-                errorCode.name(),
-                errorCode.getMessage(),
-                null
-        );
+      return Envelope.err(
+              errorCode.http(),
+              errorCode.name(),
+              errorCode.getMessage(),
+              null
+      );
     }
+
+
+  public static ErrorCode resolveErrorCode(Status status, String desc) {
+    if (desc != null && !desc.isBlank()) {
+      try {
+        return ErrorCode.valueOf(desc);
+      } catch (IllegalArgumentException ignored) {
+      }
+    }
+
+    return switch (status.getCode()) {
+      // 400
+      case INVALID_ARGUMENT, FAILED_PRECONDITION, OUT_OF_RANGE ->
+          ErrorCode.VALIDATION_FAILED;
+
+      // 401
+      case UNAUTHENTICATED ->
+          ErrorCode.UNAUTHENTICATED;
+
+      // 403
+      case PERMISSION_DENIED ->
+          ErrorCode.UNAUTHORIZED;
+
+      // 404
+      case NOT_FOUND ->
+          ErrorCode.RESOURCE_NOT_FOUND;
+
+      // 409
+      case ALREADY_EXISTS ->
+          ErrorCode.RESOURCE_ALREADY_EXISTS;
+
+      // Các lỗi mạng / internal: là lỗi chưa phân loại
+      case UNKNOWN,
+           INTERNAL,
+           UNAVAILABLE,
+           DEADLINE_EXCEEDED,
+           RESOURCE_EXHAUSTED,
+           ABORTED,
+           CANCELLED,
+           DATA_LOSS ->
+          ErrorCode.UNCATEGORIZED_EXCEPTION;
+
+      default ->
+          ErrorCode.UNCATEGORIZED_EXCEPTION;
+    };
+  }
 }

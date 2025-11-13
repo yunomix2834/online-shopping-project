@@ -40,7 +40,7 @@ public class DiscountService implements IDiscountService {
       DiscountUpdateRequestDto dto) {
     AuthenticationHelper.requireAdmin();
     Discount d = discountsRepository.findById(id)
-        .orElseThrow(() -> new AppException(ErrorCode.DISCOUNT_NOT_FOUND));
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     discountMapper.patchDiscountFromDiscountUpdateRequestDto(d, dto);
     discountsRepository.save(d);
   }
@@ -48,7 +48,7 @@ public class DiscountService implements IDiscountService {
   @Override public void softDelete(String id) {
     AuthenticationHelper.requireAdmin();
     Discount d = discountsRepository.findById(id)
-        .orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND));
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     d.markDeleted(AuthenticationHelper.getMyUserId());
     discountsRepository.save(d);
   }
@@ -56,7 +56,7 @@ public class DiscountService implements IDiscountService {
   @Override public void restore(String id) {
     AuthenticationHelper.requireAdmin();
     if (discountsRepository.nativeRestore(id)==0) {
-      throw new AppException(ErrorCode.IMAGE_NOT_FOUND);
+      throw new AppException(ErrorCode.RESOURCE_NOT_FOUND);
     }
   }
   @Override
@@ -65,14 +65,14 @@ public class DiscountService implements IDiscountService {
       boolean active) {
     AuthenticationHelper.requireAdmin();
     Discount d = discountsRepository.findById(id)
-        .orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND));
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     d.setActive(active);
     discountsRepository.save(d);
   }
   @Override
   public DiscountResponseDto getByCode(String code) {
     Discount d = discountsRepository.findByCode(code)
-        .orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND));
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     return discountMapper.toDiscountResponseDtoFromDiscount(d);
   }
   @Override public DiscountValidation validateAndAmount(

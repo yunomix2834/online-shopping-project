@@ -34,9 +34,9 @@ public class VariantService implements IVariantService {
   public void create(VariantCreateRequestDto dto) {
     AuthenticationHelper.requireAdmin();
     if (productVariantsRepository.findBySku(dto.getSku()).isPresent())
-      throw new AppException(ErrorCode.SKU_CONFLICT);
+      throw new AppException(ErrorCode.RESOURCE_ALREADY_EXISTS);
     Product p = productsRepository.findById(dto.getProductId())
-        .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     ProductVariant v = variantMapper.toVariantFromVariantCreateRequestDto(dto);
     v.setProduct(p);
     productVariantsRepository.save(v);
@@ -46,11 +46,11 @@ public class VariantService implements IVariantService {
   public void update(String id, VariantUpdateRequestDto dto) {
     AuthenticationHelper.requireAdmin();
     ProductVariant v = productVariantsRepository.findById(id)
-        .orElseThrow(() -> new AppException(ErrorCode.VARIANT_NOT_FOUND));
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     if (dto.getSku()!=null && !dto.getSku().isBlank()) {
       productVariantsRepository.findBySku(dto.getSku())
           .filter(x -> !x.getId().equals(id))
-          .ifPresent(x -> { throw new AppException(ErrorCode.SKU_CONFLICT); });
+          .ifPresent(x -> { throw new AppException(ErrorCode.RESOURCE_ALREADY_EXISTS); });
     }
     variantMapper.patchVariantFromVariantUpdateRequestDto(v, dto);
     productVariantsRepository.save(v);
@@ -60,7 +60,7 @@ public class VariantService implements IVariantService {
   public void softDelete(String id) {
     AuthenticationHelper.requireAdmin();
     ProductVariant v = productVariantsRepository.findById(id)
-        .orElseThrow(() -> new AppException(ErrorCode.VARIANT_NOT_FOUND));
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     v.markDeleted(AuthenticationHelper.getMyUserId());
     productVariantsRepository.save(v);
   }
@@ -69,13 +69,13 @@ public class VariantService implements IVariantService {
   public void restore(String id) {
     AuthenticationHelper.requireAdmin();
     if (productVariantsRepository.nativeRestore(id)==0)
-      throw new AppException(ErrorCode.VARIANT_NOT_FOUND);
+      throw new AppException(ErrorCode.RESOURCE_NOT_FOUND);
   }
 
   @Override
   public VariantResponseDto findBySku(String sku) {
     ProductVariant v = productVariantsRepository.findBySku(sku)
-        .orElseThrow(() -> new AppException(ErrorCode.VARIANT_NOT_FOUND));
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     return variantMapper.toVariantResponseDtoFromVariant(v);
   }
 
@@ -86,7 +86,7 @@ public class VariantService implements IVariantService {
       BigDecimal originalPrice) {
     AuthenticationHelper.requireAdmin();
     ProductVariant v = productVariantsRepository.findById(id)
-        .orElseThrow(() -> new AppException(ErrorCode.VARIANT_NOT_FOUND));
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     if (price!=null) v.setPrice(price);
     if (originalPrice!=null) v.setOriginalPrice(originalPrice);
     productVariantsRepository.save(v);

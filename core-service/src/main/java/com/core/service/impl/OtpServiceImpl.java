@@ -4,11 +4,14 @@ import com.core.dto.request.otp.OtpSendRequestDto;
 import com.core.dto.request.otp.OtpVerificationRequestDto;
 import com.core.dto.request.otp.UserOtpRequestDto;
 import com.core.dto.response.otp.OtpResponseDto;
-import com.core.entity.otp.OtpVerification;
 import com.core.entity.User;
-import com.core.repository.otp.OtpVerificationRepository;
+import com.core.entity.otp.OtpVerification;
 import com.core.repository.UserRepository;
+import com.core.repository.otp.OtpVerificationRepository;
 import com.core.service.IOtpService;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Random;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -20,10 +23,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -100,7 +99,7 @@ public class OtpServiceImpl implements IOtpService {
         OtpVerification otp = otpVerificationRepository
                 .findByEmail(request.getEmail())
                 .orElseThrow(
-                        () -> new AppException(ErrorCode.EMAIL_NOT_FOUND)
+                        () -> new AppException(ErrorCode.RESOURCE_NOT_FOUND)
                 );
 
         if (!otp.getOtpCode().equals(request.getOtpCode())) {
@@ -112,7 +111,7 @@ public class OtpServiceImpl implements IOtpService {
         }
 
         User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
 
         user.setIsVerified(true);
         userRepository.save(user);

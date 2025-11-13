@@ -12,6 +12,7 @@ import com.core.mapper.user.UserProfileMapper;
 import com.core.repository.UserRepository;
 import com.core.repository.user.RoleRepository;
 import com.core.service.IRoleService;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -25,8 +26,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -43,7 +42,7 @@ public class RoleServiceImpl implements IRoleService {
     public void create(CreateRoleRequestDto request) {
         AuthenticationHelper.requireAdmin();
         if (roleRepository.existsById(request.getName())){
-            throw new AppException(ErrorCode.ROLE_ALREADY_EXISTS);
+            throw new AppException(ErrorCode.RESOURCE_ALREADY_EXISTS);
         }
         Role r = Role.builder()
                 .name(request.getName())
@@ -57,7 +56,7 @@ public class RoleServiceImpl implements IRoleService {
             String roleName) {
         AuthenticationHelper.requireAdmin();
         Role r = roleRepository.findById(roleName)
-                .orElseThrow(() -> new AppException(ErrorCode.ROLE_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         r.markDeleted(AuthenticationHelper.getMyUserId());
         roleRepository.save(r);
     }
@@ -67,19 +66,20 @@ public class RoleServiceImpl implements IRoleService {
     public void restore(String roleName) {
         AuthenticationHelper.requireAdmin();
         roleRepository.findById(roleName)
-                .orElseThrow(() -> new AppException(ErrorCode.ROLE_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         int n = roleRepository.nativeRestore(roleName);
         if (n == 0) {
-            throw new AppException(ErrorCode.ROLE_NOT_FOUND);
+            throw new AppException(ErrorCode.RESOURCE_NOT_FOUND);
         }
     }
 
-    @Override @Transactional
+    @Override
+    @Transactional
     public void assign(AssignRoleRequestDto request) {
         AuthenticationHelper.requireAdmin();
         User u = userHelper.getUserById(request.getUserId());
         Role r = roleRepository.findById(request.getRoleName())
-                .orElseThrow(() -> new AppException(ErrorCode.ROLE_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         u.getRoles().add(r);
         userRepository.save(u);
     }

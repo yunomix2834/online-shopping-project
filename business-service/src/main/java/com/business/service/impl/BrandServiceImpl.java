@@ -29,7 +29,8 @@ public class BrandServiceImpl implements IBrandService {
 
     @Override @Transactional
     public void create(BrandCreateRequestDto brandCreateRequestDto) {
-        Brand b = brandMapper.toBrandFromBrandCreateRequestDto(
+      AuthenticationHelper.requireAdmin();
+      Brand b = brandMapper.toBrandFromBrandCreateRequestDto(
                 brandCreateRequestDto);
         brandsRepository.save(b);
     }
@@ -38,8 +39,9 @@ public class BrandServiceImpl implements IBrandService {
     public void update(
             String id,
             BrandUpdateRequestDto brandUpdateRequestDto) {
-        Brand b = brandsRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.BRAND_NOT_FOUND));
+      AuthenticationHelper.requireAdmin();
+      Brand b = brandsRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         brandMapper.patchBrandFromBrandUpdateRequestDto(b, brandUpdateRequestDto);
         brandsRepository.save(b);
     }
@@ -47,8 +49,9 @@ public class BrandServiceImpl implements IBrandService {
     @Override
     @Transactional
     public void softDelete(String id) {
-        Brand b = brandsRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.BRAND_NOT_FOUND));
+      AuthenticationHelper.requireAdmin();
+      Brand b = brandsRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         b.markDeleted(AuthenticationHelper.getMyUserId());
         brandsRepository.save(b);
     }
@@ -56,11 +59,12 @@ public class BrandServiceImpl implements IBrandService {
     @Override
     @Transactional
     public void restore(String id) {
-        brandsRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.BRAND_NOT_FOUND));
+      AuthenticationHelper.requireAdmin();
+      brandsRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         int n = brandsRepository.nativeRestore(id);
         if (n == 0) {
-            throw new AppException(ErrorCode.BRAND_NOT_FOUND);
+            throw new AppException(ErrorCode.RESOURCE_NOT_FOUND);
         }
     }
 
@@ -69,7 +73,7 @@ public class BrandServiceImpl implements IBrandService {
     public BrandResponseDto getById(String id) {
         return brandsRepository.findById(id)
                 .map(brandMapper::toBrandResponseDtoFromBrand)
-                .orElseThrow(() -> new AppException(ErrorCode.BRAND_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     }
 
     @Override
@@ -77,7 +81,7 @@ public class BrandServiceImpl implements IBrandService {
     public BrandResponseDto getBySlug(String slug) {
         return brandsRepository.findBySlug(slug)
                 .map(brandMapper::toBrandResponseDtoFromBrand)
-                .orElseThrow(() -> new AppException(ErrorCode.BRAND_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     }
 
     @Override @Transactional(readOnly = true)

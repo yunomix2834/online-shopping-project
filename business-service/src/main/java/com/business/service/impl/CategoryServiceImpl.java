@@ -1,5 +1,6 @@
 package com.business.service.impl;
 
+import com.business.dto.model.CategoryTreeNode;
 import com.business.dto.request.CategoryCreateRequestDto;
 import com.business.dto.request.CategoryUpdateRequestDto;
 import com.business.dto.response.CategoryResponseDto;
@@ -8,18 +9,21 @@ import com.business.helper.AuthenticationHelper;
 import com.business.mapper.CategoryMapper;
 import com.business.repository.CategoriesRepository;
 import com.business.service.ICategoryService;
-import com.business.dto.model.CategoryTreeNode;
-import lombok.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.common.exception.AppException;
 import org.common.exception.ErrorCode;
 import org.common.http.Envelope;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -32,12 +36,13 @@ public class CategoryServiceImpl implements ICategoryService {
     @Override
     @Transactional
     public void create(CategoryCreateRequestDto categoryCreateRequestDto) {
-        Category c = categoryMapper.toCategoryFromCategoryCreateRequestDto(
+      AuthenticationHelper.requireAdmin();
+      Category c = categoryMapper.toCategoryFromCategoryCreateRequestDto(
                 categoryCreateRequestDto);
         if (categoryCreateRequestDto.getParentId() != null
                 && !categoryCreateRequestDto.getParentId().isBlank()) {
             categoriesRepository.findById(categoryCreateRequestDto.getParentId())
-                    .orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
+                    .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
             c.getParent().setId(categoryCreateRequestDto.getParentId());
         } else {
             c.getParent().setId(null);
@@ -50,8 +55,10 @@ public class CategoryServiceImpl implements ICategoryService {
     public void update(
             String id,
             CategoryUpdateRequestDto categoryUpdateRequestDto) {
+        AuthenticationHelper.requireAdmin();
+
         Category c = categoriesRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         categoryMapper.patchCategoryFromCategoryUpdateRequestDto(c,
                 categoryUpdateRequestDto);
         categoriesRepository.save(c);
@@ -60,8 +67,9 @@ public class CategoryServiceImpl implements ICategoryService {
     @Override
     @Transactional
     public void softDelete(String id) {
-        Category c = categoriesRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
+      AuthenticationHelper.requireAdmin();
+      Category c = categoriesRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         c.markDeleted(AuthenticationHelper.getMyUserId());
         categoriesRepository.save(c);
     }
@@ -69,24 +77,27 @@ public class CategoryServiceImpl implements ICategoryService {
     @Override
     @Transactional
     public void restore(String id) {
-        categoriesRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
+      AuthenticationHelper.requireAdmin();
+      categoriesRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         int n = categoriesRepository.nativeRestore(id);
         if (n == 0) {
-            throw new AppException(ErrorCode.CATEGORY_NOT_FOUND);
+            throw new AppException(ErrorCode.RESOURCE_NOT_FOUND);
         }
     }
 
     @Override
     @Transactional
     public void reparent(String id, String newParentId) {
+        AuthenticationHelper.requireAdmin();
+
         Category c = categoriesRepository.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         if (newParentId == null || newParentId.isBlank()) {
             c.getParent().setId(null);
         } else {
             categoriesRepository.findById(newParentId)
-                    .orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
+                    .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
             c.getParent().setId(newParentId);
         }
         categoriesRepository.save(c);
@@ -97,7 +108,7 @@ public class CategoryServiceImpl implements ICategoryService {
     public CategoryResponseDto getById(String id) {
         return categoriesRepository.findById(id)
                 .map(categoryMapper::toCategoryResponseDtoFromCategory)
-                .orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     }
 
     @Override
@@ -105,7 +116,7 @@ public class CategoryServiceImpl implements ICategoryService {
     public CategoryResponseDto getBySlug(String slug) {
         return categoriesRepository.findBySlug(slug)
                 .map(categoryMapper::toCategoryResponseDtoFromCategory)
-                .orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     }
 
     @Override

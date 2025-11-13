@@ -11,6 +11,7 @@ import com.core.helper.UserHelper;
 import com.core.mapper.user.AddressMapper;
 import com.core.repository.user.AddressRepository;
 import com.core.service.IAddressService;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -21,8 +22,6 @@ import org.common.http.Envelope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -32,7 +31,7 @@ public class AddressServiceImpl implements IAddressService {
     AddressMapper addressMapper;
     UserHelper userhelper;
 
-    @Override 
+    @Override
     @Transactional
     public void create(
             AddressCreateRequestDto request) {
@@ -48,7 +47,7 @@ public class AddressServiceImpl implements IAddressService {
             String addressId,
             AddressUpdateRequestDto request) {
         Address a = addressRepository.findById(addressId)
-                .orElseThrow(() -> new AppException(ErrorCode.ADDRESS_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         mustOwn(a);
         addressMapper.patchAddressFromAddressUpdateRequestDto(a, request);
         addressRepository.save(a);
@@ -58,7 +57,7 @@ public class AddressServiceImpl implements IAddressService {
     @Transactional
     public void softDelete(String addressId) {
         Address a = addressRepository.findById(addressId)
-                .orElseThrow(() -> new AppException(ErrorCode.ADDRESS_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         mustOwn(a);
         a.markDeleted(AuthenticationHelper.getMyUserId());
         addressRepository.save(a);
@@ -68,7 +67,7 @@ public class AddressServiceImpl implements IAddressService {
     @Transactional
     public void setDefaultShipping(String addressId) {
         Address a = addressRepository.findById(addressId)
-                .orElseThrow(() -> new AppException(ErrorCode.ADDRESS_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         mustOwn(a);
         addressRepository.resetDefaultShipping(a.getUser().getId());
         a.setIsDefaultShipping(true);
@@ -79,7 +78,7 @@ public class AddressServiceImpl implements IAddressService {
     @Transactional
     public void setDefaultBilling(String addressId) {
         Address a = addressRepository.findById(addressId)
-                .orElseThrow(() -> new AppException(ErrorCode.ADDRESS_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         mustOwn(a);
         addressRepository.resetDefaultBilling(a.getUser().getId());
         a.setIsDefaultBilling(true);

@@ -4,11 +4,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@SpringBootApplication
+@SpringBootApplication(
+    scanBasePackages = {
+        "com.business",
+        "org.common"
+    }
+)
 @EnableFeignClients
-//@ComponentScans({ @ComponentScan("com.demo.controller") })
-//@EnableJpaRepositories("com.demo.repository")
-//@EntityScan("com.demo.entity")
 public class BusinessApplication {
 
     static void main(String[] args) {

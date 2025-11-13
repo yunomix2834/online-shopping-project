@@ -43,7 +43,7 @@ public class AttributeService implements IAttributeService {
   public void softDelete(String id) {
     AuthenticationHelper.requireAdmin();
     Attribute a = attributesRepository.findById(id)
-        .orElseThrow(() -> new AppException(ErrorCode.ATTRIBUTE_NOT_FOUND));
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     a.markDeleted(AuthenticationHelper.getMyUserId());
     attributesRepository.save(a);
   }
@@ -52,7 +52,7 @@ public class AttributeService implements IAttributeService {
   public void restore(String id) {
     AuthenticationHelper.requireAdmin();
     if (attributesRepository.nativeRestore(id) == 0) {
-      throw new AppException(ErrorCode.ATTRIBUTE_NOT_FOUND);
+      throw new AppException(ErrorCode.RESOURCE_NOT_FOUND);
     }
   }
 
@@ -82,9 +82,9 @@ public class AttributeService implements IAttributeService {
       String variantId, String attributeId) {
     AuthenticationHelper.requireAdmin();
     productVariantsRepository.findById(variantId)
-        .orElseThrow(() -> new AppException(ErrorCode.VARIANT_NOT_FOUND));
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     attributesRepository.findById(attributeId)
-        .orElseThrow(() -> new AppException(ErrorCode.ATTRIBUTE_NOT_FOUND));
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     if (variantAttributeValuesRepository.existsLink(variantId, attributeId)) return;
     VariantAttributeValue vav = VariantAttributeValue.builder()
         .variant(ProductVariant.builder().id(variantId).build())

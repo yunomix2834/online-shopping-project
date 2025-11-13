@@ -7,23 +7,30 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationProvider;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 
 @Configuration
 public class GrpcJwtAuthManagerConfig {
 
-    @Bean
-    public JwtAuthenticationConverter grpcJwtAuthenticationConverter() {
-        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-        return jwtAuthenticationConverter;
-    }
+  @Bean
+  public JwtAuthenticationConverter grpcJwtAuthenticationConverter() {
+    JwtGrantedAuthoritiesConverter authConverter = new JwtGrantedAuthoritiesConverter();
+    authConverter.setAuthoritiesClaimName("roles");
+    authConverter.setAuthorityPrefix("");
 
-    @Bean
-    public AuthenticationManager grpcAuthenticationManager(
-            JwtDecoder jwtDecoder,
-            JwtAuthenticationConverter grpcJwtAuthenticationConverter) {
+    JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
+    converter.setJwtGrantedAuthoritiesConverter(authConverter);
+    converter.setPrincipalClaimName("userId");
+    return converter;
+  }
 
-        JwtAuthenticationProvider provider = new JwtAuthenticationProvider(jwtDecoder);
-        provider.setJwtAuthenticationConverter(grpcJwtAuthenticationConverter);
-        return new ProviderManager(provider);
-    }
+  @Bean
+  public AuthenticationManager grpcAuthenticationManager(
+      JwtDecoder jwtDecoder,
+      JwtAuthenticationConverter grpcJwtAuthenticationConverter) {
+
+    JwtAuthenticationProvider provider = new JwtAuthenticationProvider(jwtDecoder);
+    provider.setJwtAuthenticationConverter(grpcJwtAuthenticationConverter);
+    return new ProviderManager(provider);
+  }
 }

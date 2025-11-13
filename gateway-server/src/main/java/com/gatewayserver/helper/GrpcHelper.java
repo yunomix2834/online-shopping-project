@@ -5,14 +5,15 @@ import com.gatewayserver.configuration.helper.ReactiveTokenHelper;
 import com.gatewayserver.exception.GrpcErrorMapper;
 import io.grpc.Channel;
 import io.grpc.StatusRuntimeException;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import lombok.experimental.UtilityClass;
+import org.common.exception.AppException;
+import org.common.exception.ErrorCode;
 import org.common.http.Envelope;
 import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
-
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 @UtilityClass
 public class GrpcHelper {
@@ -60,7 +61,7 @@ public class GrpcHelper {
             Function<RespT, ViewT> mapper
     ) {
         return ReactiveTokenHelper.currentBearerToken()
-                .switchIfEmpty(Mono.error(new RuntimeException("UNAUTHENTICATED")))
+                .switchIfEmpty(Mono.error(new AppException(ErrorCode.UNAUTHENTICATED)))
                 .flatMap(token -> Mono.fromCallable(() -> {
                                     Channel authed = ClientBearerInterceptor.withToken(channel, token);
                                     StubT stub = stubMaker.apply(authed);
@@ -82,7 +83,7 @@ public class GrpcHelper {
             java.util.function.Consumer<StubT> caller
     ) {
         return ReactiveTokenHelper.currentBearerToken()
-                .switchIfEmpty(Mono.error(new RuntimeException("UNAUTHENTICATED")))
+                .switchIfEmpty(Mono.error(new AppException(ErrorCode.UNAUTHENTICATED)))
                 .flatMap(token -> Mono.fromRunnable(() -> {
                                     Channel authed = ClientBearerInterceptor.withToken(channel, token);
                                     StubT stub = stubMaker.apply(authed);

@@ -93,7 +93,8 @@ public class OrderServiceImpl implements IOrderService {
     return getDetail(o.getId());
   }
 
-  @Override @Transactional
+  @Override
+  @Transactional
   public OrderResponseDto createDirect(
       CreateOrderDirectRequestDto dto) {
     if (dto.getLines() == null || dto.getLines().isEmpty()) {
@@ -103,7 +104,7 @@ public class OrderServiceImpl implements IOrderService {
     BigDecimal subtotal = BigDecimal.ZERO;
     for (var line : dto.getLines()) {
       ProductVariant v = productVariantsRepository.findById(line.getVariantId())
-          .orElseThrow(() -> new AppException(ErrorCode.VARIANT_NOT_FOUND));
+          .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
       subtotal = subtotal.add(v.getPrice()
           .multiply(new BigDecimal(line.getQuantity())));
     }
@@ -127,7 +128,7 @@ public class OrderServiceImpl implements IOrderService {
 
     for (var line : dto.getLines()) {
       ProductVariant v = productVariantsRepository.findById(line.getVariantId())
-          .orElseThrow(() -> new AppException(ErrorCode.VARIANT_NOT_FOUND));
+          .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
       orderItemsRepository.save(OrderItem.builder()
           .order(o)
           .variant(v)
@@ -144,7 +145,7 @@ public class OrderServiceImpl implements IOrderService {
   @Transactional(readOnly = true)
   public OrderResponseDto getDetail(String id) {
     Order o = ordersRepository.findById(id)
-        .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     List<OrderItemResponseDto> items = orderItemsRepository
         .listByOrder(id)
         .stream()
@@ -201,7 +202,7 @@ public class OrderServiceImpl implements IOrderService {
       OrderStatus toStatus) {
     AuthenticationHelper.requireAdmin();
     Order o = ordersRepository.findById(id)
-        .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
 
     switch (o.getStatus()) {
       case pending -> {
@@ -227,7 +228,7 @@ public class OrderServiceImpl implements IOrderService {
   @Transactional
   public void cancel(String id) {
     Order o = ordersRepository.findById(id)
-        .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     if (o.getStatus() != OrderStatus.pending && o.getStatus() != OrderStatus.processing)
       throw new AppException(ErrorCode.VALIDATION_FAILED);
     o.setStatus(OrderStatus.cancelled);
@@ -242,7 +243,7 @@ public class OrderServiceImpl implements IOrderService {
       String shippingMethodName) {
     AuthenticationHelper.requireAdmin();
     Order o = ordersRepository.findById(id)
-        .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     if (shippingFee!=null) {
       o.setShippingFee(shippingFee);
     }
@@ -263,7 +264,7 @@ public class OrderServiceImpl implements IOrderService {
   @Transactional
   public void applyOrSwapCode(String id, String code) {
     Order o = ordersRepository.findById(id)
-        .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     BigDecimal discount = discountAmount(code, o.getSubtotal());
     o.setDiscountCode(code);
     o.setDiscountAmount(discount);

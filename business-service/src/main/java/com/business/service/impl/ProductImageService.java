@@ -33,29 +33,32 @@ public class ProductImageService implements IProductImageService {
   public void create(ImageCreateRequestDto dto) {
     AuthenticationHelper.requireAdmin();
     ProductImage i = mapper.toProductImageFromImageCreateRequestDto(dto);
-    if (dto.getProductId()!=null) productsRepo.findById(dto.getProductId())
-        .orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
-    if (dto.getVariantId()!=null) variantsRepo.findById(dto.getVariantId())
-        .orElseThrow(() -> new AppException(ErrorCode.VARIANT_NOT_FOUND));
+    if (dto.getProductId() != null) productsRepo.findById(dto.getProductId())
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
+    if (dto.getVariantId() != null) variantsRepo.findById(dto.getVariantId())
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     imagesRepo.save(i);
   }
-  @Override public void softDelete(String id) {
+  @Override
+  public void softDelete(String id) {
     AuthenticationHelper.requireAdmin();
     ProductImage i = imagesRepo.findById(id)
-        .orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND));
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     i.markDeleted(AuthenticationHelper.getMyUserId());
     imagesRepo.save(i);
   }
-  @Override public void restore(String id) {
+  @Override
+  public void restore(String id) {
     AuthenticationHelper.requireAdmin();
     if (imagesRepo.nativeRestore(id)==0) {
-      throw new AppException(ErrorCode.IMAGE_NOT_FOUND);
+      throw new AppException(ErrorCode.RESOURCE_NOT_FOUND);
     }
   }
-  @Override public void setThumbnail(String id) {
+  @Override
+  public void setThumbnail(String id) {
     AuthenticationHelper.requireAdmin();
     ProductImage i = imagesRepo.findById(id)
-        .orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND));
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     String productId = i.getProduct() != null
         ? i.getProduct().getId()
         : null;
@@ -66,14 +69,16 @@ public class ProductImageService implements IProductImageService {
     i.setThumbnail(true);
     imagesRepo.save(i);
   }
-  @Override public void unsetThumbnail(String id) {
+  @Override
+  public void unsetThumbnail(String id) {
     AuthenticationHelper.requireAdmin();
     ProductImage i = imagesRepo.findById(id)
-        .orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND));
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     i.setThumbnail(false);
     imagesRepo.save(i);
   }
-  @Override public Envelope.Page<ImageResponseDto> list(
+  @Override
+  public Envelope.Page<ImageResponseDto> list(
       String productId,
       String variantId,
       int page, int size) {

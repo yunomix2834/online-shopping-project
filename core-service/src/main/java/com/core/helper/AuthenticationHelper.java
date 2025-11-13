@@ -1,14 +1,13 @@
 package com.core.helper;
 
+import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.experimental.UtilityClass;
 import org.common.exception.AppException;
 import org.common.exception.ErrorCode;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @UtilityClass
 public class AuthenticationHelper {
@@ -21,10 +20,11 @@ public class AuthenticationHelper {
     public Set<String> getMyRoles() {
         Authentication a = SecurityContextHolder.getContext().getAuthentication();
         if (a == null) throw new AppException(ErrorCode.UNAUTHENTICATED);
-        return a.getAuthorities()
-                .stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toSet());
+        Set<String> roles = a.getAuthorities()
+                  .stream()
+                  .map(GrantedAuthority::getAuthority)
+                  .collect(Collectors.toSet());
+        return roles;
     }
 
     public void requireAdmin() {

@@ -1,5 +1,6 @@
 package com.core.configuration.security;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +15,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.List;
 
 import static org.common.constant.SecurityConstants.ACCEPT_HEADER;
 import static org.common.constant.SecurityConstants.AUTHORIZATION_HEADER;
@@ -64,7 +63,7 @@ public class SecurityConfiguration {
 
         return httpSecurity.build();
     }
-    
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -103,6 +102,7 @@ public class SecurityConfiguration {
     JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter authConverter =
                 new JwtGrantedAuthoritiesConverter();
+        authConverter.setAuthoritiesClaimName("roles");
         authConverter.setAuthorityPrefix("");
 
         JwtAuthenticationConverter converter = new JwtAuthenticationConverter();

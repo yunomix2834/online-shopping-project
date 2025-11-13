@@ -23,6 +23,13 @@ import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
+import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -35,14 +42,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -81,11 +80,11 @@ public class AuthenticationServiceImpl
     public void register(
             UserCreationRequestDto request) {
         if (userRepository.existsByUsername(request.getUsername())) {
-            throw new AppException(ErrorCode.USER_ALREADY_EXISTS);
+            throw new AppException(ErrorCode.RESOURCE_ALREADY_EXISTS);
         }
 
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new AppException(ErrorCode.EMAIL_ALREADY_EXISTS);
+            throw new AppException(ErrorCode.RESOURCE_ALREADY_EXISTS);
         }
 
         User user = userMapper.toUserFromUserCreationRequestDto(request);
@@ -115,7 +114,7 @@ public class AuthenticationServiceImpl
         User user = userRepository
                 .findByUsernameOrEmail(request.getUsername(),
                         request.getEmail())
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
 
         boolean authenticated = passwordEncoder.matches(
                 request.getPassword(),
@@ -195,7 +194,7 @@ public class AuthenticationServiceImpl
 
         User user = userRepository
                 .findById(signedJWT.getJWTClaimsSet().getSubject())
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
 
         return generateTokenAndReturnAuthenticationResponse(user);
     }

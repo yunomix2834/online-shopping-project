@@ -44,7 +44,7 @@ public class UserServiceImpl implements IUserService {
         return userRepository.findById(me)
                 .map(userProfileMapper::toMeResponseDtoFromUser)
                 .orElseThrow(
-                        () -> new AppException(ErrorCode.USER_NOT_FOUND)
+                        () -> new AppException(ErrorCode.RESOURCE_NOT_FOUND)
                 );
     }
 

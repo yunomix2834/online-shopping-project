@@ -12,6 +12,10 @@ import com.business.repository.ProductVariantsRepository;
 import com.business.service.ICartService;
 import com.business.service.IDiscountService;
 import com.business.service.OrderPricingRule;
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.util.List;
+import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -19,10 +23,6 @@ import org.common.exception.AppException;
 import org.common.exception.ErrorCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -62,7 +62,7 @@ public class CartServiceImpl implements ICartService {
         .userId(userId)
         .build()));
     ProductVariant v = productVariantsRepository.findById(variantId)
-        .orElseThrow(() -> new AppException(ErrorCode.VARIANT_NOT_FOUND));
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     CartItem ci = cartItemsRepository.findByUserAndVariant(userId, variantId)
         .orElse(null);
     if (ci == null) {
@@ -86,7 +86,7 @@ public class CartServiceImpl implements ICartService {
       removeItem(cartItemId); return;
     }
     CartItem ci = cartItemsRepository.findById(cartItemId)
-        .orElseThrow(() -> new AppException(ErrorCode.ATTRIBUTE_NOT_FOUND)); // dùng code 404 chung
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND)); // dùng code 404 chung
     ci.setQuantity(quantity);
     cartItemsRepository.save(ci);
   }
@@ -94,7 +94,7 @@ public class CartServiceImpl implements ICartService {
   @Override @Transactional
   public void removeItem(String cartItemId) {
     if (!cartItemsRepository.existsById(cartItemId))
-      throw new AppException(ErrorCode.ATTRIBUTE_NOT_FOUND);
+      throw new AppException(ErrorCode.RESOURCE_NOT_FOUND);
     cartItemsRepository.deleteById(cartItemId);
   }
 

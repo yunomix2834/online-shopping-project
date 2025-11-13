@@ -9,24 +9,44 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class GrpcStatusMapper {
 
-    public Status statusFor(
-            ErrorCode errorCode) {
-        return switch (errorCode) {
-            case UNAUTHENTICATED, INVALID_CREDENTIALS, INVALID_TOKEN,
-                 TOKEN_REVOKED -> Status.UNAUTHENTICATED;
-            case UNAUTHORIZED -> Status.PERMISSION_DENIED;
-            case USER_NOT_FOUND, EMAIL_NOT_FOUND -> Status.NOT_FOUND;
-            case USER_ALREADY_EXISTS, EMAIL_ALREADY_EXISTS,
-                 PASSWORD_ALREADY_EXISTS -> Status.ALREADY_EXISTS;
-            case FAILED_VALIDATE_TOKEN, INVALID_OTP, VALIDATION_FAILED,
-                 OTP_EXPIRED, EMAIL_SEND_FAILED -> Status.INVALID_ARGUMENT;
-            default -> Status.INTERNAL;
-        };
-    }
+  public Status statusFor(ErrorCode errorCode) {
+    return switch (errorCode) {
+      // 400
+      case VALIDATION_FAILED,
+           INVALID_OTP,
+           OTP_EXPIRED,
+           EMAIL_SEND_FAILED,
+           FAILED_VALIDATE_TOKEN
+          -> Status.INVALID_ARGUMENT;
+
+      // 401
+      case UNAUTHENTICATED,
+           INVALID_CREDENTIALS,
+           INVALID_TOKEN,
+           TOKEN_REVOKED
+          -> Status.UNAUTHENTICATED;
+
+      // 403
+      case UNAUTHORIZED
+          -> Status.PERMISSION_DENIED;
+
+      // 404
+      case RESOURCE_NOT_FOUND
+          -> Status.NOT_FOUND;
+
+      // 409
+      case RESOURCE_ALREADY_EXISTS
+          -> Status.ALREADY_EXISTS;
+
+      // 500
+      default -> Status.INTERNAL;
+    };
+  }
 
     public StatusRuntimeException ex(
             ErrorCode errorCode) {
-        return statusFor(errorCode).withDescription(errorCode.name())
+        return statusFor(errorCode)
+            .withDescription(errorCode.name())
                 .asRuntimeException();
     }
 

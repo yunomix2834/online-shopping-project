@@ -19,10 +19,10 @@ public class UserHelper {
 
     public User getUserById(String id){
         return users.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     }
     public User getUserByEmail(String email){
         return users.findByEmail(email)
-                .orElseThrow(() -> new AppException(ErrorCode.EMAIL_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     }
 }

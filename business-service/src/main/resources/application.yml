@@ -19,10 +19,10 @@ spring:
     driverClassName: org.h2.Driver
     username: sa
     password: ''
-  #    url: jdbc:postgresql://localhost:5431/identity_db
-  #    username: postgres_identity
+  #    url: jdbc:mysql://localhost:3307/business_db
+  #    username: mysql_business
   #    password: dinhanst2832004
-  #    driver-class-name: org.postgresql.Driver
+  #    driver-class-name: com.mysql.cj.jdbc.Driver
   h2:
     console:
       enabled: true

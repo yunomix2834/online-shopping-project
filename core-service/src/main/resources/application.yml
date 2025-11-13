@@ -18,10 +18,10 @@ spring:
     driverClassName: org.h2.Driver
     username: sa
     password: ''
-  #    url: jdbc:postgresql://localhost:5431/identity_db
-  #    username: postgres_identity
+  #    url: jdbc:mysql://localhost:3306/identity_db
+  #    username: mysql_identity
   #    password: dinhanst2832004
-  #    driver-class-name: org.postgresql.Driver
+  #    driver-class-name: com.mysql.cj.jdbc.Driver
   h2:
     console:
       enabled: true
@@ -57,14 +57,15 @@ app:
     expiry-minutes: 5
   password-reset:
     expiry-minutes: 15
-  admin:
-    username: admin
-    password: adminRoot123
-    email: adminRoot123@gmail.com
-  teacher:
-    username: userRoot
-    password: userRoot123
-    email: userRoot123@gmail.com
+  init:
+    admin:
+      username: admin
+      password: adminRoot123
+      email: adminRoot123@gmail.com
+    user:
+      username: userRoot
+      password: userRoot123
+      email: userRoot123@gmail.com
 
 core:
   http:
