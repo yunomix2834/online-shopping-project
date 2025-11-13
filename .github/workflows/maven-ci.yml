@@ -23,7 +23,7 @@ jobs:
 
     defaults:
       run:
-        working-directory:
+        working-directory: ./online-shopping
 
     steps:
       - name: Checkout source
