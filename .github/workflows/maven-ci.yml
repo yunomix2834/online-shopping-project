@@ -14,11 +14,16 @@ jobs:
       fail-fast: false
       matrix:
         module:
+          - "common"
           - "core-service"
           - "gateway-server"
           - "business-service"
           - "eureka-server"
           - "config-server"
+
+    defaults:
+      run:
+        working-directory: 
 
     steps:
       - name: Checkout source
