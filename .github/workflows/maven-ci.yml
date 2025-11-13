@@ -21,10 +21,6 @@ jobs:
           - "eureka-server"
           - "config-server"
 
-    defaults:
-      run:
-        working-directory: ./online-shopping
-
     steps:
       - name: Checkout source
         uses: actions/checkout@v5
