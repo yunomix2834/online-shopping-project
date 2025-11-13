@@ -3,23 +3,14 @@ on:
   push:
     branches:
       - "main"
-    pull_request:
+  pull_request:
+    branches:
       - "main"
 
 jobs:
   build-test:
-    name: Build & Test (${{ matrix.module }})
+    name: Build & Test
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        module:
-          - "common"
-          - "core-service"
-          - "gateway-server"
-          - "business-service"
-          - "eureka-server"
-          - "config-server"
 
     steps:
       - name: Checkout source
@@ -32,8 +23,8 @@ jobs:
           java-version: '21'
           cache: 'maven'
 
-      - name: Build & run tests ${{ matrix.module }}
-        run: mvn -B -ntp -pl ${{ matrix.module }} -am clean verify
+      - name: Build & run tests
+        run: mvn -B -ntp clean verify
 
       - name: Generate JaCoCo aggregate report
         run: mvn -B -ntp jacoco:report-aggregate
