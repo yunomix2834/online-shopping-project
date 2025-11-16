@@ -48,7 +48,7 @@ public class ApplicationInitialization {
           env.getProperty("app.init.user.email")
       );
 
-      log.info("khởi chạy ứng dụng thành công .....");
+      log.info("Khởi chạy ứng dụng thành công .....");
     };
   }
 }

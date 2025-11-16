@@ -5,7 +5,6 @@ import com.business.dto.request.CreateOrderDirectRequestDto;
 import com.business.dto.request.CreateOrderFromCartRequestDto;
 import com.business.dto.response.OrderItemResponseDto;
 import com.business.dto.response.OrderResponseDto;
-import com.business.helper.AuthenticationHelper;
 import com.business.mapper.OrderMapper;
 import com.business.service.IOrderService;
 import com.common.grpc.CreateOrderDirectRequest;
@@ -31,6 +30,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.common.exception.GrpcStatusMapper;
+import org.common.security.RequireAdmin;
 
 @GrpcService
 @RequiredArgsConstructor
@@ -138,10 +138,10 @@ public class OrderGrpcController
   }
 
   @Override
+  @RequireAdmin
   public void updateStatus(
       OrderUpdateStatusRequest request,
       StreamObserver<Empty> responseObserver) {
-    AuthenticationHelper.requireAdmin();
     orderService.updateStatus(
         request.getId(),
         OrderStatus.valueOf(request.getStatus().name().toLowerCase()));
@@ -156,10 +156,12 @@ public class OrderGrpcController
     GrpcStatusMapper.ok(responseObserver);
   }
 
-  @Override public void patchCharges(
+
+  @Override
+  @RequireAdmin
+  public void patchCharges(
       OrderPatchChargesRequest request,
       StreamObserver<Empty> responseObserver) {
-    AuthenticationHelper.requireAdmin();
     BigDecimal shipping = request.getShippingFee().isBlank()
         ? null
         : new BigDecimal(request.getShippingFee());

@@ -14,5 +14,5 @@ import lombok.experimental.FieldDefaults;
 @Builder
 public class RefreshRequestDto {
 
-    String token;
+  String token;
 }

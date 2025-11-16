@@ -8,13 +8,13 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(
-        componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
+    componentModel = "spring",
+    unmappedTargetPolicy = ReportingPolicy.IGNORE,
+    nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
 )
 public interface UserMapper {
 
-    @Mapping(source = "password", target = "passwordHash")
-    User toUserFromUserCreationRequestDto(
-            UserCreationRequestDto userCreationRequestDto);
+  @Mapping(source = "password", target = "passwordHash")
+  User toUserFromUserCreationRequestDto(
+      UserCreationRequestDto userCreationRequestDto);
 }

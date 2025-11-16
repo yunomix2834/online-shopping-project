@@ -33,10 +33,6 @@ spring:
     show-sql: true
   config:
     import: "optional:configserver:http://localhost:8091/"
-  cloud:
-    openfeign:
-      circuitbreaker:
-        enabled: true
 
 app:
   jwt:

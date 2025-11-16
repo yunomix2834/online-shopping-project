@@ -18,6 +18,7 @@ import lombok.experimental.FieldDefaults;
 import org.common.exception.AppException;
 import org.common.exception.ErrorCode;
 import org.common.http.Envelope;
+import org.common.security.RequireAdmin;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -32,16 +33,16 @@ public class AttributeService implements IAttributeService {
   AttributeMapper attributeMapper;
 
   @Override
+  @RequireAdmin
   public void create(
       AttributeCreateRequestDto dto) {
-    AuthenticationHelper.requireAdmin();
     attributesRepository.save(attributeMapper
         .toAttributeFromAttributeCreateRequestDto(dto));
   }
 
   @Override
+  @RequireAdmin
   public void softDelete(String id) {
-    AuthenticationHelper.requireAdmin();
     Attribute a = attributesRepository.findById(id)
         .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     a.markDeleted(AuthenticationHelper.getMyUserId());
@@ -49,8 +50,8 @@ public class AttributeService implements IAttributeService {
   }
 
   @Override
+  @RequireAdmin
   public void restore(String id) {
-    AuthenticationHelper.requireAdmin();
     if (attributesRepository.nativeRestore(id) == 0) {
       throw new AppException(ErrorCode.RESOURCE_NOT_FOUND);
     }
@@ -78,9 +79,9 @@ public class AttributeService implements IAttributeService {
   }
 
   @Override
+  @RequireAdmin
   public void assignToVariant(
       String variantId, String attributeId) {
-    AuthenticationHelper.requireAdmin();
     productVariantsRepository.findById(variantId)
         .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     attributesRepository.findById(attributeId)
@@ -92,12 +93,14 @@ public class AttributeService implements IAttributeService {
         .build();
     variantAttributeValuesRepository.save(vav);
   }
-  @Override public void unassignFromVariant(
+  @Override
+  @RequireAdmin
+  public void unassignFromVariant(
       String variantId, String attributeId) {
-    AuthenticationHelper.requireAdmin();
     variantAttributeValuesRepository.deleteLink(variantId, attributeId);
   }
-  @Override public Envelope.Page<AttributeResponseDto> listByVariant(
+  @Override
+  public Envelope.Page<AttributeResponseDto> listByVariant(
       String variantId, int page, int size) {
     Page<Attribute> p = variantAttributeValuesRepository.listAttributes(
         variantId, PageRequest.of(page, size));

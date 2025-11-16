@@ -1,12 +1,11 @@
 package com.core.repository.otp;
 
 import com.core.entity.otp.PasswordResetToken;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
-
 public interface PasswordResetTokenRepository
-        extends JpaRepository<PasswordResetToken, String> {
+    extends JpaRepository<PasswordResetToken, String> {
 
-    Optional<PasswordResetToken> findByEmail(String email);
+  Optional<PasswordResetToken> findByEmail(String email);
 }

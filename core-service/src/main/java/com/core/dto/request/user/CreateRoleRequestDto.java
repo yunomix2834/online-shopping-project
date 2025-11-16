@@ -14,6 +14,6 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 public class CreateRoleRequestDto {
-    @NotBlank
-    String name;
+  @NotBlank
+  String name;
 }

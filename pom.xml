@@ -20,7 +20,6 @@
 
     <modules>
         <module>eureka-server</module>
-        <module>gateway-server</module>
         <module>config-server</module>
         <module>core-service</module>
         <module>business-service</module>

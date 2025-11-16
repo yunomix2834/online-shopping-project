@@ -10,17 +10,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface RoleRepository
-        extends JpaRepository<Role, String> {
+    extends JpaRepository<Role, String> {
 
-    @Modifying
-    @Transactional
-    @Query(value = """
-        update roles
-        set deleted_at = null, 
-            deleted_by = null
-        where name = :name
-        """, nativeQuery = true)
-    int nativeRestore(@Param("name") String name);
+  @Modifying
+  @Transactional
+  @Query(value = """
+      update roles
+      set deleted_at = null,
+          deleted_by = null
+      where name = :name
+      """, nativeQuery = true)
+  int nativeRestore(@Param("name") String name);
 
-    boolean existsById(String name);
+  boolean existsById(String name);
 }

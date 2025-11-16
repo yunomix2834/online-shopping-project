@@ -14,6 +14,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.common.exception.AppException;
 import org.common.exception.ErrorCode;
+import org.common.security.RequireAdmin;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,39 +23,40 @@ import org.springframework.transaction.annotation.Transactional;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
 public class UserServiceImpl implements IUserService {
-    UserRepository userRepository;
-    UserHelper userHelper;
-    UserProfileMapper userProfileMapper;
+  UserRepository userRepository;
+  UserHelper userHelper;
+  UserProfileMapper userProfileMapper;
 
-    @Override
-    @Transactional
-    public void toggleActive(
-            String userId,
-            boolean active) {
-        AuthenticationHelper.requireAdmin();
-        User u = userHelper.getUserById(userId);
-        u.setIsActive(active);
-        userRepository.save(u);
-    }
+  @Override
+  @Transactional
+  @RequireAdmin
+  public void toggleActive(
+      String userId,
+      boolean active) {
+    User u = userHelper.getUserById(userId);
+    u.setIsActive(active);
+    userRepository.save(u);
+  }
 
-    @Override
-    @Transactional(readOnly = true)
-    public MeResponseDto getMe() {
-        String me = AuthenticationHelper.getMyUserId();
-        return userRepository.findById(me)
-                .map(userProfileMapper::toMeResponseDtoFromUser)
-                .orElseThrow(
-                        () -> new AppException(ErrorCode.RESOURCE_NOT_FOUND)
-                );
-    }
+  @Override
+  @Transactional(readOnly = true)
+  public MeResponseDto getMe() {
+    String me = AuthenticationHelper.getMyUserId();
+    return userRepository.findById(me)
+        .map(userProfileMapper::toMeResponseDtoFromUser)
+        .orElseThrow(
+            () -> new AppException(ErrorCode.RESOURCE_NOT_FOUND)
+        );
+  }
 
-    @Override
-    @Transactional
-    public void updateProfile(
-            UpdateProfileRequestDto request) {
-        String me = AuthenticationHelper.getMyUserId();
-        User u = userHelper.getUserById(me);
-        userProfileMapper.patchUserFromUpdateProfileRequestDto(u, request);
-        userRepository.save(u);
-    }
+  @Override
+  @Transactional
+  public void updateProfile(
+      UpdateProfileRequestDto request) {
+    String me = AuthenticationHelper.getMyUserId();
+    User u = userHelper.getUserById(me);
+    userProfileMapper.patchUserFromUpdateProfileRequestDto(u,
+        request);
+    userRepository.save(u);
+  }
 }

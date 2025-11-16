@@ -19,6 +19,7 @@ import lombok.experimental.FieldDefaults;
 import org.common.exception.AppException;
 import org.common.exception.ErrorCode;
 import org.common.http.Envelope;
+import org.common.security.RequireAdmin;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -35,8 +36,8 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Override
     @Transactional
+    @RequireAdmin
     public void create(CategoryCreateRequestDto categoryCreateRequestDto) {
-      AuthenticationHelper.requireAdmin();
       Category c = categoryMapper.toCategoryFromCategoryCreateRequestDto(
                 categoryCreateRequestDto);
         if (categoryCreateRequestDto.getParentId() != null
@@ -52,11 +53,10 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Override
     @Transactional
+    @RequireAdmin
     public void update(
             String id,
             CategoryUpdateRequestDto categoryUpdateRequestDto) {
-        AuthenticationHelper.requireAdmin();
-
         Category c = categoriesRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         categoryMapper.patchCategoryFromCategoryUpdateRequestDto(c,
@@ -66,8 +66,8 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Override
     @Transactional
+    @RequireAdmin
     public void softDelete(String id) {
-      AuthenticationHelper.requireAdmin();
       Category c = categoriesRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         c.markDeleted(AuthenticationHelper.getMyUserId());
@@ -76,8 +76,8 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Override
     @Transactional
+    @RequireAdmin
     public void restore(String id) {
-      AuthenticationHelper.requireAdmin();
       categoriesRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         int n = categoriesRepository.nativeRestore(id);
@@ -88,9 +88,8 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Override
     @Transactional
+    @RequireAdmin
     public void reparent(String id, String newParentId) {
-        AuthenticationHelper.requireAdmin();
-
         Category c = categoriesRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         if (newParentId == null || newParentId.isBlank()) {

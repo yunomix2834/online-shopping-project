@@ -10,18 +10,18 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    unmappedTargetPolicy = ReportingPolicy.IGNORE,
+    nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface AddressMapper {
 
-    Address toAddressFromAddressCreateRequestDto(
-            AddressCreateRequestDto addressCreateRequestDto);
+  Address toAddressFromAddressCreateRequestDto(
+      AddressCreateRequestDto addressCreateRequestDto);
 
-    void patchAddressFromAddressUpdateRequestDto(
-            @MappingTarget Address address,
-            AddressUpdateRequestDto addressUpdateRequestDto
-    );
+  void patchAddressFromAddressUpdateRequestDto(
+      @MappingTarget Address address,
+      AddressUpdateRequestDto addressUpdateRequestDto
+  );
 
-    AddressResponseDto toAddressResponseDtoFromAddress(
-            Address address);
+  AddressResponseDto toAddressResponseDtoFromAddress(
+      Address address);
 }

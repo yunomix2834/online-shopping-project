@@ -14,6 +14,7 @@ import lombok.experimental.FieldDefaults;
 import org.common.exception.AppException;
 import org.common.exception.ErrorCode;
 import org.common.http.Envelope;
+import org.common.security.RequireAdmin;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -27,19 +28,21 @@ public class BrandServiceImpl implements IBrandService {
     BrandsRepository brandsRepository;
     BrandMapper brandMapper;
 
-    @Override @Transactional
+    @Override
+    @Transactional
+    @RequireAdmin
     public void create(BrandCreateRequestDto brandCreateRequestDto) {
-      AuthenticationHelper.requireAdmin();
       Brand b = brandMapper.toBrandFromBrandCreateRequestDto(
                 brandCreateRequestDto);
         brandsRepository.save(b);
     }
 
-    @Override @Transactional
+    @Override
+    @Transactional
+    @RequireAdmin
     public void update(
             String id,
             BrandUpdateRequestDto brandUpdateRequestDto) {
-      AuthenticationHelper.requireAdmin();
       Brand b = brandsRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         brandMapper.patchBrandFromBrandUpdateRequestDto(b, brandUpdateRequestDto);
@@ -48,8 +51,8 @@ public class BrandServiceImpl implements IBrandService {
 
     @Override
     @Transactional
+    @RequireAdmin
     public void softDelete(String id) {
-      AuthenticationHelper.requireAdmin();
       Brand b = brandsRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         b.markDeleted(AuthenticationHelper.getMyUserId());
@@ -58,8 +61,8 @@ public class BrandServiceImpl implements IBrandService {
 
     @Override
     @Transactional
+    @RequireAdmin
     public void restore(String id) {
-      AuthenticationHelper.requireAdmin();
       brandsRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         int n = brandsRepository.nativeRestore(id);
@@ -84,7 +87,8 @@ public class BrandServiceImpl implements IBrandService {
                 .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     }
 
-    @Override @Transactional(readOnly = true)
+    @Override
+    @Transactional(readOnly = true)
     public Envelope.Page<BrandResponseDto> list(
             String q,
             int page, int size) {

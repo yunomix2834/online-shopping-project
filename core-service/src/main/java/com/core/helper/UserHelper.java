@@ -15,14 +15,15 @@ import org.springframework.stereotype.Component;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
 public class UserHelper {
-    UserRepository users;
+  UserRepository users;
 
-    public User getUserById(String id){
-        return users.findById(id)
-                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
-    }
-    public User getUserByEmail(String email){
-        return users.findByEmail(email)
-                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
-    }
+  public User getUserById(String id) {
+    return users.findById(id)
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
+  }
+
+  public User getUserByEmail(String email) {
+    return users.findByEmail(email)
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
+  }
 }

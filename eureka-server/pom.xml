@@ -10,7 +10,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <name>demo-eurekaserver</name>
+    <name>eurekaserver</name>
     <description>Demo eureka server for Spring Boot</description>
     <artifactId>eureka-server</artifactId>
 

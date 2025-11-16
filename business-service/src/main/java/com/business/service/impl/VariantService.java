@@ -18,6 +18,7 @@ import lombok.experimental.FieldDefaults;
 import org.common.exception.AppException;
 import org.common.exception.ErrorCode;
 import org.common.http.Envelope;
+import org.common.security.RequireAdmin;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -31,8 +32,8 @@ public class VariantService implements IVariantService {
   VariantMapper variantMapper;
 
   @Override
+  @RequireAdmin
   public void create(VariantCreateRequestDto dto) {
-    AuthenticationHelper.requireAdmin();
     if (productVariantsRepository.findBySku(dto.getSku()).isPresent())
       throw new AppException(ErrorCode.RESOURCE_ALREADY_EXISTS);
     Product p = productsRepository.findById(dto.getProductId())
@@ -43,8 +44,8 @@ public class VariantService implements IVariantService {
   }
 
   @Override
+  @RequireAdmin
   public void update(String id, VariantUpdateRequestDto dto) {
-    AuthenticationHelper.requireAdmin();
     ProductVariant v = productVariantsRepository.findById(id)
         .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     if (dto.getSku()!=null && !dto.getSku().isBlank()) {
@@ -57,8 +58,8 @@ public class VariantService implements IVariantService {
   }
 
   @Override
+  @RequireAdmin
   public void softDelete(String id) {
-    AuthenticationHelper.requireAdmin();
     ProductVariant v = productVariantsRepository.findById(id)
         .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     v.markDeleted(AuthenticationHelper.getMyUserId());
@@ -66,8 +67,8 @@ public class VariantService implements IVariantService {
   }
 
   @Override
+  @RequireAdmin
   public void restore(String id) {
-    AuthenticationHelper.requireAdmin();
     if (productVariantsRepository.nativeRestore(id)==0)
       throw new AppException(ErrorCode.RESOURCE_NOT_FOUND);
   }
@@ -80,11 +81,11 @@ public class VariantService implements IVariantService {
   }
 
   @Override
+  @RequireAdmin
   public void patchPrice(
       String id,
       BigDecimal price,
       BigDecimal originalPrice) {
-    AuthenticationHelper.requireAdmin();
     ProductVariant v = productVariantsRepository.findById(id)
         .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     if (price!=null) v.setPrice(price);

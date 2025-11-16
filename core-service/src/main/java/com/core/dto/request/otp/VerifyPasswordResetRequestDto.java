@@ -13,6 +13,6 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class VerifyPasswordResetRequestDto {
-    String email;
-    String otp;
+  String email;
+  String otp;
 }

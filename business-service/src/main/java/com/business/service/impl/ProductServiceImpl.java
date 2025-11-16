@@ -21,6 +21,7 @@ import lombok.experimental.FieldDefaults;
 import org.common.exception.AppException;
 import org.common.exception.ErrorCode;
 import org.common.http.Envelope;
+import org.common.security.RequireAdmin;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -39,8 +40,8 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     @Transactional
+    @RequireAdmin
     public void create(ProductCreateRequestDto productCreateRequestDto) {
-        AuthenticationHelper.requireAdmin();
         Product p = productMapper.toProductFromProductCreateRequestDto(
                 productCreateRequestDto);
         if (productCreateRequestDto.getBrandId() != null
@@ -55,10 +56,10 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     @Transactional
+    @RequireAdmin
     public void update(
             String id,
             ProductUpdateRequestDto productUpdateRequestDto) {
-        AuthenticationHelper.requireAdmin();
         Product p = productsRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         productMapper.patchProductFromProductUpdateRequestDto(p,
@@ -77,8 +78,8 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     @Transactional
+    @RequireAdmin
     public void softDelete(String id) {
-        AuthenticationHelper.requireAdmin();
         Product p = productsRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         p.markDeleted(AuthenticationHelper.getMyUserId());
@@ -87,8 +88,8 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     @Transactional
+    @RequireAdmin
     public void restore(String id) {
-        AuthenticationHelper.requireAdmin();
         productsRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         int n = productsRepository.nativeRestore(id);
@@ -99,8 +100,8 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     @Transactional
+    @RequireAdmin
     public void publish(String id) {
-        AuthenticationHelper.requireAdmin();
         Product p = productsRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         p.setStatus(ProductStatus.PUBLISHED);
@@ -109,8 +110,8 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     @Transactional
+    @RequireAdmin
     public void unpublish(String id) {
-        AuthenticationHelper.requireAdmin();
         Product p = productsRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         p.setStatus(ProductStatus.UNPUBLISHED);
@@ -119,8 +120,8 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     @Transactional
+    @RequireAdmin
     public void archive(String id) {
-        AuthenticationHelper.requireAdmin();
         Product p = productsRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         p.setStatus(ProductStatus.ARCHIVED);
@@ -167,8 +168,8 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     @Transactional
+    @RequireAdmin
     public void assignCategory(String productId, String categoryId) {
-        AuthenticationHelper.requireAdmin();
         Product p = productsRepository.findById(productId)
                 .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         Category c = categoriesRepository.findById(categoryId)
@@ -184,8 +185,8 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     @Transactional
+    @RequireAdmin
     public void unassignCategory(String productId, String categoryId) {
-        AuthenticationHelper.requireAdmin();
         productsRepository.findById(productId)
                 .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
         categoriesRepository.findById(categoryId)

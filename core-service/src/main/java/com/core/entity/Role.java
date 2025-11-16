@@ -27,7 +27,7 @@ import org.hibernate.annotations.Where;
 @Where(clause = "deleted_at IS NULL")
 public class Role extends AuditMetadata {
 
-    @Id
-    @Column(name = "name", length = 50)
-    String name;
+  @Id
+  @Column(name = "name", length = 50)
+  String name;
 }

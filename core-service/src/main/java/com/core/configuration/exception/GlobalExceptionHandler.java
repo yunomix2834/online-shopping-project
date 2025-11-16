@@ -1,12 +1,8 @@
 package com.core.configuration.exception;
 
-import io.grpc.StatusRuntimeException;
-import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
-import net.devh.boot.grpc.server.advice.GrpcExceptionHandler;
 import org.common.exception.AppException;
 import org.common.exception.ErrorCode;
-import org.common.exception.GrpcStatusMapper;
 import org.common.http.Envelope;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.ResponseEntity;

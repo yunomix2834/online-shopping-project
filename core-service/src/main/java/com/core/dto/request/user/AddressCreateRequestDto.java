@@ -15,22 +15,22 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 public class AddressCreateRequestDto {
-    @NotBlank
-    String contactName;
+  @NotBlank
+  String contactName;
 
-    @NotBlank
-    String contactPhone;
+  @NotBlank
+  String contactPhone;
 
-    @NotBlank
-    String addressLine1;
-    String addressLine2;
+  @NotBlank
+  String addressLine1;
+  String addressLine2;
 
-    @NotBlank
-    String district;
+  @NotBlank
+  String district;
 
-    @NotBlank
-    String city;
+  @NotBlank
+  String city;
 
-    String country;
-    String postalCode;
+  String country;
+  String postalCode;
 }

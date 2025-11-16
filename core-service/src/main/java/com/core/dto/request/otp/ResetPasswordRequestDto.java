@@ -13,7 +13,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 public class ResetPasswordRequestDto {
-    String email;
-    String otp;
-    String newPassword;
+  String email;
+  String otp;
+  String newPassword;
 }

@@ -17,13 +17,13 @@ import lombok.experimental.FieldDefaults;
 @Builder
 public class AuthenticationRequestDto {
 
-    @Size(min = 4, message = "username không hợp lệ, phải > 4 ký tự")
-    String username;
+  @Size(min = 4, message = "username không hợp lệ, phải > 4 ký tự")
+  String username;
 
-    @Email(message = "email không hợp lệ")
-    String email;
+  @Email(message = "email không hợp lệ")
+  String email;
 
-    @NotBlank(message = "password bắt buộc")
-    @Size(min = 8, message = "password >= 8")
-    String password;
+  @NotBlank(message = "password bắt buộc")
+  @Size(min = 8, message = "password >= 8")
+  String password;
 }

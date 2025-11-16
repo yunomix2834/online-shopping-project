@@ -14,9 +14,9 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 public class AssignRoleRequestDto {
-    @NotBlank
-    String userId;
+  @NotBlank
+  String userId;
 
-    @NotBlank
-    String roleName;
+  @NotBlank
+  String roleName;
 }

@@ -16,6 +16,7 @@ import lombok.experimental.FieldDefaults;
 import org.common.exception.AppException;
 import org.common.exception.ErrorCode;
 import org.common.http.Envelope;
+import org.common.security.RequireAdmin;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -30,8 +31,8 @@ public class ProductImageService implements IProductImageService {
   ProductImageMapper mapper;
 
   @Override
+  @RequireAdmin
   public void create(ImageCreateRequestDto dto) {
-    AuthenticationHelper.requireAdmin();
     ProductImage i = mapper.toProductImageFromImageCreateRequestDto(dto);
     if (dto.getProductId() != null) productsRepo.findById(dto.getProductId())
         .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
@@ -40,23 +41,23 @@ public class ProductImageService implements IProductImageService {
     imagesRepo.save(i);
   }
   @Override
+  @RequireAdmin
   public void softDelete(String id) {
-    AuthenticationHelper.requireAdmin();
     ProductImage i = imagesRepo.findById(id)
         .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     i.markDeleted(AuthenticationHelper.getMyUserId());
     imagesRepo.save(i);
   }
   @Override
+  @RequireAdmin
   public void restore(String id) {
-    AuthenticationHelper.requireAdmin();
     if (imagesRepo.nativeRestore(id)==0) {
       throw new AppException(ErrorCode.RESOURCE_NOT_FOUND);
     }
   }
   @Override
+  @RequireAdmin
   public void setThumbnail(String id) {
-    AuthenticationHelper.requireAdmin();
     ProductImage i = imagesRepo.findById(id)
         .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     String productId = i.getProduct() != null
@@ -70,8 +71,8 @@ public class ProductImageService implements IProductImageService {
     imagesRepo.save(i);
   }
   @Override
+  @RequireAdmin
   public void unsetThumbnail(String id) {
-    AuthenticationHelper.requireAdmin();
     ProductImage i = imagesRepo.findById(id)
         .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     i.setThumbnail(false);

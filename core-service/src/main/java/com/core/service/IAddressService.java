@@ -6,19 +6,20 @@ import com.core.dto.response.user.AddressResponseDto;
 import org.common.http.Envelope;
 
 public interface IAddressService {
-    void create(AddressCreateRequestDto req);
+  void create(AddressCreateRequestDto req);
 
-    void update(
-            String addressId,
-            AddressUpdateRequestDto req);
+  void update(
+      String addressId,
+      AddressUpdateRequestDto req);
 
-    void softDelete(String addressId);
+  void softDelete(String addressId);
 
-    void setDefaultShipping(String addressId);
+  void setDefaultShipping(String addressId);
 
-    void setDefaultBilling(String addressId);
+  void setDefaultBilling(String addressId);
 
-    Envelope.Page<AddressResponseDto> listByUser(
-            String userId,
-            int page, int size);
+  Envelope.Page<AddressResponseDto> listByUser(
+      String userId,
+      int page,
+      int size);
 }

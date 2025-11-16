@@ -13,12 +13,12 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 public class AddressUpdateRequestDto {
-    String contactName;
-    String contactPhone;
-    String addressLine1;
-    String addressLine2;
-    String district;
-    String city;
-    String country;
-    String postalCode;
+  String contactName;
+  String contactPhone;
+  String addressLine1;
+  String addressLine2;
+  String district;
+  String city;
+  String country;
+  String postalCode;
 }

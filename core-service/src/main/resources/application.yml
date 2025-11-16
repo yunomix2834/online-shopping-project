@@ -7,6 +7,17 @@ grpc:
     security:
       enabled: false
     negotiationType: plaintext
+  client:
+    core:
+      address: 'static://localhost:50051'
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext
+    business:
+      address: 'static://localhost:50052'
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext
 
 spring:
   application:
@@ -32,10 +43,14 @@ spring:
     show-sql: true
   config:
     import: "optional:configserver:http://localhost:8091/"
-  cloud:
-    openfeign:
-      circuitbreaker:
-        enabled: true
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      timeout: 1s
+      connect-timeout: 2s
+
   mail:
     host: smtp.gmail.com
     port: 587
@@ -99,7 +114,7 @@ eureka:
     fetchRegistry: true
     registerWithEureka: true
     serviceUrl:
-      defaultZone: http://localhost:8090/eureka/
+      defaultZone: "http://localhost:8090/eureka/"
 
 info:
   app:

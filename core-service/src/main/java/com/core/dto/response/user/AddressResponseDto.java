@@ -10,15 +10,15 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AddressResponseDto {
-    String id;
-    String contactName;
-    String contactPhone;
-    String addressLine1;
-    String addressLine2;
-    String district;
-    String city;
-    String country;
-    String postalCode;
-    Boolean isDefaultShipping;
-    Boolean isDefaultBilling;
+  String id;
+  String contactName;
+  String contactPhone;
+  String addressLine1;
+  String addressLine2;
+  String district;
+  String city;
+  String country;
+  String postalCode;
+  Boolean isDefaultShipping;
+  Boolean isDefaultBilling;
 }

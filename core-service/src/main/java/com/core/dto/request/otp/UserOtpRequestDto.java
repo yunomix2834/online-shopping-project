@@ -15,8 +15,8 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserOtpRequestDto {
 
-    @Email(message = "email không hợp lệ")
-    String email;
+  @Email(message = "email không hợp lệ")
+  String email;
 }
 
 

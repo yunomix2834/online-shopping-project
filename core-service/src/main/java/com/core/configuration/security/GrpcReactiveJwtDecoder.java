@@ -1,0 +1,64 @@
+package com.core.configuration.security;
+
+import com.common.grpc.AuthServiceGrpc;
+import com.common.grpc.IntrospectRequest;
+import com.common.grpc.IntrospectResponse;
+import com.nimbusds.jwt.SignedJWT;
+import java.text.ParseException;
+import java.time.Instant;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import lombok.RequiredArgsConstructor;
+import net.devh.boot.grpc.client.inject.GrpcClient;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.jwt.JwtException;
+import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
+import org.springframework.stereotype.Component;
+import reactor.core.publisher.Mono;
+
+@Component
+@RequiredArgsConstructor
+public class GrpcReactiveJwtDecoder implements ReactiveJwtDecoder {
+
+    @GrpcClient("core")
+    private AuthServiceGrpc.AuthServiceBlockingStub authServiceBlockingStub;
+
+    @Override
+    public Mono<Jwt> decode(String token) throws JwtException {
+        return Mono.fromCallable(() -> {
+                    IntrospectResponse introspectResponse = authServiceBlockingStub
+                            .introspect(IntrospectRequest.newBuilder()
+                                        .setToken(token)
+                                        .build());
+
+                    if (!introspectResponse.getValid()) {
+                        throw new JwtException("INVALID_TOKEN");
+                    }
+
+                    SignedJWT signedJWT;
+                    try {
+                        signedJWT = SignedJWT.parse(token);
+                    } catch (ParseException e) {
+                        throw new JwtException("JWT_PARSE_ERROR", e);
+                    }
+
+                    Map<String, Object> headers =
+                            new HashMap<>(signedJWT.getHeader().toJSONObject());
+
+                    Map<String, Object> claims =
+                            new HashMap<>(signedJWT.getJWTClaimsSet().getClaims());
+
+                    Date iat = signedJWT.getJWTClaimsSet().getIssueTime();
+                    Date exp = signedJWT.getJWTClaimsSet().getExpirationTime();
+
+                    Instant issuedAt = (iat == null) ? null : iat.toInstant();
+                    Instant expiresAt = (exp == null) ? null : exp.toInstant();
+
+                    return new Jwt(token, issuedAt, expiresAt, headers, claims);
+                })
+                .onErrorMap(e -> (e instanceof JwtException)
+                        ? e
+                        : new JwtException("AUTH_INTROSPECT_UNAVAILABLE", e));
+    }
+}

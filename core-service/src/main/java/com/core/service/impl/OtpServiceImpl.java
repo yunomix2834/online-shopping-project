@@ -30,100 +30,104 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class OtpServiceImpl implements IOtpService {
 
-    JavaMailSender mailSender;
-    OtpVerificationRepository otpVerificationRepository;
-    UserRepository userRepository;
+  JavaMailSender mailSender;
+  OtpVerificationRepository otpVerificationRepository;
+  UserRepository userRepository;
 
-    @Value("${app.otp.expiry-minutes}")
-    @NonFinal
-    protected int OTP_VERIFY_MINUTES;
+  @Value("${app.otp.expiry-minutes}")
+  @NonFinal
+  protected int OTP_VERIFY_MINUTES;
 
-    @Value("${spring.mail.username}")
-    @NonFinal
-    protected String EMAIL;
+  @Value("${spring.mail.username}")
+  @NonFinal
+  protected String EMAIL;
 
-    @Override
-    public OtpResponseDto sendOtp(
-            UserOtpRequestDto request) {
-        String otpCode = generateOtp();
-        Instant expiryTime = Instant.now()
-                .plus(OTP_VERIFY_MINUTES, ChronoUnit.MINUTES);
+  @Override
+  public OtpResponseDto sendOtp(
+      UserOtpRequestDto request) {
+    String otpCode = generateOtp();
+    Instant expiryTime = Instant.now()
+        .plus(OTP_VERIFY_MINUTES,
+            ChronoUnit.MINUTES);
 
-        OtpVerification otp = otpVerificationRepository
-                .findByEmail(request.getEmail())
-                .map(existing -> {
-                    existing.setOtpCode(otpCode);
-                    existing.setExpiryTime(expiryTime);
-                    existing.setVerified(false);
-                    return existing;
-                })
-                .orElseGet(() -> OtpVerification.builder()
-                        .email(request.getEmail())
-                        .otpCode(otpCode)
-                        .expiryTime(expiryTime)
-                        .verified(false)
-                        .build());
-        otpVerificationRepository.save(otp);
+    OtpVerification otp = otpVerificationRepository
+        .findByEmail(request.getEmail())
+        .map(existing -> {
+          existing.setOtpCode(otpCode);
+          existing.setExpiryTime(expiryTime);
+          existing.setVerified(false);
+          return existing;
+        })
+        .orElseGet(() -> OtpVerification.builder()
+            .email(request.getEmail())
+            .otpCode(otpCode)
+            .expiryTime(expiryTime)
+            .verified(false)
+            .build());
+    otpVerificationRepository.save(otp);
 
-        OtpSendRequestDto otpSendRequestDto = OtpSendRequestDto.builder()
-                .email(request.getEmail())
-                .otpCode(otpCode)
-                .build();
-        sendEmail(otpSendRequestDto);
+    OtpSendRequestDto otpSendRequestDto = OtpSendRequestDto.builder()
+        .email(request.getEmail())
+        .otpCode(otpCode)
+        .build();
+    sendEmail(otpSendRequestDto);
 
-        return OtpResponseDto.builder()
-                .email(request.getEmail())
-                .message("OTP sent successfully")
-                .build();
+    return OtpResponseDto.builder()
+        .email(request.getEmail())
+        .message("OTP sent successfully")
+        .build();
+  }
+
+  void sendEmail(OtpSendRequestDto request) {
+    try {
+      SimpleMailMessage message = new SimpleMailMessage();
+      message.setFrom(EMAIL);
+      message.setFrom(EMAIL);
+      message.setTo(request.getEmail());
+      message.setSubject("Xác minh tài khoản");
+      message.setText("Mã OTP của bạn là: " + request.getOtpCode()
+          + "\nMã có hiệu lực trong " + OTP_VERIFY_MINUTES + " phút");
+      mailSender.send(message);
+      log.info("OTP sent to: {}",
+          request.getEmail());
+    } catch (Exception e) {
+      log.error("Failed to send OTP email",
+          e);
+      throw new AppException(ErrorCode.EMAIL_SEND_FAILED);
+    }
+  }
+
+  @Override
+  public void verifyOtp(OtpVerificationRequestDto request) {
+    OtpVerification otp = otpVerificationRepository
+        .findByEmail(request.getEmail())
+        .orElseThrow(
+            () -> new AppException(ErrorCode.RESOURCE_NOT_FOUND)
+        );
+
+    if (!otp.getOtpCode().equals(request.getOtpCode())) {
+      throw new AppException(ErrorCode.INVALID_OTP);
     }
 
-    void sendEmail(OtpSendRequestDto request) {
-        try {
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(EMAIL);
-            message.setFrom(EMAIL);
-            message.setTo(request.getEmail());
-            message.setSubject("Xác minh tài khoản");
-            message.setText("Mã OTP của bạn là: " + request.getOtpCode()
-                    + "\nMã có hiệu lực trong " + OTP_VERIFY_MINUTES + " phút");
-            mailSender.send(message);
-            log.info("OTP sent to: {}", request.getEmail());
-        } catch (Exception e) {
-            log.error("Failed to send OTP email", e);
-            throw new AppException(ErrorCode.EMAIL_SEND_FAILED);
-        }
+    if (Instant.now().isAfter(otp.getExpiryTime())) {
+      throw new AppException(ErrorCode.OTP_EXPIRED);
     }
 
-    @Override
-    public void verifyOtp(OtpVerificationRequestDto request) {
-        OtpVerification otp = otpVerificationRepository
-                .findByEmail(request.getEmail())
-                .orElseThrow(
-                        () -> new AppException(ErrorCode.RESOURCE_NOT_FOUND)
-                );
+    User user = userRepository.findByEmail(request.getEmail())
+        .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
 
-        if (!otp.getOtpCode().equals(request.getOtpCode())) {
-            throw new AppException(ErrorCode.INVALID_OTP);
-        }
+    user.setIsVerified(true);
+    userRepository.save(user);
 
-        if (Instant.now().isAfter(otp.getExpiryTime())) {
-            throw new AppException(ErrorCode.OTP_EXPIRED);
-        }
+    otp.setVerified(true);
+    otpVerificationRepository.save(otp);
 
-        User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
+  }
 
-        user.setIsVerified(true);
-        userRepository.save(user);
-
-        otp.setVerified(true);
-        otpVerificationRepository.save(otp);
-
-    }
-
-    String generateOtp() {
-        Random random = new Random();
-        return String.format("%06d", random.nextInt(999999));
-    }
+  String generateOtp() {
+    Random random = new Random();
+    return String.format("%06d",
+        random.nextInt(999999));
+  }
 
 }

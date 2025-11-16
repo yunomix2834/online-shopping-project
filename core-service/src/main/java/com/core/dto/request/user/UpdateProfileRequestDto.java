@@ -14,9 +14,9 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 public class UpdateProfileRequestDto {
-    @Size(min = 1, max = 100)
-    String fullName;
+  @Size(min = 1, max = 100)
+  String fullName;
 
-    @Size(min = 9, max = 15)
-    String phoneNumber;
+  @Size(min = 9, max = 15)
+  String phoneNumber;
 }

@@ -13,6 +13,6 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 public class OtpVerificationRequestDto {
-    String email;
-    String otpCode;
+  String email;
+  String otpCode;
 }

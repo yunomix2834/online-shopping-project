@@ -10,11 +10,11 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class MeResponseDto {
-    String id;
-    String username;
-    String email;
-    String fullName;
-    String phoneNumber;
-    Boolean isActive;
-    Boolean isVerified;
+  String id;
+  String username;
+  String email;
+  String fullName;
+  String phoneNumber;
+  Boolean isActive;
+  Boolean isVerified;
 }

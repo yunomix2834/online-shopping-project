@@ -9,7 +9,6 @@ import com.business.entity.CartItem;
 import com.business.entity.Order;
 import com.business.entity.OrderItem;
 import com.business.entity.ProductVariant;
-import com.business.helper.AuthenticationHelper;
 import com.business.mapper.OrderMapper;
 import com.business.repository.CartItemsRepository;
 import com.business.repository.OrderItemsRepository;
@@ -28,6 +27,7 @@ import lombok.experimental.FieldDefaults;
 import org.common.exception.AppException;
 import org.common.exception.ErrorCode;
 import org.common.http.Envelope;
+import org.common.security.RequireAdmin;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -195,10 +195,10 @@ public class OrderServiceImpl implements IOrderService {
 
   @Override
   @Transactional
+  @RequireAdmin
   public void updateStatus(
       String id,
       OrderStatus toStatus) {
-    AuthenticationHelper.requireAdmin();
     Order o = ordersRepository.findById(id)
         .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
 
@@ -233,13 +233,14 @@ public class OrderServiceImpl implements IOrderService {
     ordersRepository.save(o);
   }
 
-  @Override @Transactional
+  @Override
+  @Transactional
+  @RequireAdmin
   public void patchCharges(
       String id,
       BigDecimal shippingFee,
       String paymentMethodName,
       String shippingMethodName) {
-    AuthenticationHelper.requireAdmin();
     Order o = ordersRepository.findById(id)
         .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     if (shippingFee!=null) {

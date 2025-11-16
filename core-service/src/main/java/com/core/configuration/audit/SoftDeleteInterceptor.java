@@ -1,14 +1,13 @@
 package com.core.configuration.audit;
 
 import com.core.entity.audit.SoftDeletable;
+import java.time.Instant;
+import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.EmptyInterceptor;
 import org.hibernate.type.Type;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-
-import java.time.Instant;
-import java.util.Optional;
 
 @Slf4j
 public class SoftDeleteInterceptor extends EmptyInterceptor {

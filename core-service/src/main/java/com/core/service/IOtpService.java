@@ -6,7 +6,7 @@ import com.core.dto.response.otp.OtpResponseDto;
 
 public interface IOtpService {
 
-    OtpResponseDto sendOtp(UserOtpRequestDto userOtpRequestDto);
+  OtpResponseDto sendOtp(UserOtpRequestDto userOtpRequestDto);
 
-    void verifyOtp(OtpVerificationRequestDto otpVerificationRequestDto);
+  void verifyOtp(OtpVerificationRequestDto otpVerificationRequestDto);
 }

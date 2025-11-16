@@ -13,5 +13,5 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 public class RoleResponseDto {
-    String name; 
+  String name;
 }

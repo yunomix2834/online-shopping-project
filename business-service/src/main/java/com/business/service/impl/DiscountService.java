@@ -18,6 +18,7 @@ import lombok.experimental.FieldDefaults;
 import org.common.exception.AppException;
 import org.common.exception.ErrorCode;
 import org.common.http.Envelope;
+import org.common.security.RequireAdmin;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -30,40 +31,43 @@ public class DiscountService implements IDiscountService {
   DiscountMapper discountMapper;
 
   @Override
+  @RequireAdmin
   public void create(DiscountCreateRequestDto dto) {
-    AuthenticationHelper.requireAdmin();
     discountsRepository.save(discountMapper.toDiscountFromDiscountCreateRequestDto(dto));
   }
 
-  @Override public void update(
+  @Override
+  @RequireAdmin
+  public void update(
       String id,
       DiscountUpdateRequestDto dto) {
-    AuthenticationHelper.requireAdmin();
     Discount d = discountsRepository.findById(id)
         .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     discountMapper.patchDiscountFromDiscountUpdateRequestDto(d, dto);
     discountsRepository.save(d);
   }
 
-  @Override public void softDelete(String id) {
-    AuthenticationHelper.requireAdmin();
+  @Override
+  @RequireAdmin
+  public void softDelete(String id) {
     Discount d = discountsRepository.findById(id)
         .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     d.markDeleted(AuthenticationHelper.getMyUserId());
     discountsRepository.save(d);
   }
 
-  @Override public void restore(String id) {
-    AuthenticationHelper.requireAdmin();
+  @Override
+  @RequireAdmin
+  public void restore(String id) {
     if (discountsRepository.nativeRestore(id)==0) {
       throw new AppException(ErrorCode.RESOURCE_NOT_FOUND);
     }
   }
   @Override
+  @RequireAdmin
   public void toggleActive(
       String id,
       boolean active) {
-    AuthenticationHelper.requireAdmin();
     Discount d = discountsRepository.findById(id)
         .orElseThrow(() -> new AppException(ErrorCode.RESOURCE_NOT_FOUND));
     d.setActive(active);

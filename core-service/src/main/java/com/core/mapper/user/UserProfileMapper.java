@@ -9,14 +9,14 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    unmappedTargetPolicy = ReportingPolicy.IGNORE,
+    nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface UserProfileMapper {
 
-    MeResponseDto toMeResponseDtoFromUser(
-            User user);
+  MeResponseDto toMeResponseDtoFromUser(
+      User user);
 
-    void patchUserFromUpdateProfileRequestDto(
-            @MappingTarget User user,
-            UpdateProfileRequestDto updateProfileRequestDto);
+  void patchUserFromUpdateProfileRequestDto(
+      @MappingTarget User user,
+      UpdateProfileRequestDto updateProfileRequestDto);
 }

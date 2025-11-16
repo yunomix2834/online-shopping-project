@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 @Schema(name = "UserCreationRequest",
-        description = "Schema user information"
+    description = "Schema user information"
 )
 @Data
 @NoArgsConstructor
@@ -21,14 +21,14 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserCreationRequestDto {
 
-    @NotBlank
-    @Size(min = 4, message = "username không hợp lệ, phải > 4 ký tự")
-    String username;
+  @NotBlank
+  @Size(min = 4, message = "username không hợp lệ, phải > 4 ký tự")
+  String username;
 
-    @Email(message = "email không hợp lệ")
-    String email;
+  @Email(message = "email không hợp lệ")
+  String email;
 
-    @NotBlank(message = "password bắt buộc")
-    @Size(min = 8, message = "password >= 8")
-    String password;
+  @NotBlank(message = "password bắt buộc")
+  @Size(min = 8, message = "password >= 8")
+  String password;
 }

@@ -14,5 +14,5 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 public class IntrospectRequestDto {
 
-    String token;
+  String token;
 }
