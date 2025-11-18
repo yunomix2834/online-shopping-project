@@ -1,6 +1,65 @@
 Hệ thống tôi có các service giao tiếp với nhau thông qua grpc, và tập trung lại ở gateway để trả response cho người
 - Bạn có thể viết ci quét code đơn giản (quét các module trong repo) và dependabot update các
 
+dependabot.yml
+version: 2
+updates:
+  - package-ecosystem: "maven"
+    directory: "/"        # pom.xml tổng ở root
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "maven"
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+
+  # Dependabot update Actions trong .github/workflows
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "github-actions"
+
+maven-ci.yml
+name: Maven CI
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+
+jobs:
+  build-test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v5
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          distribution: "temurin"
+          java-version: '21'
+          cache: 'maven'
+
+      - name: Build & run tests
+        run: mvn -B -ntp clean verify
+
+      - name: Generate JaCoCo aggregate report
+        run: mvn -B -ntp jacoco:report-aggregate
+
+
+
+
 pom.xml tổng
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
@@ -173,6 +232,418 @@ pom.xml tổng
 </project>
 
 common
+package org.common.security;
+
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.common.exception.AppException;
+import org.common.exception.ErrorCode;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.ReactiveSecurityContextHolder;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
+import reactor.core.publisher.Mono;
+
+@Aspect
+@Component
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Slf4j
+public class RequireAdminAspect {
+
+  @Around(
+      "@annotation(org.common.security.RequireAdmin) || " +
+          "@within(org.common.security.RequireAdmin)"
+  )
+  public Object checkAdmin(ProceedingJoinPoint pjp) throws Throwable {
+    Authentication authentication = getAuthentication();
+
+    Set<String> roles = authentication.getAuthorities()
+        .stream()
+        .map(GrantedAuthority::getAuthority)
+        .collect(Collectors.toSet());
+
+    boolean isAdmin = roles.contains("ROLE_ADMIN") || roles.contains("ADMIN");
+
+    if (!isAdmin) {
+      log.warn("User [{}] không có quyền ADMIN, roles={}",
+          authentication.getName(), roles);
+      throw new AppException(ErrorCode.UNAUTHORIZED);
+    }
+
+    return pjp.proceed();
+  }
+
+  private Authentication getAuthentication() {
+    // Ưu tiên SecurityContextHolder (blocking)
+    Authentication a = Optional.ofNullable(SecurityContextHolder.getContext())
+        .map(SecurityContext::getAuthentication)
+        .orElse(null);
+
+    if (a != null && a.isAuthenticated()) {
+      return a;
+    }
+
+    // Nếu không có, fallback sang ReactiveSecurityContextHolder (WebFlux)
+    return ReactiveSecurityContextHolder.getContext()
+        .map(SecurityContext::getAuthentication)
+        .filter(Authentication::isAuthenticated)
+        .switchIfEmpty(
+            Mono.error(new AppException(ErrorCode.UNAUTHENTICATED))
+        )
+        .block();
+  }
+}
+
+package org.common.security;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target({
+    ElementType.METHOD,
+    ElementType.TYPE
+})
+public @interface RequireAdmin {
+}
+
+package org.common.http;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.FieldDefaults;
+
+import java.time.Instant;
+import java.util.List;
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
+public class Envelope<T> {
+
+    @Builder.Default
+    int status = 200;
+
+    String error;
+
+    @Builder.Default
+    String msg = "OK";
+
+    @Builder.Default
+    Instant currentTime = Instant.now();
+
+    T data;
+
+    /* Helpers */
+    public static <T> Envelope<T> ok(T data){
+        return Envelope.<T>builder()
+                .status(200)
+                .error(null)
+                .msg("OK")
+                .currentTime(Instant.now())
+                .data(data)
+                .build();
+    }
+    public static <T> Envelope<T> err(
+            int status,
+            String code,
+            String message,
+            T data){
+        return Envelope.<T>builder()
+                .status(status)
+                .error(code)
+                .msg(message)
+                .currentTime(Instant.now())
+                .data(data)
+                .build();
+    }
+
+    public static <TDoc> Envelope<Page<TDoc>> okPage(
+            int page, int size,
+            long total, int totalPages,
+            List<TDoc> docs){
+        return Envelope.ok(Page.<TDoc>builder()
+                .page(page)
+                .size(size)
+                .total(total)
+                .totalPages(totalPages)
+                .docs(docs)
+                .build()
+        );
+    }
+
+    @Getter @Setter @Builder
+    @NoArgsConstructor @AllArgsConstructor
+    @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
+    public static class Page<TDoc>{
+        int page;
+        int size;
+        long total;
+        int totalPages;
+
+        @Builder.Default
+        List<TDoc> docs = List.of();
+    }
+}
+
+package org.common.exception;
+
+
+import lombok.Getter;
+
+@Getter
+public class AppException extends RuntimeException {
+    private final ErrorCode errorCode;
+    public AppException(ErrorCode errorCode) {
+        super(errorCode.getMessage());
+        this.errorCode = errorCode;
+    }
+}
+
+package org.common.exception;
+
+import lombok.Getter;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+
+import static org.common.constant.ErrorCodeConstant.BAD_REQUEST_STATUS;
+import static org.common.constant.ErrorCodeConstant.CONFLICT_STATUS;
+import static org.common.constant.ErrorCodeConstant.FORBIDDEN_STATUS;
+import static org.common.constant.ErrorCodeConstant.INTERNAL_SERVER_STATUS;
+import static org.common.constant.ErrorCodeConstant.NOT_FOUND_STATUS;
+import static org.common.constant.ErrorCodeConstant.UNAUTHORIZED_STATUS;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+
+@Getter
+public enum ErrorCode {
+    // 500
+    UNCATEGORIZED_EXCEPTION(999, INTERNAL_SERVER_STATUS, "Lỗi chưa phân loại", HttpStatus.INTERNAL_SERVER_ERROR),
+
+    // 400
+    VALIDATION_FAILED(400, BAD_REQUEST_STATUS, "Dữ liệu không hợp lệ!", org.springframework.http.HttpStatus.BAD_REQUEST),
+    INVALID_OTP(400, BAD_REQUEST_STATUS, "OTP không hợp lệ!", BAD_REQUEST),
+    OTP_EXPIRED(400, BAD_REQUEST_STATUS, "OTP đã hết hạn!", BAD_REQUEST),
+    EMAIL_SEND_FAILED(4008003, BAD_REQUEST_STATUS, "Gửi email thất bại!", BAD_REQUEST),
+    PARENT_CYCLE(400, BAD_REQUEST_STATUS, "Chu kỳ danh mục (parent) không hợp lệ", BAD_REQUEST),
+    THUMBNAIL_ALREADY_SET(400, BAD_REQUEST_STATUS, "Đã có thumbnail cho thực thể này", BAD_REQUEST),
+
+    // 401
+    UNAUTHENTICATED(401, UNAUTHORIZED_STATUS, "Chưa xác thực!", HttpStatus.UNAUTHORIZED),
+    INVALID_CREDENTIALS(401, UNAUTHORIZED_STATUS, "Thông tin đăng nhập không hợp lệ!", HttpStatus.UNAUTHORIZED),
+    INVALID_TOKEN(401, UNAUTHORIZED_STATUS, "Token không hợp lệ!", HttpStatus.UNAUTHORIZED),
+    TOKEN_REVOKED(401, UNAUTHORIZED_STATUS, "Token đã bị thu hồi!", HttpStatus.UNAUTHORIZED),
+
+    // 403
+    UNAUTHORIZED(403, FORBIDDEN_STATUS, "Bạn không có quyền truy cập!", HttpStatus.FORBIDDEN),
+
+    // 404
+    RESOURCE_NOT_FOUND(404, NOT_FOUND_STATUS, "Không tìm thấy tài nguyên", HttpStatus.NOT_FOUND),
+
+    // 409
+    RESOURCE_ALREADY_EXISTS(409, CONFLICT_STATUS, "Tài nguyên đã tồn tại!", HttpStatus.CONFLICT),
+
+    // 500
+    FAILED_GENERATE_TOKEN(500, INTERNAL_SERVER_STATUS, "Lỗi tạo JWT token!", HttpStatus.INTERNAL_SERVER_ERROR),
+    FAILED_VALIDATE_TOKEN(500, INTERNAL_SERVER_STATUS, "Lỗi xác thực token!", HttpStatus.INTERNAL_SERVER_ERROR),
+    MAIL_DELIVERY_FAILED(500, INTERNAL_SERVER_STATUS, "Gửi email thất bại!", HttpStatus.INTERNAL_SERVER_ERROR);
+
+    private final int code;
+    private final String status;
+    private final String message;
+    private final HttpStatusCode statusCode;
+
+    ErrorCode(int code, String status, String message, HttpStatusCode statusCode) {
+        this.code = code;
+        this.status = status;
+        this.message = message;
+        this.statusCode = statusCode;
+    }
+
+    public int http() { return statusCode.value(); }
+}
+
+package org.common.exception;
+
+import io.grpc.Status;
+import io.grpc.StatusRuntimeException;
+import jakarta.validation.ConstraintViolationException;
+import lombok.extern.slf4j.Slf4j;
+import net.devh.boot.grpc.server.advice.GrpcAdvice;
+import net.devh.boot.grpc.server.advice.GrpcExceptionHandler;
+import org.springframework.security.access.AccessDeniedException;
+
+@Slf4j
+@GrpcAdvice
+public class GrpcServerExceptionAdvice {
+
+    @GrpcExceptionHandler(AppException.class)
+    public StatusRuntimeException handleAppException(AppException appException) {
+        return GrpcStatusMapper.ex(appException.getErrorCode());
+    }
+
+    @GrpcExceptionHandler(AccessDeniedException.class)
+    public StatusRuntimeException handleDeniedException(
+            AccessDeniedException accessDeniedException) {
+        return GrpcStatusMapper.ex(ErrorCode.UNAUTHORIZED);
+    }
+
+    @GrpcExceptionHandler(ConstraintViolationException.class)
+    public StatusRuntimeException handleBadException(
+            ConstraintViolationException constraintViolationException) {
+        return GrpcStatusMapper.ex(ErrorCode.VALIDATION_FAILED);
+    }
+
+    @GrpcExceptionHandler(Throwable.class)
+    public StatusRuntimeException handleAnyException(
+            Throwable throwable) {
+        return Status.INTERNAL.withDescription(ErrorCode.UNCATEGORIZED_EXCEPTION.name())
+                .asRuntimeException();
+    }
+}
+package org.common.exception;
+
+import com.google.protobuf.Empty;
+import io.grpc.Status;
+import io.grpc.StatusRuntimeException;
+import io.grpc.stub.StreamObserver;
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
+public class GrpcStatusMapper {
+
+  public Status statusFor(ErrorCode errorCode) {
+    return switch (errorCode) {
+      // 400
+      case VALIDATION_FAILED,
+           INVALID_OTP,
+           OTP_EXPIRED,
+           EMAIL_SEND_FAILED,
+           FAILED_VALIDATE_TOKEN
+          -> Status.INVALID_ARGUMENT;
+
+      // 401
+      case UNAUTHENTICATED,
+           INVALID_CREDENTIALS,
+           INVALID_TOKEN,
+           TOKEN_REVOKED
+          -> Status.UNAUTHENTICATED;
+
+      // 403
+      case UNAUTHORIZED
+          -> Status.PERMISSION_DENIED;
+
+      // 404
+      case RESOURCE_NOT_FOUND
+          -> Status.NOT_FOUND;
+
+      // 409
+      case RESOURCE_ALREADY_EXISTS
+          -> Status.ALREADY_EXISTS;
+
+      // 500
+      default -> Status.INTERNAL;
+    };
+  }
+
+    public StatusRuntimeException ex(
+            ErrorCode errorCode) {
+        return statusFor(errorCode)
+            .withDescription(errorCode.name())
+                .asRuntimeException();
+    }
+
+    public <T> void fail(
+            StreamObserver<T> streamObserver,
+            ErrorCode errorCode) {
+        streamObserver.onError(ex(errorCode));
+    }
+
+    public void ok(
+            StreamObserver<Empty> streamObserver) {
+        streamObserver.onNext(Empty.getDefaultInstance());
+        streamObserver.onCompleted();
+    }
+
+    public static <T> void ok(StreamObserver<? super T> streamObserver, T payload) {
+        streamObserver.onNext(payload);
+        streamObserver.onCompleted();
+    }
+}
+package org.common.constant;
+
+import lombok.NoArgsConstructor;
+import org.springframework.http.HttpStatus;
+
+@NoArgsConstructor
+public final class ErrorCodeConstant {
+    public static final String INTERNAL_SERVER_STATUS = HttpStatus.INTERNAL_SERVER_ERROR.toString();
+    public static final String BAD_REQUEST_STATUS    = HttpStatus.BAD_REQUEST.toString();
+    public static final String UNAUTHORIZED_STATUS   = HttpStatus.UNAUTHORIZED.toString();
+    public static final String FORBIDDEN_STATUS      = HttpStatus.FORBIDDEN.toString();
+    public static final String NOT_FOUND_STATUS      = HttpStatus.NOT_FOUND.toString();
+    public static final String CONFLICT_STATUS       = HttpStatus.CONFLICT.toString();
+}
+package org.common.constant;
+
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+public class RoleConstant {
+  public static final String ADMIN_ROLE = "ADMIN";
+  public static final String USER_ROLE = "USER";
+}
+package org.common.constant;
+
+public final class SecurityConstants {
+    // Headers
+    public static final String AUTHORIZATION_HEADER = "Authorization";
+    public static final String CONTENT_TYPE_HEADER  = "Content-Type";
+    public static final String ACCEPT_HEADER        = "Accept";
+
+    // CORS mặc định
+    public static final String FRONTEND_ENDPOINT = "http://localhost:4200";
+
+    // Public endpoints chuẩn
+    public static final String[] PUBLIC_ENDPOINTS = {
+            "/health", "/actuator/**", "/auth/**", "/h2-console/**"
+    };
+
+    // Methods
+    public static final String GET="GET", POST="POST", PUT="PUT", DELETE="DELETE", PATCH="PATCH", OPTIONS="OPTIONS";
+
+    // Path
+    public static final String URL_PATTERN_ALL = "/**";
+
+    private SecurityConstants(){}
+}
+package org.common.configuration;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
+@Configuration
+@EnableAspectJAutoProxy
+public class AopConfig {
+}
 
 pom.xml
 <?xml version="1.0" encoding="UTF-8"?>

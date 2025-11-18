@@ -26,6 +26,12 @@ jobs:
       - name: Build & run tests
         run: mvn -B -ntp clean verify
 
-      - name: Generate JaCoCo aggregate report
-        run: mvn -B -ntp jacoco:report-aggregate
+      - name: Upload JaCoCo aggregate report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-report
+          path: |
+            **/target/site/jacoco-aggregate
+            **/target/site/jacoco
 
