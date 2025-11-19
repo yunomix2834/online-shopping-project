@@ -3,7 +3,10 @@ updates:
   - package-ecosystem: "maven"
     directory: "/"        # pom.xml tổng ở root
     schedule:
-      interval: "weekly"
+      interval: "daily"
+      time: "00:00"
+      timezone: "Asia/Bangkok"
+    target-branch: "main"
     open-pull-requests-limit: 10
     labels:
       - "dependencies"
@@ -17,6 +20,9 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+      day: "monday"
+      time: "00:00"
+      timezone: "Asia/Bangkok"
     labels:
       - "dependencies"
       - "github-actions"
