@@ -69,17 +69,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>jib-maven-plugin</artifactId>
-                <version>3.4.2</version>
                 <configuration>
-                    <to>
-                        <image>yunomix2834/${project.artifactId}:d1</image>
-                    </to>
+                    <image>
+                        <name>yunomix2834/${project.artifactId}:d1</name>
+                    </image>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
