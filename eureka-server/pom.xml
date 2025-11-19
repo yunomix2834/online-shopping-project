@@ -75,7 +75,8 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
-                        <name>yunomix2834/${project.artifactId}:d1</name>
+                        <name>docker.io/yunomix2834/${project.artifactId}:${project.version}</name>
+                        <builder>paketobuildpacks/builder-jammy-java-tiny:latest</builder>
                     </image>
                 </configuration>
             </plugin>
