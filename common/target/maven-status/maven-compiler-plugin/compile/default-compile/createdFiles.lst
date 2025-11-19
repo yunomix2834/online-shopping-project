@@ -372,6 +372,7 @@ com\common\grpc\ImageCreateRequest$Builder.class
 com\common\grpc\PageAttribute$Builder.class
 com\common\grpc\RegisterResponse.class
 com\common\grpc\CategoryCreateRequest$1.class
+org\common\security\RequireAdminAspect.class
 com\common\grpc\CategoryServiceGrpc$CategoryServiceImplBase.class
 com\common\grpc\RefreshRequest.class
 com\common\grpc\CartAddItemRequest$Builder.class
@@ -389,6 +390,7 @@ com\common\grpc\RoleServiceGrpc$2.class
 com\common\grpc\CategoryServiceGrpc$CategoryServiceStub.class
 com\common\grpc\OrderServiceGrpc$OrderServiceMethodDescriptorSupplier.class
 com\common\grpc\VariantView$Builder.class
+org\common\security\RequireAdmin.class
 com\common\grpc\CategoryCreateRequest.class
 com\common\grpc\DiscountValidationView$1.class
 com\common\grpc\AttributeServiceGrpc$1.class
@@ -602,6 +604,7 @@ com\common\grpc\VariantAttributeAssignRequest$Builder.class
 com\common\grpc\CategoryServiceGrpc$CategoryServiceFutureStub.class
 com\common\grpc\UserServiceGrpc$MethodHandlers.class
 org\common\exception\GrpcServerExceptionAdvice.class
+org\common\configuration\AopConfig.class
 com\common\grpc\RefreshRequest$1.class
 com\common\grpc\DiscountServiceGrpc$DiscountServiceFileDescriptorSupplier.class
 com\common\grpc\UserIdRequest$1.class

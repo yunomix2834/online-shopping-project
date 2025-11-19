@@ -19,11 +19,11 @@
     <name>Online Shopping :: Microservices</name>
 
     <modules>
+        <module>common</module>
         <module>eureka-server</module>
         <module>config-server</module>
         <module>core-service</module>
         <module>business-service</module>
-        <module>common</module>
     </modules>
 
     <properties>
